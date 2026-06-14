@@ -38,7 +38,7 @@ npx serve .
 
 随后在浏览器中访问 <http://localhost:8000>（或直接 `index.html`）。
 
-> 在线访问（如已部署）：<https://<username>.github.io/<repo>/>
+> 在线访问：<https://wudioql.github.io/Knowledge-based-ACG-works/>
 
 ---
 

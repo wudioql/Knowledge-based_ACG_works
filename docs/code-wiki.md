@@ -491,7 +491,7 @@ runs-on: ubuntu-latest
 
 1. 仓库 Settings → Pages → Source 选择 **GitHub Actions**。
 2. 推送至 `main` / `master`，或在 Actions 页面手动 Run workflow。
-3. 部署完成后访问 `https://<username>.github.io/<repo>/`。
+3. 部署完成后访问 `https://wudioql.github.io/Knowledge-based-ACG-works/`。
 
 ### 8.6 `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24`
 
