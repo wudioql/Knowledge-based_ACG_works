@@ -121,7 +121,7 @@
 
     // (e) side-TOC 当前章节高亮
     function initSideTocHighlight() {
-        var tocContainer = document.querySelector('.side-toc, .sidebar-toc');
+        var tocContainer = document.querySelector('.sidebar, .side-toc, .sidebar-toc');
         if (!tocContainer) return;
 
         var tocLinks = tocContainer.querySelectorAll('a[href^="#"]');
