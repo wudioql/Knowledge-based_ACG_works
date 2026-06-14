@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第一卷 — 魔王勇者政治经济学手册</title>
+<link rel="stylesheet" href="../../styles/core.css">
+<link rel="stylesheet" href="../../styles/themes/maoyuu-political-economy.css">
+<script defer src="../../scripts/navigation.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a href="../../index.html" class="site-logo">
+      <span class="logo-icon">👑</span>
+      <span>《魔王勇者》政治经济学手册</span>
+    </a>
+    <button class="nav-toggle" aria-label="菜单">☰</button>
+    <nav class="site-nav">
+      <a href="../../index.html">← 返回首页</a>
+      <a href="../dr-stone-science/index.html">石纪元</a>
+      <a href="../tondemo-skill-food/index.html">流浪美食家</a>
+      <a href="../shokugeki-no-soma/index.html">食戟之灵</a>
+    </nav>
+  </div>
+</header>
+<button class="hamburger" aria-label="目录">☰</button>
+<div class="sidebar-overlay"></div>
+
+<div class="container">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h1>魔王勇者</h1>
+      <p>政治经济学手册</p>
+    </div>
+    <div class="toc-actions">
+      <button onclick="expandAll()">全部展开</button>
+      <button onclick="collapseAll()">全部收起</button>
+    </div>
+    <ul class="toc-tree" id="tocTree">
+      <li><a href="../../index.html">首页</a></li>
+      <li><a href="ch1b-volumes.html">正文五卷故事梗概</a></li>
+      <li><a href="vol1.html">第一卷</a></li>
+      <li><a href="vol2.html">第二卷</a></li>
+      <li><a href="vol3.html">第三卷</a></li>
+      <li><a href="vol4.html">第四卷</a></li>
+      <li><a href="vol5.html">第五卷</a></li>
+      <li><a href="ch8b-side-stories.html">外传三卷</a></li>
+      <li><a href="ch8-analysis.html">整体叙事脉络分析</a></li>
+    </ul>
+  </nav>
+
+  <main class="main" id="mainContent">
+    <!-- Volume 1 -->
+    <section id="vol1">
+      <h2>第一卷：勇者啊，当我的人吧。「我拒绝！」</h2>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;">核心主题：战争经济学的启蒙、农业革命的起点、阶级意识的觉醒。魔王以"红色学士"身份潜入人类世界，在冬之国的越冬村播下变革的种子。</p>
+
+      <h3 id="v1-c1" onclick="toggleSection('v1-c1-content', this)"><span class="section-toggle">▶</span> 第1章：战争作为经济调节机制</h3>
+      <div class="collapsible" id="v1-c1-content">
+        <div class="story-box">
+          <h5>小说情节</h5>
+          <p>魔王向勇者揭示：人类与魔族的战争已持续数百年，战争使人类社会团结一致，提高了人口、生产和经济。若战争突然结束，双方都会陷入内战、饥荒和经济崩溃。</p>
+        </div>
+        <div class="card">
+          <div class="card-grid">
+            <div class="card-col">
+              <h5>小说内容</h5>
+              <ul>
+                <li>魔王用数据证明：战争期间人口增长率、粮食产量、铁器产量均高于和平时期</li>
+                <li>中央王国通过支持南方诸国与魔族的代理人战争获利</li>
+                <li>"战争是人类社会的必要之恶"——魔王的核心论点</li>
+              </ul>
+            </div>
+            <div class="card-col">
+              <h5>理论原著</h5>
+              <ul>
+                <li><strong>托马斯·马尔萨斯</strong>《人口原理》（1798）：人口增长呈几何级数，粮食增长呈算术级数，战争、饥荒、瘟疫是自然的"积极抑制"机制</li>
+                <li><strong>约翰·梅纳德·凯恩斯</strong>《就业、利息和货币通论》（1936）：政府支出（包括军事支出）可刺激有效需求，缓解经济萧条</li>
+                <li><strong>曼瑟尔·奥尔森</strong>《集体行动的逻辑》（1965）：外部威胁促进集团内部团结</li>
+              </ul>
+            </div>
+            <div class="card-col">
+              <h5>历史事件</h5>
+              <ul>
+                <li><strong>冷战代理人战争</strong>（1947-1991）：美苏通过支持第三世界国家的局部冲突维持各自阵营的内部凝聚力</li>
+                <li><strong>欧洲三十年战争</strong>（1618-1648）：战争期间各国税收体系、军事工业快速发展</li>
+                <li><strong>罗马帝国的"面包与马戏"</strong>：通过对外战争和内部福利维持社会稳定</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 id="v1-c2" onclick="toggleSection('v1-c2-content', this)"><span class="section-toggle">▶</span> 第2章：农业革命与马尔萨斯陷阱</h3>
+      <div class="collapsible" id="v1-c2-content">
+        <div class="story-box">
+          <h5>小说情节</h5>
+          <p>魔王以"红色学士"身份来到冬之国的越冬村，向村民传授四圃轮作制和马铃薯种植技术。女仆姐（原农奴）成为第一批接受新知识的农民，农业产量大幅提升。</p>
+        </div>
+        <div class="analysis-box">
+          <h4>分析评论：粮食即权力</h4>
+          <p>魔王选择从农业入手绝非偶然。在人类历史上，粮食生产方式的变革往往先于政治变革——英国农业革命为工业革命提供了剩余劳动力和粮食基础；法国大革命的导火索之一便是面包价格上涨。小说中，马铃薯不仅是一种作物，更是打破封建经济结构的"特洛伊木马"：它让越冬村从自给自足走向剩余生产，进而催生了贸易需求和教育需求，最终动摇了封建领主对土地和劳动力的控制权。</p>
+        </div>
+
+        <div class="card">
+          <div class="card-grid">
+            <div class="card-col">
+              <h5>小说内容</h5>
+              <ul>
+                <li>引入四圃轮作制：小麦→芜菁→大麦→苜蓿/马铃薯</li>
+                <li>推广马铃薯种植——被称为"恶魔之卵"的新作物</li>
+                <li>农业剩余产品增加，为手工业和商业发展提供基础</li>
+                <li>女仆姐从农奴到自由劳动者的身份转变</li>
+              </ul>
+            </div>
+            <div class="card-col">
+              <h5>理论原著</h5>
+              <ul>
+                <li><strong>托马斯·马尔萨斯</strong>《人口原理》：农业技术突破是逃离马尔萨斯陷阱的唯一途径</li>
+                <li><strong>约瑟夫·熊彼特</strong>《经济发展理论》（1912）：技术创新带来的"创造性破坏"是经济增长的核心动力</li>
+                <li><strong>亚当·斯密</strong>《国富论》（1776）：农业效率提高后，劳动力向手工业和商业转移，分工深化带来经济增长</li>
+                <li><strong>西蒙·库兹涅茨</strong>现代经济增长理论：技术变革是人均产出持续增长的根本来源</li>
+              </ul>
+            </div>
+            <div class="card-col">
+              <h5>历史事件</h5>
+              <ul>
+                <li><strong>英国农业革命</strong>（17-18世纪）：诺福克四圃轮作制推广，农业产量翻倍</li>
+                <li><strong>马铃薯传入欧洲</strong>（16世纪从美洲引入）：爱尔兰、德国等地人口激增，但也导致1845年爱尔兰大饥荒</li>
+                <li><strong>荷兰风车技术普及</strong>（17世纪）：用于排水和磨粉，支撑了荷兰黄金时代</li>
+                <li><strong>英国圈地运动</strong>（15-19世纪）：农奴制解体，自由劳动力向城市转移</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 id="v1-c3" onclick="toggleSection('v1-c3-content', this)"><span class="section-toggle">▶</span> 第3章：人力资本与教育投资</h3>
+      <div class="collapsible" id="v1-c3-content">
+        <div class="story-box">
+          <h5>小说情节</h5>
+          <p>魔王在越冬村建立学校，招收军人子弟、贵族子弟、商人子弟三名学生，教授读写、算术、农业技术。这是人类世界首批面向平民的教育机构。</p>
+        </div>
+        <div class="card">
+          <div class="card-grid">
+            <div class="card-col">
+              <h5>小说内容</h5>
+              <ul>
+                <li>魔王建立越冬村学校，打破教会对知识的垄断</li>
+                <li>三名子弟分别来自军人、贵族、商人家庭</li>
+                <li>教育内容：读写、算术、农业技术、基础科学</li>
+                <li>知识普及削弱教会权威，为后续宗教改革埋下伏笔</li>
+              </ul>
+            </div>
+            <div class="card-col">
+              <h5>理论原著</h5>
+              <ul>
+                <li><strong>西奥多·舒尔茨</strong>《人力资本投资》（1961）：教育是对人力资本的投资，其回报率高于物质资本</li>
+                <li><strong>加里·贝克尔</strong>《人力资本》（1964）：教育促进社会流动，缩小收入差距</li>
+                <li><strong>皮埃尔·布迪厄</strong>《教育、社会和文化的再生产》（1970）：教育既是社会流动的通道，也是文化资本再生产的工具</li>
+                <li><strong>米歇尔·福柯</strong>《规训与惩罚》（1975）：知识与权力的共生关系</li>
+              </ul>
+            </div>
+            <div class="card-col">
+              <h5>历史事件</h5>
+              <ul>
+                <li><strong>欧洲文艺复兴时期教育普及</strong>（14-16世纪）：人文主义学校兴起，平民子弟获得受教育机会</li>
+                <li><strong>宗教改革后的新教教育运动</strong>（16世纪）：路德派主张人人应能阅读圣经，推动基础教育</li>
+                <li><strong>启蒙运动与公共教育</strong>（18世纪）：普鲁士建立现代公立学校体系</li>
+                <li><strong>古登堡印刷术</strong>（1456年）：知识传播成本大幅降低，为教育普及提供技术基础</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 id="v1-c4" onclick="toggleSection('v1-c4-content', this)"><span class="section-toggle">▶</span> 第4章：技术创新与贸易网络</h3>
+      <div class="collapsible" id="v1-c4-content">
+        <div class="story-box">
+          <h5>小说情节</h5>
+          <p>魔王与青年商人（"同盟"干部）建立贸易关系，引入荷兰风车、中国活字印刷等新技术。冬寂王（冬之王子）登场，南方政治格局开始变化。</p>
+        </div>
+        <div class="card">
+          <div class="card-grid">
+            <div class="card-col">
+              <h5>小说内容</h5>
+              <ul>
+                <li>魔王与商人行会"同盟"建立贸易伙伴关系</li>
+                <li>引入荷兰风车用于排水和磨粉</li>
+                <li>引入中国活字印刷术，降低知识传播成本</li>
+                <li>人类与魔界之间的盐、铁、粮食贸易开始萌芽</li>
+              </ul>
+            </div>
+            <div class="card-col">
+              <h5>理论原著</h5>
+              <ul>
+                <li><strong>亚当·斯密</strong>《国富论》：自由贸易使各国专业化生产最擅长的商品，实现最优配置</li>
+                <li><strong>大卫·李嘉图</strong>《政治经济学及赋税原理》（1817）：比较优势理论——即使一方在所有领域都更优秀，贸易仍使双方受益</li>
+                <li><strong>保罗·克鲁格曼</strong>新贸易理论：规模经济和技术差异是贸易的重要驱动力</li>
+              </ul>
+            </div>
+            <div class="card-col">
+              <h5>历史事件</h5>
+              <ul>
+                <li><strong>汉萨同盟</strong>（12-17世纪）：北欧商业行会联盟，控制波罗的海贸易</li>
+                <li><strong>古登堡印刷术</strong>（1456年）：推动宗教改革和科学革命</li>
+                <li><strong>重商主义时代</strong>（16-18世纪）：各国通过贸易顺差积累金银</li>
+                <li><strong>荷兰黄金时代</strong>（17世纪）：风车、造船、金融技术领先全球</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 id="v1-c5" onclick="toggleSection('v1-c5-content', this)"><span class="section-toggle">▶</span> 第5章：阶级觉醒——"我是人类"</h3>
+      <div class="collapsible" id="v1-c5-content">
+        <div class="story-box">
+          <h5>小说情节</h5>
+          <p>女仆姐在公开场合发表"我是人类"演说，宣告自己作为自由人的尊严。这一演说直接引发南方三国同盟的形成，成为全书最著名的政治宣言。</p>
+        </div>
+        <div class="card">
+          <div class="card-grid">
+            <div class="card-col">
+              <h5>小说内容</h5>
+              <ul>
+                <li>女仆姐从农奴到自由人的身份转变</li>
+                <li>"我是人类"演说——对自由与尊严的宣告</li>
+                <li>演说引发南方三国（冬之国、铁之国、冰雪之国）同盟</li>
+                <li>底层阶级的觉醒成为政治变革的推动力</li>
+              </ul>
+            </div>
+            <div class="card-col">
+              <h5>理论原著</h5>
+              <ul>
+                <li><strong>卡尔·马克思</strong>《共产党宣言》（1848）："无产阶级失去的只是锁链"——阶级斗争作为历史动力</li>
+                <li><strong>马克斯·韦伯</strong>《阶级、地位与权力》（1922）：社会分层的三个维度——经济、声望、权力</li>
+                <li><strong>安东尼奥·葛兰西</strong>《狱中札记》：文化霸权与底层意识的觉醒</li>
+              </ul>
+            </div>
+            <div class="card-col">
+              <h5>历史事件</h5>
+              <ul>
+                <li><strong>法国大革命</strong>（1789）：第三等级宣告"我们是人民"，推翻封建等级制度</li>
+                <li><strong>英国农奴制解体</strong>（14-16世纪）：黑死病后劳动力短缺，农奴争取自由</li>
+                <li><strong>美国独立宣言</strong>（1776）："人人生而平等"的政治宣言</li>
+                <li><strong>海地革命</strong>（1791-1804）：奴隶起义建立独立国家</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 id="v1-c6" onclick="toggleSection('v1-c6-content', this)"><span class="section-toggle">▶</span> 第6章：魔界自治与制度创新</h3>
+      <div class="collapsible" id="v1-c6-content">
+        <div class="story-box">
+          <h5>小说情节</h5>
+          <p>魔王以黑骑士身份在魔界活动，建立开门都市自治政府。人类与魔族的商业贸易正式开始，跨种族的经济合作成为和平的基石。</p>
+        </div>
+        <div class="card">
+          <div class="card-grid">
+            <div class="card-col">
+              <h5>小说内容</h5>
+              <ul>
+                <li>魔王建立开门都市自治政府</li>
+                <li>人类与魔族的商业贸易正式开始</li>
+                <li>跨种族经济合作成为和平基石</li>
+                <li>魔王被封爵，获得正式政治身份</li>
+              </ul>
+            </div>
+            <div class="card-col">
+              <h5>理论原著</h5>
+              <ul>
+                <li><strong>道格拉斯·诺斯</strong>《制度、制度变迁与经济绩效》（1990）：有效制度降低交易成本，促进经济合作</li>
+                <li><strong>罗伯特·阿克塞尔罗德</strong>《合作的进化》（1984）：重复博弈中"以牙还牙"策略促进合作</li>
+                <li><strong>埃莉诺·奥斯特罗姆</strong>《公共事物的治理之道》：自治组织可以有效管理公共资源</li>
+              </ul>
+            </div>
+            <div class="card-col">
+              <h5>历史事件</h5>
+              <ul>
+                <li><strong>汉萨同盟的城市自治</strong>（12-17世纪）：商业城市通过自治实现繁荣</li>
+                <li><strong>威尼斯共和国</strong>（7-18世纪）：跨文化贸易与政治自治的典范</li>
+                <li><strong>荷兰联省共和国</strong>（1581-1795）：商业共和国的制度创新</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider">* * *</div>
+
+    <div style="margin-top:2rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+      <a href="ch1b-volumes.html" class="nav-link">← 五卷故事梗概</a>
+      <a href="vol2.html" class="nav-link">第二卷 →</a>
+    </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>《魔王勇者》政治经济学手册 · ACG 知识库</p>
+    <p class="copyright">原作：橙乃真希。本站内容采用 MIT 协议开源。</p>
+  </div>
+</footer>
+</body>
+</html>
