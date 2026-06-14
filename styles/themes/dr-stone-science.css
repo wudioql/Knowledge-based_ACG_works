@@ -23,6 +23,55 @@
   --content-width: 1080px;
   --card-radius: 10px;
   --section-gap: 3rem;
+  --header-bg: #070a11;
+}
+
+/* Site Header / Footer — 深色主题覆盖，避免白底白字 */
+.site-header {
+  background: var(--header-bg);
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+.site-header .site-logo {
+  color: var(--ink);
+}
+.site-header .site-logo:hover {
+  color: var(--accent);
+}
+.site-nav a {
+  color: var(--muted);
+}
+.site-nav a:hover,
+.site-nav a.active {
+  color: var(--ink-on-accent);
+  background: var(--accent);
+}
+.nav-toggle {
+  border-color: rgba(232, 236, 241, 0.3);
+  color: var(--ink);
+}
+.nav-toggle:hover {
+  background: rgba(232, 236, 241, 0.1);
+}
+@media (max-width: 768px) {
+  .site-nav {
+    background: var(--header-bg);
+  }
+  .site-nav a {
+    color: var(--muted);
+  }
+  .site-nav a:hover,
+  .site-nav a.active {
+    background: var(--accent);
+    color: var(--ink-on-accent);
+  }
+}
+
+.site-footer {
+  background: var(--header-bg);
+  color: var(--muted);
+  border-top: 1px solid var(--rule);
 }
 
 /* Hero / Cover（带背景图版本） */
