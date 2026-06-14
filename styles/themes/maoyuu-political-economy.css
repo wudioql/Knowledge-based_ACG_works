@@ -243,24 +243,10 @@ h2 {
 }
 
 h3 {
-  font-family: var(--font-heading);
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: var(--ink);
-  margin: 2rem 0 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-h3 .section-toggle {
-  font-size: 0.7rem;
-  color: var(--muted);
-  transition: transform 0.2s;
-}
-
-h3.expanded .section-toggle {
-  transform: rotate(90deg);
+  margin: 1.5rem 0 0.8rem;
+  font-weight: 600;
 }
 
 h4 {
@@ -268,15 +254,6 @@ h4 {
   color: var(--ink);
   margin: 1.5rem 0 0.8rem;
   font-weight: 600;
-}
-
-/* Collapsible sections */
-.collapsible {
-  display: none;
-}
-
-.collapsible.expanded {
-  display: block;
 }
 
 /* Cards */
@@ -598,7 +575,4 @@ mark.key {
     padding: 1rem;
   }
 
-  .collapsible {
-    display: block !important;
-  }
 }
