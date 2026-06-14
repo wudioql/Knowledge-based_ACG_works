@@ -588,25 +588,25 @@ hr {
 /* 12.2 右侧浮动目录（常见于详情页） */
 .side-toc {
   position: fixed;
-  top: 80px;
+  top: 88px;
   right: 1rem;
-  width: 200px;
-  max-height: calc(100vh - 100px);
+  width: 220px;
+  max-height: calc(100vh - 110px);
   overflow-y: auto;
   background: var(--card-bg);
   border-radius: var(--card-radius);
   box-shadow: var(--shadow-md);
   padding: 1rem;
-  font-size: 0.78rem;
-  z-index: 40;
+  font-size: 0.82rem;
+  z-index: 60;
   border: 1px solid var(--rule);
 }
 
 .side-toc h4 {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--accent);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -618,16 +618,16 @@ hr {
 }
 
 .side-toc li {
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.3rem;
 }
 
 .side-toc a {
   color: var(--muted);
   display: block;
-  padding: 0.2rem 0.4rem;
+  padding: 0.3rem 0.5rem;
   border-radius: 3px;
   transition: color var(--trans), background var(--trans);
-  line-height: 1.4;
+  line-height: 1.5;
 }
 .side-toc a:hover,
 .side-toc a.active {
