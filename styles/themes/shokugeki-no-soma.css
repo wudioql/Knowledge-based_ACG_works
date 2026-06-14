@@ -72,7 +72,7 @@
 }
 
 .arc-card {
-  background: #fff;
+  background: var(--card-bg);
   border-radius: var(--card-radius);
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
@@ -97,7 +97,8 @@
   font-family: var(--font-heading);
   font-size: 2.5rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 .arc-card:nth-child(1) .arc-card-banner { background: linear-gradient(135deg, #C0392B, #E74C3C); }
@@ -155,7 +156,7 @@
 
 /* Dish Card */
 .dish-card {
-  background: #fff;
+  background: var(--card-bg);
   border-radius: var(--card-radius);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   margin-bottom: 2rem;
@@ -354,7 +355,8 @@
 
 /* Recipe Tips */
 .recipe-tips {
-  background: #FFF3E0;
+  background: var(--tip-bg, #FFF3E0);
+  color: var(--ink);
   border-left: 4px solid var(--accent2);
   border-radius: 0 var(--card-radius) var(--card-radius) 0;
   padding: 1rem 1.25rem;
@@ -404,7 +406,7 @@
 }
 
 .battle-body {
-  background: #fff;
+  background: var(--card-bg);
   border-radius: 0 0 var(--card-radius) var(--card-radius);
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);

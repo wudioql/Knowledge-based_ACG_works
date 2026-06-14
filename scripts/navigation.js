@@ -96,11 +96,7 @@
                 if (!content) return;
 
                 h3.classList.toggle('expanded');
-                if (content.style.display === 'none' || content.style.display === '') {
-                    content.style.display = 'block';
-                } else {
-                    content.style.display = 'none';
-                }
+                content.classList.toggle('expanded');
             });
         });
     }
@@ -204,21 +200,42 @@
         if (toggles.length === 0) return;
 
         toggles.forEach(function(toggle) {
-            toggle.addEventListener('click', function() {
-                toggle.classList.toggle('expanded');
-                var children = toggle.parentNode.querySelector('.toc-children');
-                if (!children) {
-                    var sibling = toggle.nextElementSibling;
-                    while (sibling && !sibling.classList.contains('toc-children')) {
+            toggle.addEventListener('click', function(e) {
+                if (e) e.stopPropagation();
+                // 如果这是叶子节点，不做任何折叠操作
+                if (toggle.classList.contains('leaf')) return;
+
+                // 找到对应的 .toc-children（兄弟节点，或父节点内的子节点列表）
+                var children = null;
+                // 优先查找兄弟节点（node 结构中 toggle 是 node 的子元素，node 的兄弟是 toc-children）
+                var parent = toggle.parentNode;
+                if (parent) {
+                    // 在同级兄弟中寻找 toc-children
+                    var sibling = parent.nextElementSibling;
+                    while (sibling) {
+                        if (sibling.classList.contains('toc-children')) {
+                            children = sibling;
+                            break;
+                        }
                         sibling = sibling.nextElementSibling;
                     }
-                    children = sibling;
+                    // 如果未找到，则退回到在整个父 li 中查找
+                    if (!children) {
+                        var container = parent.parentNode;
+                        if (container) {
+                            children = container.querySelector(':scope > .toc-children');
+                        }
+                    }
                 }
                 if (!children) return;
-                if (children.style.display === 'none' || children.style.display === '') {
-                    children.style.display = 'block';
+
+                var isExpanded = children.classList.contains('expanded');
+                if (isExpanded) {
+                    toggle.classList.remove('expanded');
+                    children.classList.remove('expanded');
                 } else {
-                    children.style.display = 'none';
+                    toggle.classList.add('expanded');
+                    children.classList.add('expanded');
                 }
             });
         });
@@ -279,11 +296,13 @@
                     if (hasChildrenInner) {
                         var childrenUl = node.nextElementSibling;
                         if (childrenUl && childrenUl.classList.contains('toc-children')) {
-                            toggleInner.classList.toggle('expanded');
-                            if (toggleInner.classList.contains('expanded')) {
-                                childrenUl.style.display = 'block';
+                            var isOpen = toggleInner.classList.contains('expanded');
+                            if (isOpen) {
+                                toggleInner.classList.remove('expanded');
+                                childrenUl.classList.remove('expanded');
                             } else {
-                                childrenUl.style.display = 'none';
+                                toggleInner.classList.add('expanded');
+                                childrenUl.classList.add('expanded');
                             }
                         }
                     }
@@ -300,7 +319,7 @@
             if (subNodes.length > 0) {
                 var childrenUl = document.createElement('ul');
                 childrenUl.className = 'toc-children';
-                childrenUl.style.display = 'none';
+                // 不使用 style.display，让 CSS 的 expanded 类控制显示
 
                 for (var k = 0; k < subNodes.length; k++) {
                     var sub = subNodes[k];
@@ -385,28 +404,26 @@
     window.expandAll = function() {
         var children = document.querySelectorAll('.toc-children');
         for (var i = 0; i < children.length; i++) {
-            children[i].style.display = 'block';
+            children[i].classList.add('expanded');
         }
-        var toggles = document.querySelectorAll('.toc-toggle');
+        var toggles = document.querySelectorAll('.toc-toggle:not(.leaf)');
         for (var j = 0; j < toggles.length; j++) {
             toggles[j].classList.add('expanded');
         }
         var collapsibles = document.querySelectorAll('.collapsible');
         for (var k = 0; k < collapsibles.length; k++) {
-            collapsibles[k].style.display = 'block';
+            collapsibles[k].classList.add('expanded');
         }
-        var h3s = document.querySelectorAll('h3[data-collapsible], h3[id$="-content"] + *, h3');
-        // 只对含 collapsible 控制语义的 h3 生效
-        var targetH3 = document.querySelectorAll('.main h3[id]');
-        for (var m = 0; m < targetH3.length; m++) {
-            targetH3[m].classList.add('expanded');
+        var headings = document.querySelectorAll('h3');
+        for (var m = 0; m < headings.length; m++) {
+            headings[m].classList.add('expanded');
         }
     };
 
     window.collapseAll = function() {
         var children = document.querySelectorAll('.toc-children');
         for (var i = 0; i < children.length; i++) {
-            children[i].style.display = 'none';
+            children[i].classList.remove('expanded');
         }
         var toggles = document.querySelectorAll('.toc-toggle');
         for (var j = 0; j < toggles.length; j++) {
@@ -414,22 +431,27 @@
         }
         var collapsibles = document.querySelectorAll('.collapsible');
         for (var k = 0; k < collapsibles.length; k++) {
-            collapsibles[k].style.display = 'none';
+            collapsibles[k].classList.remove('expanded');
         }
-        var targetH3 = document.querySelectorAll('.main h3[id]');
-        for (var m = 0; m < targetH3.length; m++) {
-            targetH3[m].classList.remove('expanded');
+        var headings = document.querySelectorAll('h3');
+        for (var m = 0; m < headings.length; m++) {
+            headings[m].classList.remove('expanded');
         }
     };
 
     window.toggleSection = function(contentId, headingEl) {
         var content = document.getElementById(contentId);
         if (!content) return;
-        if (content.style.display === 'none' || content.style.display === '') {
-            content.style.display = 'block';
+        var isCollapsed = !content.classList.contains('expanded');
+        // 若未使用 expanded 类（例如部分页面用 style.display），再回退到 style 检测
+        if (!content.classList.contains('collapsible') && !isCollapsed) {
+            isCollapsed = (content.style.display === 'none' || content.style.display === '');
+        }
+        if (isCollapsed) {
+            content.classList.add('expanded');
             if (headingEl) headingEl.classList.add('expanded');
         } else {
-            content.style.display = 'none';
+            content.classList.remove('expanded');
             if (headingEl) headingEl.classList.remove('expanded');
         }
     };

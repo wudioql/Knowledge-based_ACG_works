@@ -2,16 +2,17 @@
 
 :root {
   --bg: #1a1a2e;
-  --bg2: #16213e;
-  --ink: #e8e8e8;
-  --muted: #a0a0b0;
-  --rule: #2d2d44;
-  --accent: #e94560;
-  --accent2: #0f3460;
-  --ink-on-accent: #ffffff;
+  --bg2: #1f2b4a;
+  --card-bg: #1f2b4a;
+  --ink: #f0f2f8;
+  --muted: #b0b8d0;
+  --rule: #3a4870;
+  --accent: #f5a623;
+  --accent2: #ff7a3d;
+  --ink-on-accent: #1a1a2e;
   --font-heading: 'Crimson Pro', 'Noto Sans CJK SC', serif;
   --font-body: 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
-  --content-width: 900px;
+  --content-width: 1080px;
   --card-radius: 8px;
   --section-gap: 3rem;
 }
@@ -32,7 +33,7 @@
 }
 
 .sidebar-header {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--rule);
 }
@@ -47,6 +48,30 @@
 .sidebar-header p {
   font-size: 0.75rem;
   color: var(--muted);
+}
+
+.toc-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.toc-action-btn {
+  flex: 1;
+  padding: 0.4rem 0.6rem;
+  background: rgba(245, 166, 35, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(245, 166, 35, 0.3);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toc-action-btn:hover {
+  background: var(--accent);
+  color: var(--ink-on-accent);
+  border-color: var(--accent);
 }
 
 .toc-tree {

@@ -33,6 +33,7 @@
   /* 尺寸 / 间距 */
   --content-width: 1080px;
   --card-radius: 8px;
+  --card-bg: #ffffff;
   --section-gap: 3rem;
 
   /* 阴影（轻量层级，避免项目主题差异过大） */
@@ -258,7 +259,7 @@ hr {
 /* ============ 6. Hero 首屏 ============ */
 
 .hero {
-  background: linear-gradient(135deg, var(--accent) 0%, #8e1a0f 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
   color: var(--ink-on-accent);
   padding: 4rem 0;
   text-align: center;
@@ -310,13 +311,14 @@ hr {
   font-family: var(--font-heading);
   font-size: 2rem;
   font-weight: 700;
-  color: var(--accent2);
+  color: var(--ink-on-accent);
   display: block;
   line-height: 1.1;
 }
 
 .hero .stat-label {
   font-size: 0.85rem;
+  color: var(--ink-on-accent);
   opacity: 0.85;
 }
 
@@ -346,7 +348,8 @@ hr {
 /* ============ 8. Cards 通用卡片 ============ */
 
 .card {
-  background: #ffffff;
+  background: var(--card-bg);
+  color: var(--ink);
   border-radius: var(--card-radius);
   border: 1px solid var(--rule);
   box-shadow: var(--shadow-sm);
@@ -423,7 +426,7 @@ hr {
   flex-wrap: wrap;
   margin-bottom: 2rem;
   padding: 1rem;
-  background: #ffffff;
+  background: var(--card-bg);
   border-radius: var(--card-radius);
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--rule);
@@ -445,7 +448,7 @@ hr {
   padding: 0.35rem 0.85rem;
   border: 1px solid var(--rule);
   border-radius: 999px;
-  background: #ffffff;
+  background: var(--card-bg);
   color: var(--ink);
   cursor: pointer;
   transition: all var(--trans);
@@ -510,7 +513,7 @@ hr {
   width: 220px;
   max-height: calc(100vh - 100px);
   overflow-y: auto;
-  background: #ffffff;
+  background: var(--card-bg);
   border-radius: var(--card-radius);
   box-shadow: var(--shadow-md);
   padding: 1rem;
@@ -590,7 +593,7 @@ hr {
   width: 200px;
   max-height: calc(100vh - 100px);
   overflow-y: auto;
-  background: #ffffff;
+  background: var(--card-bg);
   border-radius: var(--card-radius);
   box-shadow: var(--shadow-md);
   padding: 1rem;
@@ -639,7 +642,7 @@ hr {
   overflow-x: auto;
   border: 1px solid var(--rule);
   border-radius: var(--card-radius);
-  background: #ffffff;
+  background: var(--card-bg);
   margin: 1.5rem 0;
 }
 
@@ -647,7 +650,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
-  background: #ffffff;
+  background: var(--card-bg);
 }
 
 thead {
