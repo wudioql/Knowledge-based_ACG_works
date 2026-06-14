@@ -1,0 +1,549 @@
+/* 《魔王勇者》政治经济学手册主题 — maoyuu-political-economy.css */
+
+:root {
+  --bg: #1a1a2e;
+  --bg2: #16213e;
+  --ink: #e8e8e8;
+  --muted: #a0a0b0;
+  --rule: #2d2d44;
+  --accent: #e94560;
+  --accent2: #0f3460;
+  --ink-on-accent: #ffffff;
+  --font-heading: 'Crimson Pro', 'Noto Sans CJK SC', serif;
+  --font-body: 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
+  --content-width: 900px;
+  --card-radius: 8px;
+  --section-gap: 3rem;
+}
+
+/* Sidebar TOC */
+.sidebar {
+  width: 320px;
+  background: var(--bg2);
+  border-right: 1px solid var(--rule);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+  padding: 1.5rem 1rem;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.sidebar-header h1 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+
+.sidebar-header p {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.toc-tree {
+  list-style: none;
+  padding: 0;
+}
+
+.toc-tree .toc-node {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.toc-tree .toc-node:hover {
+  background: rgba(233, 69, 96, 0.1);
+  color: var(--ink);
+}
+
+.toc-tree .toc-node.active {
+  background: rgba(233, 69, 96, 0.2);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.toc-tree .toc-toggle {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.4rem;
+  font-size: 0.7rem;
+  color: var(--muted);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.toc-tree .toc-toggle.expanded {
+  transform: rotate(90deg);
+}
+
+.toc-tree .toc-toggle.leaf {
+  visibility: hidden;
+}
+
+.toc-tree .toc-children {
+  list-style: none;
+  padding-left: 1.2rem;
+  display: none;
+}
+
+.toc-tree .toc-children.expanded {
+  display: block;
+}
+
+.toc-tree .level-1 > .toc-node {
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+
+.toc-tree .level-2 > .toc-node {
+  font-size: 0.82rem;
+}
+
+.toc-tree .level-3 > .toc-node {
+  font-size: 0.78rem;
+  padding-left: 0.8rem;
+}
+
+/* Mobile menu toggle */
+.mobile-toggle {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 200;
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  color: var(--accent);
+  padding: 0.5rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* Main content */
+.main {
+  margin-left: 320px;
+  flex: 1;
+  padding: 2rem 3rem;
+  max-width: var(--content-width);
+}
+
+/* Cover / Welcome */
+.cover {
+  text-align: center;
+  padding: 4rem 0 3rem;
+  border-bottom: 2px solid var(--accent);
+  margin-bottom: 3rem;
+}
+
+.cover h1 {
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.cover .subtitle {
+  font-size: 1.1rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.cover .desc {
+  font-size: 0.9rem;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* Section headings */
+h2 {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  color: var(--accent);
+  margin: 3rem 0 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+h3 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--ink);
+  margin: 2rem 0 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+h3 .section-toggle {
+  font-size: 0.7rem;
+  color: var(--muted);
+  transition: transform 0.2s;
+}
+
+h3.expanded .section-toggle {
+  transform: rotate(90deg);
+}
+
+h4 {
+  font-size: 1rem;
+  color: var(--ink);
+  margin: 1.5rem 0 0.8rem;
+  font-weight: 600;
+}
+
+/* Collapsible sections */
+.collapsible {
+  display: none;
+}
+
+.collapsible.expanded {
+  display: block;
+}
+
+/* Cards */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  border-radius: var(--card-radius);
+  padding: 1.5rem;
+  margin: 1rem 0;
+}
+
+.card-header {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.card-col {
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+}
+
+.card-col h5 {
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.card-col p,
+.card-col ul {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.card-col ul {
+  padding-left: 1.2rem;
+}
+
+.card-col li {
+  margin-bottom: 0.4rem;
+}
+
+/* Story context box */
+.story-box {
+  background: rgba(233, 69, 96, 0.08);
+  border-left: 3px solid var(--accent);
+  padding: 1rem 1.2rem;
+  margin: 1rem 0;
+  border-radius: 0 6px 6px 0;
+}
+
+.story-box h5 {
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.story-box p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Table wrapper */
+.table-wrap {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 600px;
+  margin: 1.5rem 0;
+  border: 1px solid var(--rule);
+  border-radius: var(--card-radius);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  min-width: 600px;
+  color: var(--ink);
+}
+
+th, td {
+  padding: 0.7rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--rule);
+}
+
+th {
+  background: var(--bg2);
+  color: var(--accent);
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+}
+
+tr:hover td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Index grid */
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.index-card {
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  border-radius: var(--card-radius);
+  padding: 1.2rem;
+}
+
+.index-card h4 {
+  color: var(--accent);
+  margin: 0 0 0.8rem;
+  font-size: 1rem;
+}
+
+.index-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.index-card li {
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.index-card li:last-child {
+  border-bottom: none;
+}
+
+/* Drop cap（首字下沉） */
+.drop-cap::first-letter {
+  font-family: var(--font-heading);
+  font-size: 3.2em;
+  float: left;
+  line-height: 0.8;
+  margin-right: 0.1em;
+  color: var(--accent);
+}
+
+/* Novel quote */
+.novel-quote {
+  background: rgba(233, 69, 96, 0.06);
+  border-left: 4px solid var(--accent);
+  padding: 1rem 1.2rem;
+  margin: 1.2rem 0;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.novel-quote p {
+  margin: 0;
+  line-height: 1.8;
+}
+
+/* Analysis box */
+.analysis-box {
+  background: rgba(15, 52, 96, 0.4);
+  border: 1px solid var(--accent2);
+  border-radius: var(--card-radius);
+  padding: 1.2rem 1.5rem;
+  margin: 1.2rem 0;
+}
+
+.analysis-box h4 {
+  color: var(--accent);
+  margin: 0 0 0.6rem;
+  font-size: 0.95rem;
+}
+
+.analysis-box p {
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Concept card */
+.concept-card {
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  margin: 1.5rem 0;
+  overflow: hidden;
+}
+
+.concept-card-header {
+  background: rgba(233, 69, 96, 0.1);
+  padding: 0.9rem 1.2rem;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.concept-num {
+  background: var(--accent);
+  color: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.volume-tag {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+
+.concept-card-body {
+  padding: 1.2rem 1.5rem;
+  font-size: 0.9rem;
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+/* Divider */
+.divider {
+  text-align: center;
+  margin: 3rem 0;
+  color: var(--muted);
+  font-size: 1.1rem;
+  letter-spacing: 0.3em;
+}
+
+/* Selection */
+::selection {
+  background: rgba(233, 69, 96, 0.3);
+  color: var(--ink);
+}
+
+mark.key {
+  background: none;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mobile-toggle {
+    display: block;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+    width: 280px;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .main {
+    margin-left: 0;
+    padding: 4rem 1.5rem 2rem;
+    max-width: 100%;
+  }
+
+  .cover h1 {
+    font-size: 1.6rem;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .index-grid {
+    grid-template-columns: 1fr;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+  }
+}
+
+/* Print */
+@media print {
+  .sidebar, .mobile-toggle {
+    display: none;
+  }
+
+  .main {
+    margin-left: 0;
+    padding: 1rem;
+  }
+
+  .collapsible {
+    display: block !important;
+  }
+}
