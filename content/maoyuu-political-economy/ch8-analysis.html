@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>整体叙事脉络分析 — 魔王勇者政治经济学手册</title>
+<link rel="stylesheet" href="../../styles/core.css">
+<link rel="stylesheet" href="../../styles/themes/maoyuu-political-economy.css">
+<script defer src="../../scripts/navigation.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a href="../../index.html" class="site-logo">
+      <span class="logo-icon">👑</span>
+      <span>《魔王勇者》政治经济学手册</span>
+    </a>
+    <button class="nav-toggle" aria-label="菜单">☰</button>
+    <nav class="site-nav">
+      <a href="../../index.html">← 返回首页</a>
+      <a href="../dr-stone-science/index.html">石纪元</a>
+      <a href="../tondemo-skill-food/index.html">流浪美食家</a>
+      <a href="../shokugeki-no-soma/index.html">食戟之灵</a>
+    </nav>
+  </div>
+</header>
+<button class="hamburger" aria-label="目录">☰</button>
+<div class="sidebar-overlay"></div>
+
+<div class="container">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h1>魔王勇者</h1>
+      <p>政治经济学手册</p>
+    </div>
+    <div class="toc-actions">
+      <button onclick="expandAll()">全部展开</button>
+      <button onclick="collapseAll()">全部收起</button>
+    </div>
+    <ul class="toc-tree" id="tocTree">
+      <li><a href="../../index.html">首页</a></li>
+      <li><a href="ch1b-volumes.html">正文五卷故事梗概</a></li>
+      <li><a href="vol1.html">第一卷</a></li>
+      <li><a href="vol2.html">第二卷</a></li>
+      <li><a href="vol3.html">第三卷</a></li>
+      <li><a href="vol4.html">第四卷</a></li>
+      <li><a href="vol5.html">第五卷</a></li>
+      <li><a href="ch8b-side-stories.html">外传三卷</a></li>
+      <li><a href="ch8-analysis.html">整体叙事脉络分析</a></li>
+    </ul>
+  </nav>
+
+  <main class="main" id="mainContent">
+    <section id="ch8">
+        <h2 class="chapter-title"><span class="ch-num">8</span> 整体叙事脉络：从中世纪到近代的压缩现代化</h2>
+
+        <p>将前述12个知识点串联起来，可以清晰地看到一条完整的<strong class="key">现代化进程链条</strong>。魔王实质上在短短几年内推动了欧洲花了约400年才完成的历史进程。</p>
+
+        <h3 class="section-title" id="s-timeline">小说五卷 vs 真实历史时间线</h3>
+        <figure class="figure-container">
+          <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" style="max-width:800px;">
+            <rect width="800" height="300" fill="#1a1a2e" rx="8"/>
+            <!-- Novel timeline (top) -->
+            <text x="40" y="35" font-family="sans-serif" font-weight="700" font-size="13" fill="#e94560">小说卷次</text>
+            <line x1="120" y1="50" x2="760" y2="50" stroke="#e94560" stroke-width="2"/>
+            <!-- Vol 1 -->
+            <circle cx="180" cy="50" r="8" fill="#e94560"/>
+            <text x="180" y="54" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="9" fill="#fff">1</text>
+            <text x="180" y="78" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2D2D2D">马铃薯</text>
+            <text x="180" y="90" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2D2D2D">教育</text>
+            <!-- Vol 2 -->
+            <circle cx="300" cy="50" r="8" fill="#e94560"/>
+            <text x="300" y="54" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="9" fill="#fff">2</text>
+            <text x="300" y="78" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2D2D2D">商人同盟</text>
+            <text x="300" y="90" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2D2D2D">忽邻塔</text>
+            <!-- Vol 3 -->
+            <circle cx="420" cy="50" r="8" fill="#e94560"/>
+            <text x="420" y="54" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="9" fill="#fff">3</text>
+            <text x="420" y="78" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2D2D2D">技术扩散</text>
+            <text x="420" y="90" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2D2D2D">圣键远征军</text>
+            <!-- Vol 4 -->
+            <circle cx="540" cy="50" r="8" fill="#e94560"/>
+            <text x="540" y="54" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="9" fill="#fff">4</text>
+            <text x="540" y="78" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2D2D2D">通胀/期货</text>
+            <text x="540" y="90" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2D2D2D">异端审判</text>
+            <!-- Vol 5 -->
+            <circle cx="660" cy="50" r="8" fill="#e94560"/>
+            <text x="660" y="54" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="9" fill="#fff">5</text>
+            <text x="660" y="78" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2D2D2D">盐贸易</text>
+            <text x="660" y="90" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2D2D2D">全面战争</text>
+
+            <!-- Real history timeline (bottom) -->
+            <text x="40" y="145" font-family="sans-serif" font-weight="700" font-size="13" fill="#DAA520">真实历史</text>
+            <line x1="120" y1="160" x2="760" y2="160" stroke="#DAA520" stroke-width="2"/>
+            <!-- 15C -->
+            <circle cx="160" cy="160" r="6" fill="#DAA520"/>
+            <text x="160" y="185" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2D2D2D">15世纪</text>
+            <text x="160" y="197" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">古腾堡印刷</text>
+            <text x="160" y="209" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">哥伦布大交换</text>
+            <!-- 16C -->
+            <circle cx="280" cy="160" r="6" fill="#DAA520"/>
+            <text x="280" y="185" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2D2D2D">16世纪</text>
+            <text x="280" y="197" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">宗教改革</text>
+            <text x="280" y="209" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">价格革命</text>
+            <text x="280" y="221" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">军事革命</text>
+            <!-- 17C -->
+            <circle cx="400" cy="160" r="6" fill="#DAA520"/>
+            <text x="400" y="185" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2D2D2D">17世纪</text>
+            <text x="400" y="197" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">重商主义</text>
+            <text x="400" y="209" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">郁金香泡沫</text>
+            <!-- 18C -->
+            <circle cx="520" cy="160" r="6" fill="#DAA520"/>
+            <text x="520" y="185" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2D2D2D">18世纪</text>
+            <text x="520" y="197" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">农业革命</text>
+            <text x="520" y="209" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">启蒙运动</text>
+            <text x="520" y="221" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">法国大革命</text>
+            <!-- 19C -->
+            <circle cx="660" cy="160" r="6" fill="#DAA520"/>
+            <text x="660" y="185" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#2D2D2D">19世纪</text>
+            <text x="660" y="197" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">古典经济学</text>
+            <text x="660" y="209" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">马克思主义</text>
+
+            <!-- Connection arrows -->
+            <line x1="180" y1="95" x2="520" y2="155" stroke="#C8BFA8" stroke-width="1" stroke-dasharray="4,3"/>
+            <line x1="300" y1="95" x2="280" y2="155" stroke="#C8BFA8" stroke-width="1" stroke-dasharray="4,3"/>
+            <line x1="420" y1="95" x2="280" y2="155" stroke="#C8BFA8" stroke-width="1" stroke-dasharray="4,3"/>
+            <line x1="540" y1="95" x2="400" y2="155" stroke="#C8BFA8" stroke-width="1" stroke-dasharray="4,3"/>
+            <line x1="660" y1="95" x2="520" y2="155" stroke="#C8BFA8" stroke-width="1" stroke-dasharray="4,3"/>
+
+            <!-- Summary -->
+            <rect x="120" y="240" width="560" height="45" rx="6" fill="#EDE8DC" stroke="#C8BFA8" stroke-width="1"/>
+            <text x="400" y="268" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#e94560">小说用5卷的篇幅，浓缩了欧洲从15世纪到19世纪约400年的现代化历程</text>
+          </svg>
+          <figcaption>图3：小说五卷剧情与真实历史时间线对照</figcaption>
+        </figure>
+
+        <h3 class="section-title" id="s-network">经济概念因果关系网络</h3>
+        <figure class="figure-container">
+          <svg viewBox="0 0 800 350" xmlns="http://www.w3.org/2000/svg" style="max-width:800px;">
+            <rect width="800" height="350" fill="#1a1a2e" rx="8"/>
+            <!-- Nodes -->
+            <rect x="20" y="20" width="110" height="40" rx="8" fill="#e94560" opacity="0.85"/>
+            <text x="75" y="45" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="11" fill="#fff">农业革命</text>
+            <rect x="20" y="100" width="110" height="40" rx="8" fill="#64B5F6" opacity="0.85"/>
+            <text x="75" y="125" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="11" fill="#fff">教育普及</text>
+            <rect x="20" y="180" width="110" height="40" rx="8" fill="#4CAF50" opacity="0.85"/>
+            <text x="75" y="205" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="11" fill="#fff">技术革新</text>
+            <rect x="20" y="260" width="110" height="40" rx="8" fill="#DAA520" opacity="0.85"/>
+            <text x="75" y="285" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="11" fill="#fff">贸易网络</text>
+            <rect x="340" y="20" width="110" height="40" rx="8" fill="#e94560" opacity="0.85"/>
+            <text x="395" y="45" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="11" fill="#fff">知识传播</text>
+            <rect x="340" y="100" width="110" height="40" rx="8" fill="#6B3A8B" opacity="0.85"/>
+            <text x="395" y="125" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="11" fill="#fff">政治改革</text>
+            <rect x="340" y="180" width="110" height="40" rx="8" fill="#8B3A3A" opacity="0.85"/>
+            <text x="395" y="205" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="11" fill="#fff">社会变革</text>
+            <rect x="340" y="260" width="110" height="40" rx="8" fill="#3A6B8B" opacity="0.85"/>
+            <text x="395" y="285" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="11" fill="#fff">军事革命</text>
+            <rect x="660" y="100" width="110" height="40" rx="8" fill="#2D2D2D" opacity="0.85"/>
+            <text x="715" y="125" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="11" fill="#fff">和平实现</text>
+            <!-- Arrows -->
+            <defs>
+              <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#6B6B6B"/></marker>
+            </defs>
+            <line x1="130" y1="40" x2="340" y2="40" stroke="#6B6B6B" stroke-width="1.5" marker-end="url(#arrow)"/>
+            <text x="235" y="35" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">粮食盈余</text>
+            <line x1="130" y1="40" x2="340" y2="120" stroke="#6B6B6B" stroke-width="1.5" marker-end="url(#arrow)"/>
+            <text x="210" y="85" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">打破权力结构</text>
+            <line x1="130" y1="120" x2="340" y2="40" stroke="#6B6B6B" stroke-width="1.5" marker-end="url(#arrow)"/>
+            <text x="210" y="72" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">人力资本</text>
+            <line x1="130" y1="120" x2="340" y2="120" stroke="#6B6B6B" stroke-width="1.5" marker-end="url(#arrow)"/>
+            <text x="235" y="115" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">启蒙思想</text>
+            <line x1="130" y1="120" x2="340" y2="200" stroke="#6B6B6B" stroke-width="1.5" marker-end="url(#arrow)"/>
+            <text x="210" y="170" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">个体觉醒</text>
+            <line x1="130" y1="200" x2="340" y2="200" stroke="#6B6B6B" stroke-width="1.5" marker-end="url(#arrow)"/>
+            <text x="235" y="195" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">改变战争形态</text>
+            <line x1="130" y1="200" x2="340" y2="280" stroke="#6B6B6B" stroke-width="1.5" marker-end="url(#arrow)"/>
+            <text x="210" y="250" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">技术扩散</text>
+            <line x1="130" y1="280" x2="340" y2="120" stroke="#6B6B6B" stroke-width="1.5" marker-end="url(#arrow)"/>
+            <text x="210" y="195" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">挑战垄断</text>
+            <line x1="130" y1="280" x2="340" y2="280" stroke="#6B6B6B" stroke-width="1.5" marker-end="url(#arrow)"/>
+            <text x="235" y="275" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">贸易替代战争</text>
+            <line x1="450" y1="120" x2="660" y2="120" stroke="#6B6B6B" stroke-width="1.5" marker-end="url(#arrow)"/>
+            <text x="555" y="115" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">制度变革</text>
+            <line x1="450" y1="200" x2="660" y2="120" stroke="#6B6B6B" stroke-width="1.5" marker-end="url(#arrow)"/>
+            <text x="555" y="155" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">解放个体</text>
+            <line x1="450" y1="280" x2="660" y2="120" stroke="#6B6B6B" stroke-width="1.5" marker-end="url(#arrow)"/>
+            <text x="555" y="210" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6B6B6B">均势形成</text>
+            <!-- Legend -->
+            <text x="400" y="330" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#6B6B6B">左列：经济基础 | 中列：制度/社会变革 | 右列：最终目标</text>
+          </svg>
+          <figcaption>图4：12个政治经济学概念的因果关系网络</figcaption>
+        </figure>
+
+        <h3 class="section-title" id="s-matrix">各卷知识点分布矩阵</h3>
+        <div class="table-wrap">
+          <table class="heatmap-table">
+            <thead>
+              <tr>
+                <th>知识点</th>
+                <th>卷1</th>
+                <th>卷2</th>
+                <th>卷3</th>
+                <th>卷4</th>
+                <th>卷5</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>马铃薯/农业革命</td><td class="heat-3">核心</td><td class="heat-0">-</td><td class="heat-0">-</td><td class="heat-0">-</td><td class="heat-0">-</td></tr>
+              <tr><td>活版印刷/知识传播</td><td class="heat-2">重要</td><td class="heat-1">提及</td><td class="heat-2">重要</td><td class="heat-1">提及</td><td class="heat-0">-</td></tr>
+              <tr><td>教育普及/人力资本</td><td class="heat-3">核心</td><td class="heat-1">提及</td><td class="heat-0">-</td><td class="heat-2">重要</td><td class="heat-0">-</td></tr>
+              <tr><td>商人同盟/重商主义</td><td class="heat-0">-</td><td class="heat-3">核心</td><td class="heat-2">重要</td><td class="heat-2">重要</td><td class="heat-3">核心</td></tr>
+              <tr><td>期货交易/市场操纵</td><td class="heat-0">-</td><td class="heat-0">-</td><td class="heat-0">-</td><td class="heat-3">核心</td><td class="heat-1">提及</td></tr>
+              <tr><td>盐贸易/专卖制度</td><td class="heat-0">-</td><td class="heat-0">-</td><td class="heat-0">-</td><td class="heat-1">提及</td><td class="heat-3">核心</td></tr>
+              <tr><td>通胀/货币超发</td><td class="heat-0">-</td><td class="heat-0">-</td><td class="heat-1">提及</td><td class="heat-3">核心</td><td class="heat-2">重要</td></tr>
+              <tr><td>圣光教会/宗教权力</td><td class="heat-2">重要</td><td class="heat-1">提及</td><td class="heat-1">提及</td><td class="heat-3">核心</td><td class="heat-2">重要</td></tr>
+              <tr><td>忽邻塔/联邦政治</td><td class="heat-0">-</td><td class="heat-3">核心</td><td class="heat-2">重要</td><td class="heat-0">-</td><td class="heat-1">提及</td></tr>
+              <tr><td>农奴制/社会阶层</td><td class="heat-3">核心</td><td class="heat-0">-</td><td class="heat-1">提及</td><td class="heat-3">核心</td><td class="heat-0">-</td></tr>
+              <tr><td>技术扩散/军事革命</td><td class="heat-0">-</td><td class="heat-1">提及</td><td class="heat-3">核心</td><td class="heat-1">提及</td><td class="heat-2">重要</td></tr>
+              <tr><td>人魔贸易/和平构建</td><td class="heat-0">-</td><td class="heat-1">提及</td><td class="heat-2">重要</td><td class="heat-1">提及</td><td class="heat-3">核心</td></tr>
+              <tr><td>外传（EP0/1/2）</td><td class="heat-2">重要</td><td class="heat-0">-</td><td class="heat-0">-</td><td class="heat-1">提及</td><td class="heat-2">重要</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="section-title" id="s-summary">核心论点总结</h3>
+        <p>《魔王勇者》通过一个奇幻故事传达了一个深刻的政治经济学命题：<strong class="key">消除战争的根源（贫困与无知）比消灭敌人更重要</strong>。战争不是英雄主义的舞台，而是经济结构性矛盾的暴力表现。当粮食充足、教育普及、贸易畅通、制度公正时，战争便失去了存在的理由。</p>
+        <p>这一命题与真实世界的经验高度吻合：二战后欧洲的持久和平，很大程度上得益于经济一体化（欧盟前身）和福利国家的建立；而当今世界最不稳定的地区，往往也是贫困和教育匮乏最严重的地区。从这一角度看，《魔王勇者》不仅是一部优秀的轻小说，更是一部用故事包装的政治经济学教科书。</p>
+        <p>三卷外传从个人视角进一步印证了这一命题——无论是魔道协会的"人造勇者"计划所揭示的军事-工业复合体、执事亲历的战争代际循环所展现的制度性困境，还是女骑士见证的农奴解放运动所体现的自下而上社会革命，都表明<strong class="key">真正的变革必须从改变产生战争的社会结构本身开始</strong>。</p>
+      </section>
+
+    <div class="divider">* * *</div>
+
+    <!-- Theory Index -->
+    <section id="theory-index">
+      <h2>理论索引</h2>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;">按经济学家与理论分类，快速定位各知识点。</p>
+      <div class="index-grid">
+        <div class="index-card">
+          <h4>古典经济学</h4>
+          <ul>
+            <li>亚当·斯密《国富论》→ 自由贸易、分工、增长</li>
+            <li>大卫·李嘉图《政治经济学及赋税原理》→ 比较优势</li>
+            <li>托马斯·马尔萨斯《人口原理》→ 人口陷阱、战争抑制</li>
+          </ul>
+        </div>
+        <div class="index-card">
+          <h4>马克思主义</h4>
+          <ul>
+            <li>卡尔·马克思《共产党宣言》→ 阶级斗争、异化</li>
+            <li>列宁《帝国主义论》→ 战争与垄断资本</li>
+          </ul>
+        </div>
+        <div class="index-card">
+          <h4>凯恩斯主义</h4>
+          <ul>
+            <li>凯恩斯《通论》→ 有效需求、政府干预</li>
+            <li>凯恩斯《和平的经济后果》→ 战后和平红利</li>
+          </ul>
+        </div>
+        <div class="index-card">
+          <h4>制度经济学</h4>
+          <ul>
+            <li>道格拉斯·诺斯《制度、制度变迁与经济绩效》→ 制度与增长</li>
+            <li>埃莉诺·奥斯特罗姆《公共事物的治理之道》→ 自治组织</li>
+          </ul>
+        </div>
+        <div class="index-card">
+          <h4>创新理论</h4>
+          <ul>
+            <li>约瑟夫·熊彼特《经济发展理论》→ 创造性破坏</li>
+            <li>保罗·罗默内生增长理论→ 知识积累</li>
+          </ul>
+        </div>
+        <div class="index-card">
+          <h4>社会学理论</h4>
+          <ul>
+            <li>马克斯·韦伯《新教伦理》→ 宗教与资本主义</li>
+            <li>韦伯《阶级、地位与权力》→ 社会分层</li>
+            <li>皮埃尔·布迪厄《区分》→ 文化资本</li>
+          </ul>
+        </div>
+        <div class="index-card">
+          <h4>国际关系</h4>
+          <ul>
+            <li>汉斯·摩根索《国家间政治》→ 现实主义</li>
+            <li>罗伯特·基欧汉《霸权之后》→ 国际制度</li>
+            <li>约瑟夫·奈《软实力》→ 文化影响力</li>
+          </ul>
+        </div>
+        <div class="index-card">
+          <h4>博弈论与谈判</h4>
+          <ul>
+            <li>约翰·纳什纳什均衡→ 博弈论基础</li>
+            <li>托马斯·谢林《冲突的策略》→ 谈判策略</li>
+            <li>罗伯特·阿克塞尔罗德《合作的进化》→ 重复博弈</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- History Index -->
+    <section id="history-index">
+      <h2>历史事件索引</h2>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;">按时间线分类的历史事件，便于读者将理论置于历史语境中理解。</p>
+      <div class="index-grid">
+        <div class="index-card">
+          <h4>中世纪（5-15世纪）</h4>
+          <ul>
+            <li>十字军东征（1096-1291）</li>
+            <li>火药传入欧洲（13-14世纪）</li>
+            <li>蒙古忽邻台大会（13世纪）</li>
+            <li>黑死病（1347-1351）</li>
+            <li>圣女贞德（15世纪）</li>
+          </ul>
+        </div>
+        <div class="index-card">
+          <h4>近代早期（16-17世纪）</h4>
+          <ul>
+            <li>马铃薯传入欧洲（16世纪）</li>
+            <li>马丁·路德宗教改革（1517）</li>
+            <li>英国宗教改革（1534）</li>
+            <li>古登堡印刷术（1456）</li>
+            <li>荷兰黄金时代（17世纪）</li>
+            <li>三十年战争（1618-1648）</li>
+            <li>威斯特伐利亚和约（1648）</li>
+            <li>英国农业革命（17-18世纪）</li>
+          </ul>
+        </div>
+        <div class="index-card">
+          <h4>启蒙与革命（18-19世纪）</h4>
+          <ul>
+            <li>法国大革命（1789）</li>
+            <li>美国独立宣言（1776）</li>
+            <li>海地革命（1791-1804）</li>
+            <li>拿破仑战争（1803-1815）</li>
+            <li>普鲁士教育改革（1809-1810）</li>
+            <li>美国赠地学院（1862）</li>
+          </ul>
+        </div>
+        <div class="index-card">
+          <h4>20世纪</h4>
+          <ul>
+            <li>第一次世界大战（1914-1918）</li>
+            <li>凡尔赛条约（1919）</li>
+            <li>俄国革命（1917）</li>
+            <li>第二次世界大战（1939-1945）</li>
+            <li>马歇尔计划（1948-1952）</li>
+            <li>冷战（1947-1991）</li>
+            <li>越南战争（1955-1975）</li>
+            <li>欧盟形成（1951-1993）</li>
+          </ul>
+        </div>
+        <div class="index-card">
+          <h4>当代</h4>
+          <ul>
+            <li>卢旺达大屠杀与和解（1994后）</li>
+            <li>南非真相与和解委员会（1995-2003）</li>
+            <li>巴尔干冲突（1990年代）</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider">* * *</div>
+
+    <div style="margin-top:2rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+      <a href="ch8b-side-stories.html" class="nav-link">← 外传三卷</a>
+      <a href="../../index.html" class="nav-link">返回首页</a>
+    </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>《魔王勇者》政治经济学手册 · ACG 知识库</p>
+    <p class="copyright">原作：橙乃真希。本站内容采用 MIT 协议开源。</p>
+  </div>
+</footer>
+</body>
+</html>

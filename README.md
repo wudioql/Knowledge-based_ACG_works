@@ -16,7 +16,7 @@
 
 ## 🌐 在线访问
 
-> 项目尚未部署至 GitHub Pages，部署完成后将在此更新访问链接。
+> 项目已部署至 GitHub Pages：https://wudioql.github.io/Knowledge-based-ACG-works/
 
 ## 🚀 本地预览
 
@@ -109,14 +109,33 @@ Knowledge-based ACG works/
 │       └── tondemo-skill-food/
 ├── content/                    # 内容页面（仅写语义 HTML，不配样式）
 │   ├── dr-stone-science/      # 《石纪元》项目
-│   │   └── index.html
+│   │   ├── index.html         # 封面页、目录
+│   │   ├── ch1-overview.html  # 第一章：作品概览
+│   │   ├── ch2-primitive.html # 第二章：序章篇
+│   │   ├── ch3-kingdom.html   # 第三章：科学王国篇
+│   │   ├── ch4-wars.html      # 第四章：石之战争篇
+│   │   ├── ch5-voyage.html    # 第五章：大航海时代篇
+│   │   ├── ch6-treasure.html  # 第六章：宝岛篇
+│   │   ├── ch7-newworld.html  # 第七章：新世界篇
+│   │   ├── ch8-space.html     # 第八章：石至太空篇
+│   │   └── appendix.html       # 附录
 │   ├── maoyuu-political-economy/  # 《魔王勇者》项目
-│   │   └── index.html
+│   │   ├── index.html         # 封面、世界观、核心概念、索引
+│   │   ├── ch1b-volumes.html # 正文五卷故事梗概
+│   │   ├── vol1.html          # 第一卷详解
+│   │   ├── vol2.html          # 第二卷详解
+│   │   ├── vol3.html          # 第三卷详解
+│   │   ├── vol4.html          # 第四卷详解
+│   │   ├── vol5.html          # 第五卷详解
+│   │   ├── ch8b-side-stories.html  # 外传三卷
+│   │   └── ch8-analysis.html  # 整体叙事脉络分析
 │   ├── shokugeki-no-soma/     # 《食戟之灵》项目
 │   │   ├── index.html
 │   │   └── arc-*.html         # 10 个篇章页
 │   └── tondemo-skill-food/    # 异世界流浪美食家项目
-│       └── index.html
+│       ├── index.html         # 封面、简介、食材表、索引
+│       ├── season1.html        # 第一季内容（12集）
+│       └── season2.html        # 第二季内容（12集）
 ├── scripts/                    # 共享 JavaScript 脚本
 │   └── navigation.js           # 全站通用交互（nav / collapsible / side-toc / filter / smooth-scroll）
 ├── styles/                     # 样式文件（骨架 + 主题）
@@ -392,34 +411,18 @@ git push origin main
 
 ---
 
-**最后更新**: 2026-06-14（合并 trae/solo-agent-922K4i：导航交互重构 + 核心样式变量化 + 深色主题兼容修复）
+**最后更新**: 2026-06-14（内容模块化重构 + 石纪元图片路径修复 + 部署链接更新）
 
-## 🔧 近期更新（2026-06-14 合并）
+## 🔧 近期更新（2026-06-14 重构）
 
-### 导航交互重构
-- `scripts/navigation.js` 中的折叠/展开逻辑由直接操作 `style.display` 改为使用 `expanded` CSS 类统一控制，提升 DOM 兼容性
-- 优化了 TOC 子节点的查找逻辑，修复了章节箭头点击无法展开/收起的问题
-- `expandAll`/`collapseAll`/`toggleSection` 函数同步更新为类切换方式
+### 内容模块化重构
+- `content/dr-stone-science/`：将单一 819 行文件拆分为 10 个独立章节文件
+- `content/maoyuu-political-economy/`：将单一 1660 行文件拆分为 9 个独立章节文件
+- `content/tondemo-skill-food/`：将单一 128KB+ 文件拆分为 3 个独立文件（封面 + 两季）
+- `content/shokugeki-no-soma/`：已是模块化结构，无需修改
 
-### 核心样式变量化
-- `styles/core.css` 新增 `--card-bg` CSS 变量，全站卡片、表格、筛选栏等组件统一使用
-- Hero 区域渐变改用 `--accent` / `--accent2` 变量组合，主题可灵活自定义
-- Hero 中的副标题和统计标签统一使用 `--ink-on-accent` 确保对比度
+### 石纪元图片路径修复
+- 修复第 3、4、6、8 章图片路径错误（`assets/chX-*.jpg` → `../../assets/images/dr-stone-science/chX-*.jpg`）
 
-### 深色主题兼容修复
-以下问题在合并后被发现并修复：
-
-1. **白底白字问题**：深色主题（首页、石纪元、魔王勇者）的 header/footer 曾因 `--ink` 被覆盖为浅色导致白底白字，已通过新增 `--header-bg` 变量覆盖解决
-2. **Hero 渐变色条**：《石纪元》页面的 hero 区域曾叠加了 core.css 默认渐变，现已清除，改为纯图片背景
-3. **主题变量规范化**：各主题 CSS 补全 `--card-bg` 定义，将硬编码白色替换为 CSS 变量
-
-### 受影响文件
-| 文件 | 主要变更 |
-|------|---------|
-| `scripts/navigation.js` | 折叠逻辑改用 CSS 类切换 |
-| `styles/core.css` | 新增 `--card-bg` 变量，统一组件背景色 |
-| `styles/themes/home.css` | 新增 `--header-bg`，覆盖 header/footer 深色样式 |
-| `styles/themes/dr-stone-science.css` | 新增 `--header-bg`，清除 hero 默认渐变，优化 TOC 样式 |
-| `styles/themes/maoyuu-political-economy.css` | 新增 `--header-bg` 与 `.toc-action-btn` 样式 |
-| `styles/themes/shokugeki-no-soma.css` | 补全 `--card-bg`，提升弧形卡片标题对比度 |
-| `styles/themes/tondemo-skill-food.css` | 补全 `--card-bg`，替换多处硬编码白色背景 |
+### 部署信息更新
+- 添加 GitHub Pages 部署链接：https://wudioql.github.io/Knowledge-based-ACG-works/

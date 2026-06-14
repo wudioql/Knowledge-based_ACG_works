@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>外传三卷 — 魔王勇者政治经济学手册</title>
+<link rel="stylesheet" href="../../styles/core.css">
+<link rel="stylesheet" href="../../styles/themes/maoyuu-political-economy.css">
+<script defer src="../../scripts/navigation.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a href="../../index.html" class="site-logo">
+      <span class="logo-icon">👑</span>
+      <span>《魔王勇者》政治经济学手册</span>
+    </a>
+    <button class="nav-toggle" aria-label="菜单">☰</button>
+    <nav class="site-nav">
+      <a href="../../index.html">← 返回首页</a>
+      <a href="../dr-stone-science/index.html">石纪元</a>
+      <a href="../tondemo-skill-food/index.html">流浪美食家</a>
+      <a href="../shokugeki-no-soma/index.html">食戟之灵</a>
+    </nav>
+  </div>
+</header>
+<button class="hamburger" aria-label="目录">☰</button>
+<div class="sidebar-overlay"></div>
+
+<div class="container">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h1>魔王勇者</h1>
+      <p>政治经济学手册</p>
+    </div>
+    <div class="toc-actions">
+      <button onclick="expandAll()">全部展开</button>
+      <button onclick="collapseAll()">全部收起</button>
+    </div>
+    <ul class="toc-tree" id="tocTree">
+      <li><a href="../../index.html">首页</a></li>
+      <li><a href="ch1b-volumes.html">正文五卷故事梗概</a></li>
+      <li><a href="vol1.html">第一卷</a></li>
+      <li><a href="vol2.html">第二卷</a></li>
+      <li><a href="vol3.html">第三卷</a></li>
+      <li><a href="vol4.html">第四卷</a></li>
+      <li><a href="vol5.html">第五卷</a></li>
+      <li><a href="ch8b-side-stories.html">外传三卷</a></li>
+      <li><a href="ch8-analysis.html">整体叙事脉络分析</a></li>
+    </ul>
+  </nav>
+
+  <main class="main" id="mainContent">
+    <!-- Side Stories -->
+    <section id="ch8b">
+        <h2 class="chapter-title"><span class="ch-num">外传</span> 外传三卷：战争循环中的个人叙事</h2>
+
+        <p>正传5卷以魔王和勇者的改革为主线，而3卷外传则从三位重要配角的个人视角出发，补充了正传未详细展开的背景故事。虽然外传不以政治经济学为主题，但它们从不同角度揭示了战争体制的深层运作逻辑。</p>
+
+        <!-- EP1 Card -->
+        <div class="concept-card" id="ep1">
+          <div class="concept-card-header">
+            <span class="concept-num">EP1</span>
+            榆之国的女魔法使
+            <span class="volume-tag">2011.10</span>
+          </div>
+          <div style="padding:1.25rem 1.5rem;">
+            <h4 style="font-family:var(--font-heading);font-size:1rem;color:var(--accent);margin-bottom:0.75rem;">剧情概要</h4>
+            <p>本卷为正传前日谭，以<strong class="key">女魔法使（代号"银"）</strong>为主角。女魔法使出身于榆之国，是圣光教会下属<strong class="key">魔道协会</strong>"人造勇者"培养计划的实验体——该计划从幼年开始培养孩子，让他们互相战斗淘汰，以制造出足以对抗魔王的战士。女魔法使体内寄宿着两个因魔法事故死亡的"姐姐"的灵魂（"白"和"蓝"），在残酷的训练中存活下来。当她遇到天然呆且无所畏惧的勇者后，意识到自己和同伴们不过是"模造品"，最终选择追随勇者踏上旅途。</p>
+            <div class="analysis-box" style="margin-top:1rem;">
+              <h4>政经关联：军事-工业复合体</h4>
+              <p>魔道协会的"人造勇者"计划本质上是一种<strong class="key">军事-工业复合体</strong>——教会通过垄断魔法研究和勇者培养来维持对战争的主导权。将儿童作为实验品培养，反映了永续战争体制下人力资源被极端军事化利用的社会结构问题。这一设定补充了正传中圣光教会权力结构的分析：教会不仅是宗教权威，还通过制度化手段直接控制着人类的军事力量。</p>
+            </div>
+            <p style="margin-top:0.75rem;font-size:0.88rem;color:var(--muted);"><strong class="key">世界观补充：</strong>揭示女魔法使来自书库族（Library Clan），与魔王和女仆长是同族，实为魔族而非人类——人魔界限远比表面看起来模糊。</p>
+          </div>
+        </div>
+
+        <!-- EP0 Card -->
+        <div class="concept-card" id="ep0">
+          <div class="concept-card-header">
+            <span class="concept-num">EP0</span>
+            砂丘之国の弓使
+            <span class="volume-tag">2012.06</span>
+          </div>
+          <div style="padding:1.25rem 1.5rem;">
+            <h4 style="font-family:var(--font-heading);font-size:1rem;color:var(--accent);margin-bottom:0.75rem;">剧情概要</h4>
+            <p>本卷为正传前日谭（更早时期），以<strong class="key">执事（老弓兵）</strong>为主角。执事原本是剑士，曾是先代女勇者小队的成员，亲历了前代勇者小队的悲剧。一个正经而一根筋的剑士因此变成了如今轻浮的老弓兵，带着"去不掉的印记"。本卷的核心问题是：为何他决定再次与年轻的勇者踏上战场？答案在于——为了打破"人与人互相残杀的循环"，他选择支持魔王推动的<strong class="key">启蒙运动</strong>。附赠朗读剧还描绘了勇者幼年时期在老贤者指导下成长的经历，以及农奴姐妹在遇到魔王之前的悲惨生活。</p>
+            <div class="analysis-box" style="margin-top:1rem;">
+              <h4>政经关联：战争循环与制度变革</h4>
+              <p>执事亲历两代勇者小队的经历，揭示了<strong class="key">战争作为一种"制度"如何自我延续</strong>——每一代都有新的勇者和魔王诞生，但根本问题（粮食不足、社会结构矛盾）从未被解决。这呼应了正传中魔王的核心分析："即使打倒我也无法解决战争。"执事支持魔王的改革，体现了只有通过教育、农业改革、经济重构才能打破战争恶性循环的制度变革理念。</p>
+            </div>
+            <p style="margin-top:0.75rem;font-size:0.88rem;color:var(--muted);"><strong class="key">世界观补充：</strong>揭示了前代女勇者的存在、勇者幼年成长经历、冬之王子（冬寂王）被中央诸国打压的政治处境，以及农奴姐妹逃亡前的背景。</p>
+          </div>
+        </div>
+
+        <!-- EP2 Card -->
+        <div class="concept-card" id="ep2">
+          <div class="concept-card-header">
+            <span class="concept-num">EP2</span>
+            花之国の女騎士
+            <span class="volume-tag">2012.12</span>
+          </div>
+          <div style="padding:1.25rem 1.5rem;">
+            <h4 style="font-family:var(--font-heading);font-size:1rem;color:var(--accent);margin-bottom:0.75rem;">剧情概要</h4>
+            <p>本卷为正传并行/补充视角，以<strong class="key">女骑士</strong>为主角。女骑士出身于花之国，性格刚强的金发少女，隶属于湖畔修道会并担任修道院长。勇者跟随魔王离去后，女骑士独自回到故乡担任修女，后接受魔王与勇者的请求重新出山，担任魔王宅邸的剑术教官和湖畔教会驻冬之国的代表。在极光岛夺还作战中担任司令官，展现了卓越的军事指挥才能，此后成为冬之国军队的核心指挥官。附赠ドラマCD收录了正传中最具象征意义的场景——<strong class="key">女仆姐的"人間宣言"</strong>。</p>
+            <div class="analysis-box" style="margin-top:1rem;">
+              <h4>政经关联：社会革命与联盟军事</h4>
+              <p>女骑士作为修道院长兼军事司令官的双重身份，揭示了中世纪宗教组织不仅是精神权威，还扮演着<strong class="key">外交使节和军事指挥官</strong>的政治实体角色。她在极光岛夺还作战中的指挥，展现了联盟军事行动的协调机制——不同国家如何在统一指挥下进行联合军事行动。而ドラマCD中收录的"人間宣言"（农奴啊站起来），是正传中最具社会革命意义的场景——一个前农奴在处刑台上宣告自由，直接引发了南部诸国的农奴解放运动。</p>
+            </div>
+            <p style="margin-top:0.75rem;font-size:0.88rem;color:var(--muted);"><strong class="key">世界观补充：</strong>揭示了女骑士的出身地花之国、勇者小队时期各成员的关系动态，以及女骑士从修女到军事司令官的角色转变轨迹。</p>
+          </div>
+        </div>
+
+        <h3 class="section-title" id="s-ep-timeline">外传时间线与正传的关系</h3>
+        <div class="table-wrap">
+          <table class="heatmap-table">
+            <thead>
+              <tr>
+                <th>外传</th>
+                <th>时间线位置</th>
+                <th>主角</th>
+                <th>核心主题</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>EP1 榆之国</td><td>正传前（勇者组队时期）</td><td>女魔法使</td><td>人造勇者 / 身份认同</td></tr>
+              <tr><td>EP0 砂丘之国</td><td>正传前半年（更早）</td><td>执事/老弓兵</td><td>战争循环 / 制度变革</td></tr>
+              <tr><td>EP2 花之国</td><td>正传并行（补充视角）</td><td>女骑士</td><td>军事指挥 / 社会革命</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    <section id="side-stories">
+      <h2>番外总览</h2>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;">番外3卷虽与政治经济学主线关系较弱，但作为原作的重要组成部分，以下提供故事梗概及与正传的关联知识点。</p>
+
+      <h3 id="ss-e1" onclick="toggleSection('ss-e1-content', this)"><span class="section-toggle">▶</span> 外传1：榆之国的女魔法师</h3>
+      <div class="collapsible" id="ss-e1-content">
+        <div class="story-box">
+          <h5>故事梗概</h5>
+          <p>以女魔法使为主视角，叙述她在魔界的经历。女魔法使为追寻勇者而独自进入魔界，在旅途中逐渐了解世界的"系统"构成和维护机制，收服喙翼族幸存者。</p>
+        </div>
+        <div class="card">
+          <div class="card-grid">
+            <div class="card-col">
+              <h5>番外内容</h5>
+              <ul>
+                <li>女魔法使独自进入魔界</li>
+                <li>了解世界"系统"的构成与维护</li>
+                <li>收服喙翼族幸存者</li>
+                <li>"人造勇者"计划的批判</li>
+              </ul>
+            </div>
+            <div class="card-col">
+              <h5>关联知识点</h5>
+              <ul>
+                <li>少数民族/边缘群体的整合（喙翼族）</li>
+                <li>技术官僚体制的反思（"人造勇者"）</li>
+                <li>世界系统的维护机制——制度经济学的隐喻</li>
+              </ul>
+            </div>
+            <div class="card-col">
+              <h5>历史对照</h5>
+              <ul>
+                <li>殖民地的少数民族整合政策</li>
+                <li>优生学运动的历史反思（20世纪初）</li>
+                <li>技术官僚体制的兴起与批判（20世纪）</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 id="ss-e0" onclick="toggleSection('ss-e0-content', this)"><span class="section-toggle">▶</span> 外传2：沙丘之国的弓箭手</h3>
+      <div class="collapsible" id="ss-e0-content">
+        <div class="story-box">
+          <h5>故事梗概</h5>
+          <p>以执事（老弓兵）为主角的前传故事。揭示他作为前代女勇者队伍一员时的悲伤过去，以及他为何选择与年轻勇者再次并肩作战。</p>
+        </div>
+        <div class="card">
+          <div class="card-grid">
+            <div class="card-col">
+              <h5>番外内容</h5>
+              <ul>
+                <li>执事作为前代勇者队伍一员的经历</li>
+                <li>前代勇者队伍的悲剧</li>
+                <li>战争循环的历史重复</li>
+                <li>执事从前剑士到弓兵的转变</li>
+              </ul>
+            </div>
+            <div class="card-col">
+              <h5>关联知识点</h5>
+              <ul>
+                <li>战争对个人身份的重塑</li>
+                <li>历史循环论与制度陷阱</li>
+                <li>代际创伤与历史记忆</li>
+              </ul>
+            </div>
+            <div class="card-col">
+              <h5>历史对照</h5>
+              <ul>
+                <li>一战与二战的循环（1914-1945）</li>
+                <li>越战老兵的创伤后应激障碍</li>
+                <li>日本"失落的三十年"与历史记忆</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 id="ss-e2" onclick="toggleSection('ss-e2-content', this)"><span class="section-toggle">▶</span> 外传3：花之国的女骑士</h3>
+      <div class="collapsible" id="ss-e2-content">
+        <div class="story-box">
+          <h5>故事梗概</h5>
+          <p>以女骑士为主视角的外传，聚焦女骑士在湖畔教会时期的经历，展现宗教改革的具体过程及女性在中世纪宗教体制中的角色与突破。</p>
+        </div>
+        <div class="card">
+          <div class="card-grid">
+            <div class="card-col">
+              <h5>番外内容</h5>
+              <ul>
+                <li>女骑士在湖畔教会的经历</li>
+                <li>宗教改革的具体过程</li>
+                <li>女性在宗教体制中的角色</li>
+                <li>军事修会的组织与运作</li>
+              </ul>
+            </div>
+            <div class="card-col">
+              <h5>关联知识点</h5>
+              <ul>
+                <li>宗教改革中的女性角色</li>
+                <li>军事修会的组织经济学</li>
+                <li>性别与权力结构</li>
+              </ul>
+            </div>
+            <div class="card-col">
+              <h5>历史对照</h5>
+              <ul>
+                <li>圣女贞德与女性军事领袖（15世纪）</li>
+                <li>宗教改革中的女性活动家（16世纪）</li>
+                <li>圣殿骑士团与医院骑士团（12-14世纪）</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider">* * *</div>
+
+    <div style="margin-top:2rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+      <a href="vol5.html" class="nav-link">← 第五卷</a>
+      <a href="ch8-analysis.html" class="nav-link">整体叙事脉络分析 →</a>
+    </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>《魔王勇者》政治经济学手册 · ACG 知识库</p>
+    <p class="copyright">原作：橙乃真希。本站内容采用 MIT 协议开源。</p>
+  </div>
+</footer>
+</body>
+</html>
