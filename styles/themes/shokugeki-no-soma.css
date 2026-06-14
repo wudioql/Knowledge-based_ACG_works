@@ -588,3 +588,16 @@
     background: #fff;
   }
 }
+
+/* 右侧目录主题微调：浅米背景 + 柔和阴影，确保在 header / sticky filter 下不被遮挡 */
+.side-toc {
+  background: #fffdf8;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  z-index: 60;
+  top: 88px;
+}
+
+.side-toc h4 {
+  color: var(--accent);
+  font-size: 0.85rem;
+}

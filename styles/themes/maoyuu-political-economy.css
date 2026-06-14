@@ -24,9 +24,13 @@
   color: var(--ink);
   border-bottom: 1px solid var(--rule);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  z-index: 200;
+  position: sticky;
+  top: 0;
 }
 .site-header .site-logo {
   color: var(--ink);
+  padding-left: 0.5rem;
 }
 .site-header .site-logo:hover {
   color: var(--accent);
@@ -72,7 +76,7 @@
   background: var(--bg2);
   border-right: 1px solid var(--rule);
   position: fixed;
-  top: 0;
+  top: 56px;
   left: 0;
   bottom: 0;
   overflow-y: auto;
@@ -520,6 +524,35 @@ mark.key {
   background: none;
   color: var(--accent);
   font-weight: 600;
+}
+
+/* 图表 / 插图容器 */
+.figure-container {
+  margin: 1.5rem 0;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: #1a1a2e;
+  border: 1px solid var(--rule);
+}
+
+.figure-container svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.figure-container figcaption,
+figcaption {
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-align: center;
+  padding-top: 0.75rem;
+  font-family: var(--font-body);
+}
+
+/* SVG 文字统一样式：确保深色背景下文字可读 */
+.figure-container svg text {
+  font-family: "Noto Sans CJK SC", "PingFang SC", sans-serif;
 }
 
 /* Responsive */
