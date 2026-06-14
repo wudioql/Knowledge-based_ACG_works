@@ -3,17 +3,86 @@
 :root {
   --bg: #0f0f1a;
   --bg2: #1a1a2e;
+  --card-bg: #1a1a2e;
   --ink: #f5f5f5;
   --muted: #b8b8d1;
   --rule: #2a2a4a;
   --accent: #e94560;
   --accent2: #ff6b6b;
   --ink-on-accent: #ffffff;
+  --header-bg: #0a0a14;
   --font-heading: 'Lora', 'Noto Serif SC', Georgia, serif;
   --font-body: 'Inter', 'Noto Sans SC', 'PingFang SC', sans-serif;
   --content-width: 1200px;
   --card-radius: 16px;
   --section-gap: 3rem;
+}
+
+/* Site Header — 深色主题覆盖，避免白底白字 */
+.site-header {
+  background: var(--header-bg);
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.site-header .site-logo {
+  color: var(--ink);
+}
+.site-header .site-logo:hover {
+  color: var(--accent);
+}
+
+.site-nav a {
+  color: var(--muted);
+}
+.site-nav a:hover,
+.site-nav a.active {
+  color: var(--ink-on-accent);
+  background: var(--accent);
+}
+
+.nav-toggle {
+  border-color: rgba(245, 245, 245, 0.3);
+  color: var(--ink);
+}
+.nav-toggle:hover {
+  background: rgba(245, 245, 245, 0.1);
+}
+
+@media (max-width: 768px) {
+  .site-nav {
+    background: var(--header-bg);
+  }
+  .site-nav a {
+    color: var(--muted);
+  }
+  .site-nav a:hover,
+  .site-nav a.active {
+    background: var(--accent);
+    color: var(--ink-on-accent);
+  }
+}
+
+/* Site Footer — 深色主题覆盖 */
+.site-footer {
+  background: var(--header-bg);
+  color: var(--muted);
+  border-top: 1px solid var(--rule);
+}
+.site-footer .copyright {
+  color: rgba(184, 184, 209, 0.5);
+}
+
+/* Hero — 调整文字对比与 subtitle 颜色 */
+.hero {
+  color: var(--ink);
+}
+.hero .subtitle {
+  color: var(--muted);
+}
+.hero .description {
+  color: var(--muted);
 }
 
 /* Hero Section */
