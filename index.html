@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACG 知识库 | Knowledge-based ACG Works</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f0f1a;
+            --bg-secondary: #1a1a2e;
+            --bg-card: #16213e;
+            --accent: #e94560;
+            --accent-hover: #ff6b6b;
+            --text-primary: #f5f5f5;
+            --text-secondary: #b8b8d1;
+            --border: #2a2a4a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    
+        body {
+            font-family: 'Inter', 'Noto Serif SC', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+    
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+    
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(233, 69, 96, 0.08) 0%, transparent 60%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+    
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+    
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    
+        .hero h1 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+    
+        .hero .description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    
+        /* Projects Grid */
+        .projects {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+        }
+    
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+    
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+    
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+    
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 12px 40px rgba(233, 69, 96, 0.15);
+        }
+    
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+    
+        .project-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+    
+        .project-card h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+    
+        .project-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+    
+        .project-meta {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    
+        .project-tag {
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(233, 69, 96, 0.15);
+            color: var(--accent);
+        }
+    
+        .project-arrow {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+    
+        .project-card:hover .project-arrow {
+            transform: translateX(4px);
+        }
+    
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+    
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+    
+        footer a:hover {
+            text-decoration: underline;
+        }
+    
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+    
+            .hero .subtitle {
+                font-size: 1rem;
+            }
+    
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>ACG 知识库</h1>
+            <p class="subtitle">Knowledge-based ACG Works</p>
+            <p class="description">
+                基于动画、漫画、游戏作品的知识整理与科普，涵盖科学知识、政治经济学、料理文化等多个领域。
+            </p>
+        </div>
+    </section>
+
+    <section class="projects">
+        <div class="projects-grid">
+            <a href="./content/dr-stone-science/index.html" class="project-card">
+                <div class="project-icon">🧪</div>
+                <h2>《石纪元》科学知识手册</h2>
+                <p>从石器时代到现代文明，跟随《Dr.STONE》探索人类科技发展的完整历程与背后的科学原理。</p>
+                <div class="project-meta">
+                    <span class="project-tag">科学科普</span>
+                    <span class="project-arrow">→</span>
+                </div>
+            </a>
+    
+            <a href="./content/maoyuu-political-economy/index.html" class="project-card">
+                <div class="project-icon">👑</div>
+                <h2>《魔王勇者》政治经济学手册</h2>
+                <p>深度解析《魔王勇者》小说中的政治经济学概念，涵盖农业经济、货币理论、战争经济学等。</p>
+                <div class="project-meta">
+                    <span class="project-tag">政治经济学</span>
+                    <span class="project-arrow">→</span>
+                </div>
+            </a>
+    
+            <a href="./content/tondemo-skill-food/index.html" class="project-card">
+                <div class="project-icon">🍳</div>
+                <h2>异世界流浪美食家料理图鉴</h2>
+                <p>《拥有超常技能的异世界流浪美食家》中出现的料理大全，包含动画截图与现实对照。</p>
+                <div class="project-meta">
+                    <span class="project-tag">料理文化</span>
+                    <span class="project-arrow">→</span>
+                </div>
+            </a>
+    
+            <a href="./content/shokugeki-no-soma/index.html" class="project-card">
+                <div class="project-icon">🔥</div>
+                <h2>《食戟之灵》料理内容文档</h2>
+                <p>完整记录《食戟之灵》各篇章中的料理对决、角色介绍与剧情梳理，共10个篇章。</p>
+                <div class="project-meta">
+                    <span class="project-tag">料理对决</span>
+                    <span class="project-arrow">→</span>
+                </div>
+            </a>
+        </div>
+    </section>
+    
+    <footer>
+        <p>ACG 知识库 · 基于兴趣的知识整理项目</p>
+        <p style="margin-top: 8px;">
+            <a href="https://github.com/" target="_blank" rel="noopener" title="GitHub 仓库链接待部署后更新">GitHub</a>
+        </p>
+    </footer>
+</body>
+</html>
