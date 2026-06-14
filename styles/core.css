@@ -1,0 +1,926 @@
+/* =========================================================
+   ACG 知识库 — 全站骨架样式表（core.css）
+   =========================================================
+   本文件提供跨项目（料理 / 发明 / 战斗 / 设定）共享的基础骨架。
+   各项目的专属组件（dish-card、invention-card、battle-section、
+   arc-grid、concept-card 等）不应出现在此处，
+   而应放到各项目主题 CSS 中。
+   ========================================================= */
+
+/* ============ 1. Google Fonts CDN ============ */
+/* Lora（衬线标题）与 Work Sans（无衬线正文）保留自 base.css；
+   另加 Noto Serif SC 用于中文标题场景的退化。 */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Work+Sans:ital,wght@0,400;0,700;1,400&family=Noto+Serif+SC:wght@400;700&display=swap');
+
+/* ============ 2. CSS Variables（默认主题） ============ */
+/* 各项目主题 CSS 可通过覆盖 :root 中的同名变量完成换肤。 */
+:root {
+  /* 颜色 */
+  --bg: #ffffff;
+  --bg2: #f5f5f5;
+  --ink: #1a1a1a;
+  --muted: #777777;
+  --rule: #e5e5e5;
+  --accent: #c0392b;
+  --accent2: #f39c12;
+  --ink-on-accent: #ffffff;
+
+  /* 字体 */
+  --font-heading: 'Lora', 'Noto Serif SC', Georgia, serif;
+  --font-body: 'Work Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'Menlo', 'Consolas', 'Courier New', monospace;
+
+  /* 尺寸 / 间距 */
+  --content-width: 1080px;
+  --card-radius: 8px;
+  --section-gap: 3rem;
+
+  /* 阴影（轻量层级，避免项目主题差异过大） */
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 6px 20px rgba(0, 0, 0, 0.12);
+
+  /* 过渡（统一节奏） */
+  --trans-quick: 0.15s ease;
+  --trans: 0.2s ease;
+  --trans-slow: 0.3s ease;
+}
+
+/* ============ 3. Reset & Base ============ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background-color: var(--bg);
+  line-height: 1.7;
+  min-height: 100vh;
+  -webkit-text-size-adjust: 100%;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--trans);
+}
+a:hover {
+  color: var(--accent2);
+  text-decoration: underline;
+}
+
+/* 内联代码：用于资料中的术语缩写、关键词等 */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 0.1em 0.35em;
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  color: var(--ink);
+}
+
+/* 常见排版元素补充（避免各项目反复声明） */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+ul,
+ol {
+  margin: 0.5rem 0 1rem 1.5rem;
+}
+li {
+  margin-bottom: 0.4rem;
+  line-height: 1.7;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 2rem 0;
+}
+
+/* ============ 4. Utility 通用工具类 ============ */
+
+/* 主内容容器：水平居中 + 最大宽度 + 左右留白 */
+.container {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* 屏外元素：给无障碍读屏器使用 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 次要文字（备注、引用源等） */
+.muted {
+  color: var(--muted);
+}
+
+/* 强调色文字（数字、关键词） */
+.accent {
+  color: var(--accent);
+}
+
+/* 浮动工具 */
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* 通用文本对齐 */
+.text-center { text-align: center; }
+.text-left   { text-align: left; }
+.text-right  { text-align: right; }
+
+/* 间距工具（按主题变量给出的轻量 scale） */
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }
+
+/* ============ 5. Site Header / Navigation ============ */
+
+.site-header {
+  background: var(--ink);
+  color: var(--ink-on-accent);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  position: relative;
+}
+
+.site-logo {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ink-on-accent);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: 0.02em;
+}
+.site-logo:hover {
+  color: var(--accent2);
+  text-decoration: none;
+}
+.site-logo .logo-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.site-nav {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.site-nav a {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 4px;
+  transition: all var(--trans);
+  white-space: nowrap;
+}
+.site-nav a:hover,
+.site-nav a.active {
+  color: var(--ink-on-accent);
+  background: var(--accent);
+  text-decoration: none;
+}
+
+/* 移动端汉堡按钮：仅在 ≤768px 显示 */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--ink-on-accent);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.3rem 0.55rem;
+  border-radius: 4px;
+  transition: background var(--trans);
+}
+.nav-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ============ 6. Hero 首屏 ============ */
+
+.hero {
+  background: linear-gradient(135deg, var(--accent) 0%, #8e1a0f 100%);
+  color: var(--ink-on-accent);
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.hero .container {
+  max-width: 760px;
+}
+
+.hero h1 {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+}
+
+.hero .subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto 1rem;
+  line-height: 1.6;
+}
+
+.hero .description {
+  font-size: 0.95rem;
+  opacity: 0.8;
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.7;
+}
+
+.hero .stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.hero .stat {
+  text-align: center;
+  min-width: 90px;
+}
+
+.hero .stat-number {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent2);
+  display: block;
+  line-height: 1.1;
+}
+
+.hero .stat-label {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+/* ============ 7. Section Headings 分节标题 ============ */
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 3px solid var(--accent);
+}
+
+.section-title .title-en {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--muted);
+  font-family: var(--font-body);
+  margin-top: 0.35rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ============ 8. Cards 通用卡片 ============ */
+
+.card {
+  background: #ffffff;
+  border-radius: var(--card-radius);
+  border: 1px solid var(--rule);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: transform var(--trans), box-shadow var(--trans);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--bg2);
+}
+.card-header h2,
+.card-header h3,
+.card-header h4 {
+  color: var(--ink);
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.card-body {
+  padding: 1.5rem;
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+/* 卡片网格：各项目可在主题 CSS 中调整 minmax 与列数 */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+/* ============ 9. Tags 标签 ============ */
+
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  background: var(--accent);
+  color: var(--ink-on-accent);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+/* 轮廓标签：透明底 + 边框，用于次要分类 */
+.tag-outline {
+  background: transparent;
+  border: 1px solid var(--rule);
+  color: var(--muted);
+}
+
+/* 标签组容器（flex 自动换行） */
+.tag-list {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+/* ============ 10. Filter Bar 筛选栏 ============ */
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #ffffff;
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--rule);
+  position: sticky;
+  top: 56px;
+  z-index: 50;
+}
+
+.filter-label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--muted);
+  align-self: center;
+  margin-right: 0.5rem;
+}
+
+.filter-btn {
+  font-size: 0.8rem;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all var(--trans);
+  font-family: var(--font-body);
+  line-height: 1.4;
+}
+.filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--ink-on-accent);
+}
+
+/* ============ 11. Back to Top 回到顶部 ============ */
+
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 44px;
+  height: 44px;
+  background: var(--accent);
+  color: var(--ink-on-accent);
+  border: none;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity var(--trans-slow),
+              visibility var(--trans-slow),
+              background var(--trans),
+              transform var(--trans);
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.back-to-top:hover {
+  background: var(--accent2);
+  transform: translateY(-3px);
+}
+
+/* ============ 12. Side TOC / Sidebar 侧边目录 ============ */
+
+/* 12.1 左侧固定 Sidebar（用于项目总览或长文档目录） */
+.sidebar-toc {
+  position: fixed;
+  top: 72px;
+  left: 1rem;
+  width: 220px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-md);
+  padding: 1rem;
+  font-size: 0.82rem;
+  z-index: 40;
+  border: 1px solid var(--rule);
+}
+
+.sidebar-toc h4 {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sidebar-toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-toc li {
+  margin-bottom: 0.25rem;
+  line-height: 1.5;
+}
+
+.sidebar-toc a {
+  color: var(--muted);
+  display: block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  transition: color var(--trans), background var(--trans);
+  line-height: 1.4;
+}
+.sidebar-toc a:hover,
+.sidebar-toc a.active {
+  color: var(--accent);
+  background: var(--bg2);
+  text-decoration: none;
+}
+
+/* 移动端侧边栏切换按钮 */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 72px;
+  left: 0.75rem;
+  z-index: 60;
+  background: var(--accent);
+  color: var(--ink-on-accent);
+  border: none;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.85rem;
+  border-radius: 0 var(--card-radius) var(--card-radius) 0;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-body);
+}
+.sidebar-toggle:hover {
+  background: var(--accent2);
+}
+
+/* 为主内容预留 sidebar 宽度的容器（左右目录共用） */
+.main-content {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* 12.2 右侧浮动目录（常见于详情页） */
+.side-toc {
+  position: fixed;
+  top: 80px;
+  right: 1rem;
+  width: 200px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-md);
+  padding: 1rem;
+  font-size: 0.78rem;
+  z-index: 40;
+  border: 1px solid var(--rule);
+}
+
+.side-toc h4 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.side-toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.side-toc li {
+  margin-bottom: 0.25rem;
+}
+
+.side-toc a {
+  color: var(--muted);
+  display: block;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  transition: color var(--trans), background var(--trans);
+  line-height: 1.4;
+}
+.side-toc a:hover,
+.side-toc a.active {
+  color: var(--accent);
+  background: var(--bg2);
+  text-decoration: none;
+}
+
+/* ============ 13. Tables 表格 ============ */
+
+.table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--rule);
+  border-radius: var(--card-radius);
+  background: #ffffff;
+  margin: 1.5rem 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background: #ffffff;
+}
+
+thead {
+  background: var(--bg2);
+}
+
+th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  border-bottom: 2px solid var(--rule);
+  font-family: var(--font-body);
+  white-space: nowrap;
+}
+
+td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
+  vertical-align: top;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: var(--bg2);
+}
+
+/* ============ 14. Footer 页脚 ============ */
+
+.site-footer {
+  background: var(--ink);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 2rem 0;
+  margin-top: 4rem;
+  font-size: 0.85rem;
+}
+
+.site-footer .container {
+  text-align: center;
+}
+
+.site-footer a {
+  color: var(--accent2);
+}
+
+.site-footer .footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.site-footer .footer-links a {
+  color: rgba(255, 255, 255, 0.8);
+  transition: color var(--trans);
+}
+.site-footer .footer-links a:hover {
+  color: var(--accent2);
+  text-decoration: none;
+}
+
+.site-footer .copyright {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ============ 15. Responsive 响应式断点 ============ */
+
+/* 15.1 中等屏：≤1024px —— 隐藏右侧/左侧 TOC，显示切换按钮 */
+@media (max-width: 1024px) {
+  .side-toc {
+    display: none;
+  }
+
+  .sidebar-toc {
+    transform: translateX(-100%);
+    transition: transform var(--trans-slow);
+    top: 64px;
+    left: 0;
+    width: 260px;
+    max-height: calc(100vh - 64px);
+    border-radius: 0 0 var(--card-radius) 0;
+    z-index: 70;
+  }
+  .sidebar-toc.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-toggle {
+    display: inline-block;
+  }
+}
+
+/* 15.2 平板/手机：≤768px —— 导航折叠，网格单列 */
+@media (max-width: 768px) {
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--ink);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem;
+    gap: 0.25rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  .site-nav.open {
+    display: flex;
+  }
+  .site-nav a {
+    padding: 0.55rem 1rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .site-nav a:hover,
+  .site-nav a.active {
+    background: var(--accent);
+  }
+
+  .nav-toggle {
+    display: inline-block;
+  }
+
+  .site-header .container {
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+  }
+
+  /* Hero 缩小 */
+  .hero {
+    padding: 3rem 0;
+  }
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  .hero .stats {
+    gap: 1.25rem;
+  }
+  .hero .stat-number {
+    font-size: 1.6rem;
+  }
+
+  /* 分节标题缩小 */
+  .section-title {
+    font-size: 1.45rem;
+  }
+
+  /* 卡片网格：单列 */
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* 筛选栏不再 sticky，防止移动端滚动干扰 */
+  .filter-bar {
+    position: static;
+  }
+
+  /* 回到顶部按钮略缩小 */
+  .back-to-top {
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+    bottom: 1.25rem;
+    right: 1.25rem;
+  }
+}
+
+/* 15.3 手机小屏：≤480px */
+@media (max-width: 480px) {
+  html {
+    font-size: 15px;
+  }
+
+  .hero {
+    padding: 2.25rem 0;
+  }
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+  .hero .subtitle {
+    font-size: 1rem;
+  }
+
+  .card-header,
+  .card-body {
+    padding: 1rem;
+  }
+
+  .filter-bar {
+    padding: 0.75rem;
+    gap: 0.4rem;
+  }
+  .filter-label {
+    margin-right: 0.25rem;
+    font-size: 0.8rem;
+  }
+  .filter-btn {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.7rem;
+  }
+
+  table {
+    font-size: 0.82rem;
+  }
+  th,
+  td {
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* ============ 16. Print 打印样式 ============ */
+
+@media print {
+  /* 隐藏纯交互元素 */
+  .site-header,
+  .side-toc,
+  .sidebar-toc,
+  .sidebar-toggle,
+  .back-to-top,
+  .filter-bar,
+  .nav-toggle {
+    display: none !important;
+  }
+
+  /* 重置 body 背景，让打印使用白纸 */
+  body {
+    background: #ffffff;
+    color: #000000;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  /* 去除阴影与渐变，避免浪费墨水 */
+  .hero {
+    background: #ffffff !important;
+    color: #000000;
+    padding: 1rem 0 2rem;
+    border-bottom: 2px solid #000000;
+  }
+  .hero .stat-number {
+    color: #000000;
+  }
+
+  .site-footer {
+    background: #ffffff;
+    color: #000000;
+    border-top: 1px solid #000000;
+    margin-top: 2rem;
+  }
+
+  .card,
+  .table-wrapper {
+    box-shadow: none;
+    break-inside: avoid;
+    border: 1px solid #000000;
+  }
+
+  a {
+    color: #000000;
+    text-decoration: underline;
+  }
+
+  /* 去掉 sticky */
+  * {
+    position: static !important;
+  }
+}
