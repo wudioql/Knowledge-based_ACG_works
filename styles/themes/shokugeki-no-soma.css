@@ -1,0 +1,580 @@
+/* 《食戟之灵》料理内容文档主题 — shokugeki-no-soma.css */
+
+:root {
+  --bg: #FFF8F0;
+  --bg2: #FFF0E0;
+  --ink: #2C3E50;
+  --muted: #7F8C8D;
+  --rule: #E0D5C0;
+  --accent: #C0392B;
+  --accent2: #F39C12;
+  --ink-on-accent: #ffffff;
+  --tag-jp: #D32F2F;
+  --tag-fr: #1565C0;
+  --tag-it: #2E7D32;
+  --tag-cn: #FF8F00;
+  --tag-other: #6A1B9A;
+  --tag-molecular: #00838F;
+  --font-heading: 'Lora', Georgia, serif;
+  --font-body: 'Work Sans', 'Helvetica Neue', sans-serif;
+  --font-mono: 'Courier New', monospace;
+  --content-width: 860px;
+  --card-radius: 8px;
+  --section-gap: 3rem;
+}
+
+/* Arc Overview */
+.arc-overview {
+  background: var(--bg2);
+  border-radius: var(--card-radius);
+  padding: 2rem;
+  margin-bottom: var(--section-gap);
+  border-left: 4px solid var(--accent);
+}
+
+.arc-overview h2 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+.arc-overview p {
+  margin-bottom: 0.75rem;
+  line-height: 1.8;
+  color: var(--ink);
+}
+
+.arc-meta {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+.arc-meta-item {
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.arc-meta-item strong {
+  color: var(--accent);
+}
+
+/* Arc Grid Cards */
+.arc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.arc-card {
+  background: #fff;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  color: var(--ink);
+  display: block;
+}
+
+.arc-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.arc-card-banner {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.arc-card:nth-child(1) .arc-card-banner { background: linear-gradient(135deg, #C0392B, #E74C3C); }
+.arc-card:nth-child(2) .arc-card-banner { background: linear-gradient(135deg, #1565C0, #42A5F5); }
+.arc-card:nth-child(3) .arc-card-banner { background: linear-gradient(135deg, #F39C12, #F1C40F); }
+.arc-card:nth-child(4) .arc-card-banner { background: linear-gradient(135deg, #D32F2F, #FF5722); }
+.arc-card:nth-child(5) .arc-card-banner { background: linear-gradient(135deg, #2E7D32, #66BB6A); }
+.arc-card:nth-child(6) .arc-card-banner { background: linear-gradient(135deg, #6A1B9A, #AB47BC); }
+.arc-card:nth-child(7) .arc-card-banner { background: linear-gradient(135deg, #00838F, #26C6DA); }
+.arc-card:nth-child(8) .arc-card-banner { background: linear-gradient(135deg, #37474F, #78909C); }
+.arc-card:nth-child(9) .arc-card-banner { background: linear-gradient(135deg, #1A237E, #3F51B5); }
+.arc-card:nth-child(10) .arc-card-banner { background: linear-gradient(135deg, #4E342E, #8D6E63); }
+
+.arc-card-body {
+  padding: 1.25rem;
+}
+
+.arc-card-body h3 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+}
+
+.arc-card-body .arc-card-desc {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.arc-card-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Cuisine / Technique Tags（主题特有的彩色标签） */
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.tag-jp { background: var(--tag-jp); }
+.tag-fr { background: var(--tag-fr); }
+.tag-it { background: var(--tag-it); }
+.tag-cn { background: var(--tag-cn); }
+.tag-other { background: var(--tag-other); }
+.tag-molecular { background: var(--tag-molecular); }
+
+/* Dish Card */
+.dish-card {
+  background: #fff;
+  border-radius: var(--card-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin-bottom: 2rem;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.dish-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.dish-header {
+  padding: 1.5rem 1.5rem 0.75rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.dish-header h2 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+}
+
+.dish-name-original {
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.dish-name-en {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* Dish Meta Grid */
+.dish-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  background: var(--bg2);
+  font-size: 0.85rem;
+}
+
+.meta-item {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.meta-label {
+  color: var(--muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.meta-value {
+  color: var(--ink);
+}
+
+/* Dish Image */
+.dish-image {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.dish-image img {
+  max-height: 400px;
+  object-fit: contain;
+  margin: 0 auto;
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+}
+
+.dish-image .image-source {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+
+/* Dish Content Sections */
+.dish-content {
+  padding: 0 1.5rem 1.5rem;
+}
+
+.dish-content h3 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 1.5rem 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--accent2);
+}
+
+.dish-content h3:first-child {
+  margin-top: 0;
+}
+
+.dish-content p {
+  margin-bottom: 0.75rem;
+  line-height: 1.8;
+  color: var(--ink);
+}
+
+.dish-content ul,
+.dish-content ol {
+  margin: 0.5rem 0 1rem 1.5rem;
+}
+
+.dish-content li {
+  margin-bottom: 0.4rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+/* Recipe Ingredients */
+.recipe-ingredients {
+  background: var(--bg2);
+  border-radius: var(--card-radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.recipe-ingredients h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+}
+
+.recipe-ingredients ul {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.recipe-ingredients li {
+  padding: 0.25rem 0;
+  border-bottom: 1px dashed var(--rule);
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.recipe-ingredients li:last-child {
+  border-bottom: none;
+}
+
+/* Recipe Steps */
+.recipe-steps {
+  margin: 1rem 0;
+}
+
+.recipe-steps h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+
+.recipe-steps ol {
+  counter-reset: step;
+  list-style: none;
+  margin-left: 0;
+}
+
+.recipe-steps li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.75rem 0 0.75rem 2.5rem;
+  border-left: 2px solid var(--rule);
+  margin-left: 1rem;
+  color: var(--ink);
+}
+
+.recipe-steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: -0.85rem;
+  top: 0.65rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.recipe-steps li:last-child {
+  border-left-color: transparent;
+}
+
+/* Recipe Tips */
+.recipe-tips {
+  background: #FFF3E0;
+  border-left: 4px solid var(--accent2);
+  border-radius: 0 var(--card-radius) var(--card-radius) 0;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+}
+
+.recipe-tips h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent2);
+  margin-bottom: 0.5rem;
+}
+
+/* Dish Story */
+.dish-story {
+  background: var(--bg);
+  border-radius: var(--card-radius);
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  border: 1px solid var(--rule);
+}
+
+/* Battle Section */
+.battle-section {
+  margin: 2rem 0;
+}
+
+.battle-header {
+  text-align: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  color: #fff;
+  border-radius: var(--card-radius) var(--card-radius) 0 0;
+}
+
+.battle-header h3 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  margin-bottom: 0.25rem;
+  color: #fff;
+}
+
+.battle-header p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.battle-body {
+  background: #fff;
+  border-radius: 0 0 var(--card-radius) var(--card-radius);
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.battle-vs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.battle-chef {
+  text-align: center;
+  flex: 1;
+  min-width: 150px;
+}
+
+.battle-chef .chef-name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: var(--ink);
+}
+
+.battle-chef .chef-dish {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.battle-vs-text {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.battle-result {
+  text-align: center;
+  padding: 1rem;
+  background: var(--bg2);
+  border-radius: var(--card-radius);
+  margin-top: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.battle-result .winner {
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+/* Chapter Navigation */
+.chapter-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+  border-top: 2px solid var(--rule);
+  margin-top: 3rem;
+}
+
+.chapter-nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.chapter-nav a:hover {
+  color: var(--accent2);
+  text-decoration: underline;
+}
+
+.chapter-nav .nav-prev::before { content: '← '; }
+.chapter-nav .nav-next::after { content: ' →'; }
+
+/* Simple Dish List（for BLUE preliminaries etc.） */
+.dish-list-simple {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+}
+
+.dish-list-simple li {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.dish-list-simple li:last-child {
+  border-bottom: none;
+}
+
+.dish-list-simple .dish-list-name {
+  font-weight: 600;
+}
+
+.dish-list-simple .dish-list-chef {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .side-toc {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .arc-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dish-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .battle-vs {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .battle-vs-text {
+    font-size: 1.2rem;
+  }
+
+  .chapter-nav {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .dish-header {
+    padding: 1rem 1rem 0.5rem;
+  }
+  .dish-content {
+    padding: 0 1rem 1rem;
+  }
+  .dish-image {
+    padding: 1rem;
+  }
+}
+
+/* Print */
+@media print {
+  .collapsible-toggle,
+  .filter-bar {
+    display: none !important;
+  }
+  .dish-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid var(--rule);
+  }
+  body {
+    background: #fff;
+  }
+}

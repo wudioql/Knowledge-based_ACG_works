@@ -1,0 +1,518 @@
+/* 《Dr.STONE 石纪元》科普手册主题 — dr-stone-science.css */
+
+@font-face {
+  font-family: 'ArsenalSC';
+  src: url('../../assets/fonts/ArsenalSC-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --bg: #0a0e17;
+  --bg2: #141b2d;
+  --ink: #e8ecf1;
+  --muted: #8892a4;
+  --rule: #2a3450;
+  --accent: #00d4aa;
+  --accent2: #ff6b35;
+  --ink-on-accent: #ffffff;
+  --font-heading: 'ArsenalSC', 'Lora', Georgia, serif;
+  --font-body: -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  --font-mono: 'Roboto Mono', 'SF Mono', monospace;
+  --content-width: 1080px;
+  --card-radius: 10px;
+  --section-gap: 3rem;
+}
+
+/* Hero / Cover（带背景图版本） */
+.hero {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 520px;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 3rem 2rem;
+  background: linear-gradient(transparent 0%, rgba(10, 14, 23, 0.7) 30%, rgba(10, 14, 23, 0.95) 100%);
+}
+
+.hero-overlay h1 {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+}
+
+.hero-overlay .subtitle {
+  font-size: 1.2rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+}
+
+.hero-overlay .description {
+  font-size: 0.95rem;
+  color: var(--ink);
+  max-width: 700px;
+  line-height: 1.7;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Sections */
+.section {
+  margin-bottom: var(--section-gap);
+  padding-top: 1rem;
+}
+
+.section-heading {
+  border-left: 4px solid var(--accent);
+  padding-left: 1rem;
+  margin-bottom: 2rem;
+}
+
+.section-heading h2 {
+  font-family: var(--font-heading);
+  color: var(--ink);
+  margin-bottom: 0.3rem;
+}
+
+.section-heading .section-meta {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Invention Cards */
+.invention-card {
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  border-radius: var(--card-radius);
+  padding: 1.5rem 2rem;
+  margin-bottom: 1.5rem;
+  transition: border-color 0.3s;
+}
+
+.invention-card:hover {
+  border-color: var(--accent);
+}
+
+.invention-card h3 {
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+  font-size: 1.3rem;
+  font-family: var(--font-heading);
+}
+
+.invention-card h3 .en-name {
+  font-family: 'ArsenalSC', sans-serif;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 400;
+  margin-left: 0.5rem;
+}
+
+.invention-card .card-meta {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.invention-card .card-meta span {
+  margin-right: 1.5rem;
+}
+
+.invention-card .card-section {
+  margin-bottom: 0.8rem;
+}
+
+.invention-card .card-section h4 {
+  font-size: 0.95rem;
+  color: var(--accent2);
+  margin-bottom: 0.3rem;
+}
+
+.invention-card .card-section p {
+  font-size: 0.92rem;
+  margin-bottom: 0;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+/* Accuracy Badges */
+.accuracy-badge {
+  display: inline-block;
+  padding: 0.2em 0.6em;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 0.3rem;
+}
+
+.accuracy-high {
+  background: rgba(0, 212, 170, 0.15);
+  color: var(--accent);
+  border: 1px solid rgba(0, 212, 170, 0.3);
+}
+
+.accuracy-medium {
+  background: rgba(255, 193, 7, 0.15);
+  color: #ffc107;
+  border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.accuracy-low {
+  background: rgba(255, 107, 53, 0.15);
+  color: var(--accent2);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+}
+
+/* Chapter Image */
+.chapter-image {
+  width: 100%;
+  border-radius: var(--card-radius);
+  margin-bottom: 2rem;
+  border: 1px solid var(--rule);
+}
+
+/* TOC List（带数字 counter） */
+.toc-list {
+  list-style: none;
+  counter-reset: main-toc;
+  padding: 0;
+}
+
+.toc-list li {
+  counter-increment: main-toc;
+  margin-bottom: 0.6rem;
+}
+
+.toc-list li a {
+  display: block;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.toc-list li a::before {
+  content: counter(main-toc) ". ";
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.toc-list li a:hover {
+  background: rgba(0, 212, 170, 0.06);
+}
+
+.toc-list li a .toc-sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-left: 0.5rem;
+}
+
+/* Mermaid */
+.mermaid-wrapper {
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  border-radius: var(--card-radius);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+
+pre.mermaid {
+  text-align: center;
+  margin: 0;
+}
+
+/* Chart Figure */
+.chart-figure {
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  border-radius: var(--card-radius);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.chart-figure figcaption {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Figure Grid */
+.figure-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.figure-grid figure {
+  margin: 0;
+}
+
+.figure-grid img {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+}
+
+.figure-grid figcaption {
+  font-size: 0.82rem;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* Info Boxes */
+.info-box {
+  background: rgba(0, 212, 170, 0.06);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+
+.info-box.warning {
+  background: rgba(255, 107, 53, 0.06);
+  border-left-color: var(--accent2);
+}
+
+.info-box h4 {
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+  font-size: 0.95rem;
+}
+
+.info-box.warning h4 {
+  color: var(--accent2);
+}
+
+/* Tags */
+.tag {
+  display: inline-block;
+  padding: 0.15em 0.5em;
+  border-radius: 3px;
+  font-size: 0.78rem;
+  margin-right: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+
+/* ================= Sidebar-Toc 暗色主题 =================
+   覆盖 core.css 的白底侧边栏，使其与本页深色内容协调。
+   同时额外提供 ol 选择器，因为本页目录使用了 <ol>。
+   ========================================================== */
+.sidebar-toc {
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  box-shadow: none;
+}
+
+.sidebar-toc ul,
+.sidebar-toc ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: toc-counter;
+}
+
+.sidebar-toc ol li {
+  counter-increment: toc-counter;
+}
+
+.sidebar-toc ol li a::before {
+  content: counter(toc-counter) ". ";
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.sidebar-toggle {
+  background: var(--bg2);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  box-shadow: none;
+}
+.sidebar-toggle:hover {
+  background: var(--accent);
+  color: var(--ink-on-accent);
+}
+
+.tag-chemistry {
+  background: rgba(0, 212, 170, 0.12);
+  color: var(--accent);
+}
+
+.tag-physics {
+  background: rgba(100, 149, 237, 0.12);
+  color: #6495ed;
+}
+
+.tag-engineering {
+  background: rgba(255, 193, 7, 0.12);
+  color: #ffc107;
+}
+
+.tag-biology {
+  background: rgba(144, 238, 144, 0.12);
+  color: #90ee90;
+}
+
+.tag-math {
+  background: rgba(218, 112, 214, 0.12);
+  color: #da70d6;
+}
+
+.tag-astronomy {
+  background: rgba(255, 165, 0, 0.12);
+  color: #ffa500;
+}
+
+/* Footer sources */
+.site-footer {
+  border-top: 2px solid var(--rule);
+  padding-top: 2rem;
+  margin-top: 3rem;
+  color: var(--muted);
+}
+
+.site-footer h2 {
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+
+.site-footer ol {
+  padding-left: 1.5rem;
+  font-size: 0.88rem;
+  line-height: 2;
+}
+
+.site-footer ol li {
+  margin-bottom: 0.3rem;
+}
+
+.site-footer ol li a {
+  color: var(--accent);
+  word-break: break-all;
+}
+
+/* Citations */
+sup a {
+  font-size: 0.75rem;
+  color: var(--accent);
+  vertical-align: super;
+  text-decoration: none;
+}
+
+sup a:hover {
+  color: var(--accent2);
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .sidebar-toc {
+    transform: translateX(-100%);
+  }
+  .sidebar-toc.open {
+    transform: translateX(0);
+  }
+  .sidebar-toggle {
+    display: block;
+  }
+  .main-content {
+    margin-left: 0;
+  }
+  .hero {
+    margin-left: 0;
+  }
+  .hero-overlay h1 {
+    font-size: 2rem;
+  }
+  h1 {
+    font-size: 1.8rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 1.2rem;
+  }
+  .figure-grid {
+    grid-template-columns: 1fr;
+  }
+  .invention-card {
+    padding: 1rem 1.2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 0 1rem;
+  }
+  .hero-overlay h1 {
+    font-size: 1.5rem;
+  }
+  .hero-overlay .subtitle {
+    font-size: 1rem;
+  }
+  table {
+    font-size: 0.8rem;
+  }
+  th, td {
+    padding: 0.4rem 0.6rem;
+  }
+}
+
+/* Print */
+@media print {
+  .sidebar-toc, .sidebar-toggle {
+    display: none !important;
+  }
+  .main-content {
+    margin-left: 0;
+  }
+  .hero {
+    margin-left: 0;
+  }
+  .invention-card {
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    break-inside: avoid;
+    color: #111;
+  }
+  a {
+    color: #111;
+    text-decoration: underline;
+  }
+  .table-wrapper {
+    border-color: #ccc;
+  }
+  th {
+    color: #333;
+    border-bottom-color: #333;
+  }
+  td {
+    border-bottom-color: #ddd;
+  }
+}
