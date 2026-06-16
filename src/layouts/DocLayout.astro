@@ -9,40 +9,20 @@ export interface Props {
   description?: string;
   headings: { depth: number; text: string; slug?: string }[];
   sideNavHtml?: string;
-  backHref?: string;
-  workTitle?: string;
 }
 
-const { title, theme, pageTitle, description, headings, sideNavHtml, backHref, workTitle } = Astro.props;
+const { title, theme, pageTitle, description, headings, sideNavHtml } = Astro.props;
 ---
 
 <BaseLayout title={title} theme={theme} pageTitle={pageTitle} description={description}>
-  <!-- 固定返回按钮（窄屏） -->
-  {backHref && (
-    <a href={backHref} class="fixed-back-btn" aria-label="返回作品首页">
-      <span>← {workTitle ? `返回《${workTitle}》` : '返回'}</span>
-    </a>
-  )}
-  <!-- 侧边栏切换按钮（窄屏） -->
-  <button class="side-nav-toggle" id="side-nav-toggle" aria-label="展开目录">
-    <span aria-hidden="true">☰</span>
-  </button>
-  <!-- 本章目录切换按钮（窄屏） -->
-  <button class="toc-toggle" id="toc-toggle" aria-label="本章目录">
+  <button class="toc-toggle" id="toc-toggle" aria-label="切换目录">
     <span aria-hidden="true">☰</span> <span class="label">目录</span>
   </button>
-  <!-- 遮罩层 -->
-  <div class="nav-overlay" id="nav-overlay"></div>
   <div class="doc-grid">
-    <aside class="side-nav" id="side-nav">
-      <div class="side-nav-header">
-        <span class="side-nav-title">章节目录</span>
-        <button class="side-nav-close" id="side-nav-close" aria-label="关闭">✕</button>
-      </div>
-      <button class="side-nav-collapse" id="side-nav-collapse" aria-label="折叠目录">
-        <span class="collapse-icon">−</span> 收起目录
-      </button>
-      <div class="side-nav-inner" set:html={sideNavHtml} />
+    <aside class="side-nav">
+      {sideNavHtml ? (
+        <div class="side-nav-inner" set:html={sideNavHtml} />
+      ) : <p style="color:var(--text-muted)">无章节</p>}
     </aside>
     <main class="doc-main">
       <slot />
@@ -57,41 +37,9 @@ const { title, theme, pageTitle, description, headings, sideNavHtml, backHref, w
 (function () {
   let observer = null;
   let rafId = null;
-  let sideNavCollapsed = false;
 
   function setup() {
     const toggle = document.getElementById('toc-toggle');
-    const sideNavToggle = document.getElementById('side-nav-toggle');
-    const sideNav = document.getElementById('side-nav');
-    const sideNavClose = document.getElementById('side-nav-close');
-    const sideNavCollapse = document.getElementById('side-nav-collapse');
-    const overlay = document.getElementById('nav-overlay');
-
-    // 侧边栏抽屉开关
-    function openSideNav() {
-      document.body.classList.add('side-nav-open');
-    }
-    function closeSideNav() {
-      document.body.classList.remove('side-nav-open');
-    }
-
-    sideNavToggle?.addEventListener('click', openSideNav);
-    sideNavClose?.addEventListener('click', closeSideNav);
-    overlay?.addEventListener('click', closeSideNav);
-
-    // 章节目录折叠
-    sideNavCollapse?.addEventListener('click', function() {
-      sideNavCollapsed = !sideNavCollapsed;
-      const inner = sideNav?.querySelector('.side-nav-inner');
-      const icon = sideNavCollapse.querySelector('.collapse-icon');
-      if (inner) {
-        inner.style.display = sideNavCollapsed ? 'none' : 'block';
-        if (icon) icon.textContent = sideNavCollapsed ? '+' : '−';
-        sideNavCollapse.setAttribute('aria-label', sideNavCollapsed ? '展开目录' : '收起目录');
-      }
-    });
-
-    // TOC 开关
     if (toggle) {
       toggle.addEventListener('click', function (e) {
         e.stopPropagation();
@@ -170,63 +118,12 @@ const { title, theme, pageTitle, description, headings, sideNavHtml, backHref, w
 </script>
 
 <style>
-  /* 固定返回按钮（窄屏） */
-  .fixed-back-btn {
-    display: none;
-    position: fixed;
-    top: 1rem;
-    left: 1rem;
-    z-index: 70;
-    padding: 0.5em 0.9em;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    color: var(--text-main);
-    font-size: 0.85em;
-    text-decoration: none;
-    transition: all 0.18s ease;
-  }
-  .fixed-back-btn:hover {
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-    text-decoration: none;
-  }
-
-  /* 侧边栏切换按钮（窄屏） */
-  .side-nav-toggle {
-    display: none;
-    position: fixed;
-    top: 1rem;
-    left: 4rem;
-    z-index: 60;
-    padding: 0.5em 0.8em;
-    border: 1px solid var(--border-color);
-    background: var(--bg-elevated);
-    color: var(--text-main);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-size: 0.9em;
-  }
-  .side-nav-toggle:hover { border-color: var(--accent-primary); color: var(--accent-primary); }
-
-  /* 遮罩层 */
-  .nav-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 80;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-
-  /* TOC 切换按钮 */
   .toc-toggle {
     display: none;
     position: fixed;
     top: 1rem;
     right: 1rem;
-    z-index: 65;
+    z-index: 60;
     padding: 0.55em 1em;
     border: 1px solid var(--border-color);
     background: var(--bg-elevated);
@@ -236,6 +133,9 @@ const { title, theme, pageTitle, description, headings, sideNavHtml, backHref, w
     font-size: 0.9em;
   }
   .toc-toggle:hover { border-color: var(--accent-primary); color: var(--accent-primary); }
+  @media (max-width: 960px) {
+    .toc-toggle { display: inline-flex; align-items: center; gap: 0.35em; }
+  }
 
   .doc-grid {
     display: grid;
@@ -257,69 +157,6 @@ const { title, theme, pageTitle, description, headings, sideNavHtml, backHref, w
     border-radius: var(--radius);
     font-size: 0.9em;
   }
-  /* 自定义滚动条 */
-  .side-nav::-webkit-scrollbar {
-    width: 6px;
-  }
-  .side-nav::-webkit-scrollbar-track {
-    background: var(--bg-elevated);
-    border-radius: 3px;
-  }
-  .side-nav::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: 3px;
-  }
-  .side-nav::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-primary);
-  }
-  .side-nav-header {
-    display: none;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.8rem;
-    padding-bottom: 0.6rem;
-    border-bottom: 1px solid var(--border-color);
-  }
-  .side-nav-title {
-    font-weight: 700;
-    color: var(--accent-primary);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    font-size: 0.78em;
-  }
-  .side-nav-close {
-    background: transparent;
-    color: var(--text-muted);
-    border: 1px solid var(--border-color);
-    border-radius: 999px;
-    width: 1.8rem;
-    height: 1.8rem;
-    cursor: pointer;
-    font-size: 0.75em;
-    line-height: 1;
-  }
-  .side-nav-close:hover { color: var(--accent-primary); border-color: var(--accent-primary); }
-  .side-nav-collapse {
-    display: none;
-    width: 100%;
-    padding: 0.4em 0.6em;
-    margin-bottom: 0.5rem;
-    background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
-    border: 1px solid color-mix(in srgb, var(--accent-primary) 30%, transparent);
-    border-radius: var(--radius-sm);
-    color: var(--accent-primary);
-    font-size: 0.82em;
-    cursor: pointer;
-    transition: all 0.15s ease;
-  }
-  .side-nav-collapse:hover {
-    background: color-mix(in srgb, var(--accent-primary) 18%, transparent);
-  }
-  .collapse-icon {
-    display: inline-block;
-    width: 1.2em;
-    text-align: center;
-  }
   .side-nav ul {
     list-style: none;
     padding: 0;
@@ -340,7 +177,7 @@ const { title, theme, pageTitle, description, headings, sideNavHtml, backHref, w
     background: color-mix(in srgb, var(--accent-primary) 8%, transparent);
     text-decoration: none;
   }
-  .side-nav .side-nav-title:not(.side-nav-header .side-nav-title) {
+  .side-nav .side-nav-title {
     display: block;
     font-weight: 700;
     color: var(--accent-primary);
@@ -369,47 +206,9 @@ const { title, theme, pageTitle, description, headings, sideNavHtml, backHref, w
     .doc-grid {
       grid-template-columns: 1fr;
     }
-    .fixed-back-btn,
-    .side-nav-toggle,
-    .toc-toggle {
-      display: inline-flex;
-      align-items: center;
-    }
-    .nav-overlay {
-      display: block;
-      pointer-events: none;
-    }
-    body.side-nav-open .nav-overlay {
-      opacity: 1;
-      pointer-events: auto;
-    }
     .side-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: 280px;
-      max-width: 80vw;
-      max-height: 100vh;
-      z-index: 90;
-      border-radius: 0;
-      transform: translateX(-100%);
-      transition: transform 0.25s ease;
-      padding-top: 1.5rem;
-    }
-    .side-nav-header {
-      display: flex;
-    }
-    .side-nav-collapse {
-      display: block;
-    }
-    body.side-nav-open .side-nav {
-      transform: translateX(0);
-    }
-    .side-nav-toggle {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35em;
+      position: static;
+      max-height: none;
     }
   }
 </style>

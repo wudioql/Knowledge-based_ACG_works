@@ -24,19 +24,7 @@
 | ✨ **SPA 级切换** | Astro View Transitions 在跨章节/跨作品间无缝过渡 |
 | 🧩 **10+ MDX 组件** | `Callout`、`Card`、`HeroCard`、`TimelineNode`、`Quote`、`ImageGallery`、`InfoGrid`、`TagList`、`Aside`、`Divider` |
 | 🖼 **响应式 AVIF/WebP 图片** | Astro `<Image>` 自动选择最佳格式 |
-| 📱 **响应式导航** | 窄屏设备上支持抽屉式侧边栏、固定返回按钮、展开/收起章节目录 |
 | 🚀 **一键部署** | GitHub Pages + Actions，Push 到 `main` 即发布 |
-
-## 📱 响应式导航说明
-
-### 窄屏设备（≤720px）
-- **左上角**：固定显示"返回"作品首页按钮
-- **左侧**：抽屉式章节目录，点击展开按钮显示完整章节列表
-- **右上角**："本章目录"按钮，点击展开当前章节的大纲导航
-
-### 宽屏设备（＞720px）
-- **左侧**：固定的章节目录栏（可收起/展开）
-- **右侧**：sticky 定位的本章目录，随页面滚动保持可见
 
 ## 📁 目录结构
 
