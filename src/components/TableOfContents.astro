@@ -54,6 +54,20 @@ const tocHtml = root.length > 0 ? render(root) : '';
     border-radius: var(--radius);
     font-size: 0.9em;
   }
+  .toc-rail::-webkit-scrollbar {
+    width: 5px;
+  }
+  .toc-rail::-webkit-scrollbar-track {
+    background: var(--bg-elevated);
+    border-radius: 3px;
+  }
+  .toc-rail::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+  }
+  .toc-rail::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-primary);
+  }
   .toc-header {
     font-weight: 700;
     color: var(--accent-primary);

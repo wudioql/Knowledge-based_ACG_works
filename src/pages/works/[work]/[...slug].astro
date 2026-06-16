@@ -59,7 +59,7 @@ pageNavHtml += '</nav>';
 ---
 
 {layoutType === 'document' && (
-  <DocLayout title={work.data.title} theme={theme} pageTitle={chapter.data.title} description={chapter.data.summary} headings={headings} sideNavHtml={sideNavHtml}>
+  <DocLayout title={work.data.title} theme={theme} pageTitle={chapter.data.title} description={chapter.data.summary} headings={headings} sideNavHtml={sideNavHtml} backHref={base + 'works/' + work.slug + '/'} workTitle={work.data.title}>
     <article>
       <header style="margin-bottom:2rem">
         <p style="color:var(--text-muted);font-size:0.9em;margin-bottom:0.3em"><a href={base + 'works/' + work.slug + '/'}>← 返回《{work.data.title}》</a></p>
