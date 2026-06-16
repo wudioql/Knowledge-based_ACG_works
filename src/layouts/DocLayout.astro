@@ -7,236 +7,79 @@ export interface Props {
   theme: 'ocean' | 'crimson' | 'amber';
   pageTitle?: string;
   description?: string;
-  headings: { depth: number; text: string; slug?: string }[];
-  sideNavHtml?: string;
+  /** 当前章节的大纲，用于右侧 TOC rail */
+  headings?: { depth: number; text: string; slug?: string }[];
+  /** 章节目录 HTML（包含所有作品章节，支持层级展开） */
+  chaptersNavHtml?: string;
+  /** 返回按钮 href（通常返回作品首页） */
   backHref?: string;
+  /** 作品标题，显示在返回按钮旁 */
   workTitle?: string;
 }
 
-const { title, theme, pageTitle, description, headings, sideNavHtml, backHref, workTitle } = Astro.props;
+const { title, theme, pageTitle, description, headings = [], chaptersNavHtml = '', backHref, workTitle } = Astro.props;
+const hasToc = headings.length > 0;
 ---
 
 <BaseLayout title={title} theme={theme} pageTitle={pageTitle} description={description}>
-  <!-- 固定返回按钮（窄屏） -->
-  {backHref && (
-    <a href={backHref} class="fixed-back-btn" aria-label="返回作品首页">
-      <span>← {workTitle ? `返回《${workTitle}》` : '返回'}</span>
-    </a>
-  )}
-  <!-- 侧边栏切换按钮（窄屏） -->
-  <button class="side-nav-toggle" id="side-nav-toggle" aria-label="展开目录">
-    <span aria-hidden="true">☰</span>
-  </button>
-  <!-- 本章目录切换按钮（窄屏） -->
-  <button class="toc-toggle" id="toc-toggle" aria-label="本章目录">
-    <span aria-hidden="true">☰</span> <span class="label">目录</span>
-  </button>
-  <!-- 遮罩层 -->
-  <div class="nav-overlay" id="nav-overlay"></div>
+  {/* 窄屏 action bar（顶部按钮组） */}
+  <div class="reader-action-bar" id="reader-action-bar" aria-label="阅读导航">
+    <div class="reader-action-group">
+      {backHref && (
+        <a href={backHref} class="btn-sm btn-ghost" aria-label="返回作品首页">
+          ← <span class="btn-label">{workTitle ? `《${workTitle}》` : '返回'}</span>
+        </a>
+      )}
+      <button class="btn-sm" id="side-nav-toggle" type="button" aria-label="打开章节目录" aria-controls="side-nav">
+        ☰ <span class="btn-label">章节</span>
+      </button>
+    </div>
+    <div class="reader-action-group">
+      {hasToc && (
+        <button class="btn-sm" id="toc-toggle" type="button" aria-label="本章目录" aria-controls="toc-popover" aria-expanded="false">
+          📑 <span class="btn-label">目录</span>
+        </button>
+      )}
+    </div>
+  </div>
+
+  {/* 遮罩层（点击关闭侧栏/弹出层） */}
+  <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
+
   <div class="doc-grid">
-    <aside class="side-nav" id="side-nav">
+    {/* 章节目录（宽屏显示在左侧，窄屏为抽屉） */}
+    <aside class="side-nav" id="side-nav" aria-label="章节目录">
       <div class="side-nav-header">
         <span class="side-nav-title">章节目录</span>
-        <button class="side-nav-close" id="side-nav-close" aria-label="关闭">✕</button>
+        <button class="side-nav-close" id="side-nav-close" type="button" aria-label="关闭目录">✕</button>
       </div>
-      <button class="side-nav-collapse" id="side-nav-collapse" aria-label="折叠目录">
-        <span class="collapse-icon">−</span> 收起目录
-      </button>
-      <div class="side-nav-inner" set:html={sideNavHtml} />
+      <div class="side-nav-inner" set:html={chaptersNavHtml} />
     </aside>
+
+    {/* 正文 */}
     <main class="doc-main">
       <slot />
     </main>
-    <div class="toc-col">
-      <TableOfContents headings={headings} />
-    </div>
+
+    {/* 右侧 TOC rail（宽屏） */}
+    {hasToc && (
+      <div class="toc-col">
+        <TableOfContents headings={headings} />
+      </div>
+    )}
   </div>
+
+  {/* 窄屏 TOC 弹出层 */}
+  {hasToc && (
+    <div class="toc-popover" id="toc-popover" role="dialog" aria-modal="false" aria-label="本章目录" hidden>
+      <div class="toc-rail">
+        <TableOfContents headings={headings} mode="popover" />
+      </div>
+    </div>
+  )}
 </BaseLayout>
 
-<script is:inline>
-(function () {
-  let observer = null;
-  let rafId = null;
-  let sideNavCollapsed = false;
-
-  function setup() {
-    const toggle = document.getElementById('toc-toggle');
-    const sideNavToggle = document.getElementById('side-nav-toggle');
-    const sideNav = document.getElementById('side-nav');
-    const sideNavClose = document.getElementById('side-nav-close');
-    const sideNavCollapse = document.getElementById('side-nav-collapse');
-    const overlay = document.getElementById('nav-overlay');
-
-    // 侧边栏抽屉开关
-    function openSideNav() {
-      document.body.classList.add('side-nav-open');
-    }
-    function closeSideNav() {
-      document.body.classList.remove('side-nav-open');
-    }
-
-    sideNavToggle?.addEventListener('click', openSideNav);
-    sideNavClose?.addEventListener('click', closeSideNav);
-    overlay?.addEventListener('click', closeSideNav);
-
-    // 章节目录折叠
-    sideNavCollapse?.addEventListener('click', function() {
-      sideNavCollapsed = !sideNavCollapsed;
-      const inner = sideNav?.querySelector('.side-nav-inner');
-      const icon = sideNavCollapse.querySelector('.collapse-icon');
-      if (inner) {
-        inner.style.display = sideNavCollapsed ? 'none' : 'block';
-        if (icon) icon.textContent = sideNavCollapsed ? '+' : '−';
-        sideNavCollapse.setAttribute('aria-label', sideNavCollapsed ? '展开目录' : '收起目录');
-      }
-    });
-
-    // TOC 开关
-    if (toggle) {
-      toggle.addEventListener('click', function (e) {
-        e.stopPropagation();
-        document.body.classList.toggle('toc-open');
-      });
-      document.addEventListener('click', function (e) {
-        if (!document.body.classList.contains('toc-open')) return;
-        const rail = document.getElementById('toc-rail');
-        if (rail && rail.contains(e.target)) return;
-        if (toggle.contains(e.target)) return;
-        document.body.classList.remove('toc-open');
-      });
-    }
-
-    const links = Array.from(document.querySelectorAll('.toc-link'));
-    if (links.length === 0) return;
-
-    links.forEach(function (link) {
-      link.addEventListener('click', function (e) {
-        const href = link.getAttribute('href') || '';
-        if (!href.startsWith('#')) return;
-        e.preventDefault();
-        const id = href.slice(1);
-        const target = document.getElementById(id);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          history.replaceState(null, '', '#' + id);
-          document.body.classList.remove('toc-open');
-        }
-      });
-    });
-
-    const hEls = [];
-    const map = new Map();
-    for (const link of links) {
-      const target = link.getAttribute('data-target') || link.getAttribute('href') || '';
-      if (!target.startsWith('#')) continue;
-      const id = target.slice(1);
-      const h = document.getElementById(id);
-      if (h) {
-        hEls.push(h);
-        map.set(id, link);
-      }
-    }
-    if (hEls.length === 0) return;
-
-    if (observer) observer.disconnect();
-    observer = new IntersectionObserver(
-      function (entries) {
-        const visible = entries
-          .filter(function (e) { return e.isIntersecting; })
-          .sort(function (a, b) { return a.boundingClientRect.top - b.boundingClientRect.top; });
-        if (visible.length > 0) {
-          const id = visible[0].target.id;
-          if (rafId) cancelAnimationFrame(rafId);
-          rafId = requestAnimationFrame(function () {
-            links.forEach(function (l) { l.classList.remove('toc-link-active'); });
-            const link = map.get(id);
-            if (link) link.classList.add('toc-link-active');
-          });
-        }
-      },
-      { rootMargin: '-120px 0px -70% 0px', threshold: [0, 1] }
-    );
-    hEls.forEach(function (h) { observer.observe(h); });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setup, { once: true });
-  } else {
-    setup();
-  }
-  document.addEventListener('astro:page-load', setup);
-  document.addEventListener('astro:after-swap', setup);
-})();
-</script>
-
 <style>
-  /* 固定返回按钮（窄屏） */
-  .fixed-back-btn {
-    display: none;
-    position: fixed;
-    top: 1rem;
-    left: 1rem;
-    z-index: 70;
-    padding: 0.5em 0.9em;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    color: var(--text-main);
-    font-size: 0.85em;
-    text-decoration: none;
-    transition: all 0.18s ease;
-  }
-  .fixed-back-btn:hover {
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-    text-decoration: none;
-  }
-
-  /* 侧边栏切换按钮（窄屏） */
-  .side-nav-toggle {
-    display: none;
-    position: fixed;
-    top: 1rem;
-    left: 4rem;
-    z-index: 60;
-    padding: 0.5em 0.8em;
-    border: 1px solid var(--border-color);
-    background: var(--bg-elevated);
-    color: var(--text-main);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-size: 0.9em;
-  }
-  .side-nav-toggle:hover { border-color: var(--accent-primary); color: var(--accent-primary); }
-
-  /* 遮罩层 */
-  .nav-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 80;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-
-  /* TOC 切换按钮 */
-  .toc-toggle {
-    display: none;
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 65;
-    padding: 0.55em 1em;
-    border: 1px solid var(--border-color);
-    background: var(--bg-elevated);
-    color: var(--text-main);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-size: 0.9em;
-  }
-  .toc-toggle:hover { border-color: var(--accent-primary); color: var(--accent-primary); }
-
   .doc-grid {
     display: grid;
     grid-template-columns: 220px minmax(0, 1fr) 240px;
@@ -256,22 +99,16 @@ const { title, theme, pageTitle, description, headings, sideNavHtml, backHref, w
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
     font-size: 0.9em;
+    scrollbar-width: thin;
   }
-  /* 自定义滚动条 */
-  .side-nav::-webkit-scrollbar {
-    width: 6px;
-  }
-  .side-nav::-webkit-scrollbar-track {
-    background: var(--bg-elevated);
-    border-radius: 3px;
-  }
+  .side-nav::-webkit-scrollbar { width: 6px; }
+  .side-nav::-webkit-scrollbar-track { background: transparent; }
   .side-nav::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: 3px;
+    background: var(--scrollbar-thumb);
+    border-radius: 999px;
   }
-  .side-nav::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-primary);
-  }
+  .side-nav::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
+
   .side-nav-header {
     display: none;
     align-items: center;
@@ -295,121 +132,64 @@ const { title, theme, pageTitle, description, headings, sideNavHtml, backHref, w
     width: 1.8rem;
     height: 1.8rem;
     cursor: pointer;
-    font-size: 0.75em;
+    font-size: 0.8em;
     line-height: 1;
   }
   .side-nav-close:hover { color: var(--accent-primary); border-color: var(--accent-primary); }
-  .side-nav-collapse {
-    display: none;
-    width: 100%;
-    padding: 0.4em 0.6em;
-    margin-bottom: 0.5rem;
-    background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
-    border: 1px solid color-mix(in srgb, var(--accent-primary) 30%, transparent);
-    border-radius: var(--radius-sm);
-    color: var(--accent-primary);
-    font-size: 0.82em;
-    cursor: pointer;
-    transition: all 0.15s ease;
-  }
-  .side-nav-collapse:hover {
-    background: color-mix(in srgb, var(--accent-primary) 18%, transparent);
-  }
-  .collapse-icon {
-    display: inline-block;
-    width: 1.2em;
-    text-align: center;
-  }
-  .side-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .side-nav li {
-    margin: 0.25em 0;
-  }
-  .side-nav a {
-    display: block;
-    padding: 0.3em 0.7em;
-    border-radius: var(--radius-sm);
-    color: var(--text-muted);
-  }
-  .side-nav a:hover,
-  .side-nav a.active {
-    color: var(--accent-primary);
-    background: color-mix(in srgb, var(--accent-primary) 8%, transparent);
-    text-decoration: none;
-  }
-  .side-nav .side-nav-title:not(.side-nav-header .side-nav-title) {
-    display: block;
-    font-weight: 700;
-    color: var(--accent-primary);
-    margin-bottom: 0.5rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    font-size: 0.78em;
-  }
+
   .doc-main {
     min-width: 0;
     padding: 0 0.5rem;
   }
-  .doc-main > article {
+  .doc-main > :global(article) {
     max-width: 780px;
     margin: 0 auto;
   }
-  .toc-col { align-self: start; }
+  .toc-col {
+    align-self: start;
+  }
 
+  /* 响应式 */
   @media (max-width: 1100px) {
     .doc-grid {
-      grid-template-columns: 180px minmax(0, 1fr);
+      grid-template-columns: 200px minmax(0, 1fr);
     }
     .toc-col { display: none; }
   }
   @media (max-width: 720px) {
     .doc-grid {
       grid-template-columns: 1fr;
+      padding-top: 1rem;
     }
-    .fixed-back-btn,
-    .side-nav-toggle,
-    .toc-toggle {
-      display: inline-flex;
-      align-items: center;
+    /* 开启顶部 action bar */
+    .reader-action-bar {
+      display: flex;
     }
-    .nav-overlay {
-      display: block;
-      pointer-events: none;
-    }
-    body.side-nav-open .nav-overlay {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    /* 侧栏抽屉（固定，从左滑入） */
     .side-nav {
       position: fixed;
       top: 0;
       left: 0;
       bottom: 0;
-      width: 280px;
-      max-width: 80vw;
+      width: 300px;
+      max-width: 85vw;
       max-height: 100vh;
       z-index: 90;
-      border-radius: 0;
+      border-radius: 0 var(--radius) var(--radius) 0;
       transform: translateX(-100%);
       transition: transform 0.25s ease;
       padding-top: 1.5rem;
+      box-shadow: var(--shadow-hover);
     }
     .side-nav-header {
       display: flex;
     }
-    .side-nav-collapse {
-      display: block;
-    }
     body.side-nav-open .side-nav {
       transform: translateX(0);
     }
-    .side-nav-toggle {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35em;
+    .nav-overlay {
+      display: block;
+      pointer-events: none;
     }
   }
 </style>

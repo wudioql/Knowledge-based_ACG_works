@@ -23,43 +23,117 @@ export async function getStaticPaths() {
 const { work, chapter } = Astro.props;
 const theme = chapter.data.themePalette ?? work.data.defaultThemePalette;
 const layoutType = chapter.data.layoutType ?? work.data.defaultLayoutType;
+
+// 渲染当前章节 —— headings 用于右侧 TOC rail 与章节目录中的"展开子标题"
 const { Content, headings } = await chapter.render();
+
 const base = import.meta.env.BASE_URL;
 
+// 获取作品中所有章节
 const chapters = await getChapters(work.slug);
 const curIdx = chapters.findIndex((c) => c.id === chapter.id);
 const prev = curIdx > 0 ? chapters[curIdx - 1] : null;
 const next = curIdx < chapters.length - 1 ? chapters[curIdx + 1] : null;
 
-function hrefFor(c: typeof chapter | null) {
+function hrefFor(c: typeof chapter | null): string {
   if (!c) return '';
   return base + 'works/' + work.slug + '/' + extractChapterSlug(c.id) + '/';
 }
 
-let sideNavHtml = `<span class="side-nav-title">《${work.data.title}》</span><ul>`;
-chapters.forEach((c, i) => {
-  const isActive = c.id === chapter.id;
-  sideNavHtml += `<li><a href="${hrefFor(c)}" class="${isActive ? 'active' : ''}">${i + 1}. ${c.data.title}</a></li>`;
-});
-sideNavHtml += '</ul>';
+// 构建章节目录 HTML：默认收起，当前章节的子大纲可展开
+function buildChapterNavHtml(): string {
+  let html = '<div class="chap-nav"><div class="chap-nav-header"><span class="chap-nav-title">《' + escapeHtml(work.data.title) + '》章节</span></div>';
+  html += '<div class="chap-nav-actions"><button type="button" class="chap-action-btn" data-chap-action="expand-all" aria-label="展开全部章节">全部展开</button><button type="button" class="chap-action-btn" data-chap-action="collapse-all" aria-label="收起全部章节">全部收起</button></div>';
+  html += '<ol class="chap-list" role="list">';
+  for (let i = 0; i < chapters.length; i++) {
+    const c = chapters[i];
+    const isActive = c.id === chapter.id;
+    html += '<li class="chap-item" data-chap-id="' + escapeAttr(c.id) + '">';
+    html += '<div class="chap-row">';
+    // 只有当前章节提供子大纲展开（我们只拿到了当前章节的 headings）
+    const hasSub = isActive && headings.length > 0;
+    if (hasSub) {
+      html += '<button type="button" class="chap-toggle" aria-expanded="false" aria-controls="chap-sub-' + i + '" aria-label="展开' + escapeAttr(c.data.title) + '"><span class="chap-toggle-icon">▸</span></button>';
+    } else {
+      html += '<span class="chap-spacer" aria-hidden="true"></span>';
+    }
+    html += '<a class="chap-link' + (isActive ? ' active' : '') + '" href="' + escapeAttr(hrefFor(c)) + '">';
+    html += '<span class="chap-num">' + String(i + 1).padStart(2, '0') + '</span>';
+    html += '<span class="chap-text">' + escapeHtml(c.data.title) + '</span>';
+    html += '</a>';
+    html += '</div>';
+    if (hasSub) {
+      html += '<div class="chap-sub" id="chap-sub-' + i + '" hidden>';
+      html += '<ul class="chap-sub-list" role="list">';
+      for (const h of headings) {
+        const safeSlug = (h.slug ?? slugify(h.text));
+        html += '<li class="chap-sub-item" data-depth="' + h.depth + '">';
+        html += '<div class="chap-sub-row"><span class="chap-spacer" aria-hidden="true"></span><a class="chap-sub-link" href="' + escapeAttr(hrefFor(c) + '#' + safeSlug) + '">' + escapeHtml(h.text) + '</a></div>';
+        html += '</li>';
+      }
+      html += '</ul></div>';
+    }
+    html += '</li>';
+  }
+  html += '</ol></div>';
+  return html;
+}
 
-let pageNavHtml = '<hr style="margin:3rem 0 1.5rem;border:none;border-top:1px solid var(--border-color)" /><nav style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem">';
-if (prev) {
-  pageNavHtml += '<a href="' + hrefFor(prev) + '" class="btn">← ' + prev.data.title + '</a>';
-} else {
-  pageNavHtml += '<span style="color:var(--text-muted)">已是第一章</span>';
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
-pageNavHtml += '<span></span>';
-if (next) {
-  pageNavHtml += '<a href="' + hrefFor(next) + '" class="btn btn-primary">' + next.data.title + ' →</a>';
-} else {
-  pageNavHtml += '<span style="color:var(--text-muted)">已是最后一章</span>';
+function escapeAttr(s: string): string {
+  return escapeHtml(s);
 }
-pageNavHtml += '</nav>';
+function slugify(text: string): string {
+  return text.toLowerCase().trim().replace(/[\s_]+/g, '-').replace(/[^\p{Letter}\p{Number}\-]/gu, '').replace(/-+/g, '-').replace(/^-|-$/g, '') || 'heading';
+}
+
+const chaptersNavHtml = buildChapterNavHtml();
+
+// 上下章导航 HTML
+function buildPageNavHtml(): string {
+  let html = '<hr style="margin:3rem 0 1.5rem;border:none;border-top:1px solid var(--border-color)" /><nav class="page-nav" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem">';
+  if (prev) {
+    html += '<a class="btn" href="' + hrefFor(prev) + '">← ' + escapeHtml(prev.data.title) + '</a>';
+  } else {
+    html += '<span style="color:var(--text-muted)">已是第一章</span>';
+  }
+  html += '<a class="btn" href="' + (base + 'works/' + work.slug + '/') + '">返回作品首页</a>';
+  if (next) {
+    html += '<a class="btn btn-primary" href="' + hrefFor(next) + '">' + escapeHtml(next.data.title) + ' →</a>';
+  } else {
+    html += '<span style="color:var(--text-muted)">已是最后一章</span>';
+  }
+  html += '</nav>';
+  return html;
+}
 ---
 
-{layoutType === 'document' && (
-  <DocLayout title={work.data.title} theme={theme} pageTitle={chapter.data.title} description={chapter.data.summary} headings={headings} sideNavHtml={sideNavHtml} backHref={base + 'works/' + work.slug + '/'} workTitle={work.data.title}>
+{layoutType === 'timeline' ? (
+  <TimelineLayout title={work.data.title} theme={theme} pageTitle={chapter.data.title} description={chapter.data.summary} headings={headings} chaptersNavHtml={chaptersNavHtml} backHref={base + 'works/' + work.slug + '/'} workTitle={work.data.title}>
+    <header style="margin-bottom:2rem">
+      <p style="color:var(--text-muted);font-size:0.9em;margin-bottom:0.3em"><a href={base + 'works/' + work.slug + '/'}>← 返回《{work.data.title}》</a></p>
+      <h1 style="margin-top:0">{chapter.data.title}</h1>
+      {chapter.data.summary && <p style="color:var(--text-muted);font-size:1.05em">{chapter.data.summary}</p>}
+      {chapter.data.tags.length > 0 && <div>{chapter.data.tags.map((t) => <span class="tag">{t}</span>)}</div>}
+    </header>
+    <Content />
+    <Fragment set:html={buildPageNavHtml()} />
+  </TimelineLayout>
+) : layoutType === 'gallery' ? (
+  <GalleryLayout title={work.data.title} theme={theme} pageTitle={chapter.data.title} description={chapter.data.summary} headings={headings} chaptersNavHtml={chaptersNavHtml} backHref={base + 'works/' + work.slug + '/'} workTitle={work.data.title}>
+    <header style="margin-bottom:2rem">
+      <p style="color:var(--text-muted);font-size:0.9em;margin-bottom:0.3em"><a href={base + 'works/' + work.slug + '/'}>← 返回《{work.data.title}》</a></p>
+      <h1 style="margin-top:0">{chapter.data.title}</h1>
+      {chapter.data.summary && <p style="color:var(--text-muted);font-size:1.05em">{chapter.data.summary}</p>}
+      {chapter.data.tags.length > 0 && <div>{chapter.data.tags.map((t) => <span class="tag">{t}</span>)}</div>}
+    </header>
+    <Content />
+    <Fragment set:html={buildPageNavHtml()} />
+  </GalleryLayout>
+) : (
+  <DocLayout title={work.data.title} theme={theme} pageTitle={chapter.data.title} description={chapter.data.summary} headings={headings} chaptersNavHtml={chaptersNavHtml} backHref={base + 'works/' + work.slug + '/'} workTitle={work.data.title}>
     <article>
       <header style="margin-bottom:2rem">
         <p style="color:var(--text-muted);font-size:0.9em;margin-bottom:0.3em"><a href={base + 'works/' + work.slug + '/'}>← 返回《{work.data.title}》</a></p>
@@ -68,33 +142,7 @@ pageNavHtml += '</nav>';
         {chapter.data.tags.length > 0 && <div>{chapter.data.tags.map((t) => <span class="tag">{t}</span>)}</div>}
       </header>
       <Content />
-      <div class="page-nav" set:html={pageNavHtml} />
+      <Fragment set:html={buildPageNavHtml()} />
     </article>
   </DocLayout>
-)}
-
-{layoutType === 'timeline' && (
-  <TimelineLayout title={work.data.title} theme={theme} pageTitle={chapter.data.title} description={chapter.data.summary}>
-    <header style="margin-bottom:2rem">
-      <p style="color:var(--text-muted);font-size:0.9em;margin-bottom:0.3em"><a href={base + 'works/' + work.slug + '/'}>← 返回《{work.data.title}》</a></p>
-      <h1 style="margin-top:0">{chapter.data.title}</h1>
-      {chapter.data.summary && <p style="color:var(--text-muted);font-size:1.05em">{chapter.data.summary}</p>}
-      {chapter.data.tags.length > 0 && <div>{chapter.data.tags.map((t) => <span class="tag">{t}</span>)}</div>}
-    </header>
-    <Content />
-    <div class="page-nav" set:html={pageNavHtml} />
-  </TimelineLayout>
-)}
-
-{layoutType === 'gallery' && (
-  <GalleryLayout title={work.data.title} theme={theme} pageTitle={chapter.data.title} description={chapter.data.summary}>
-    <header style="margin-bottom:2rem">
-      <p style="color:var(--text-muted);font-size:0.9em;margin-bottom:0.3em"><a href={base + 'works/' + work.slug + '/'}>← 返回《{work.data.title}》</a></p>
-      <h1 style="margin-top:0">{chapter.data.title}</h1>
-      {chapter.data.summary && <p style="color:var(--text-muted);font-size:1.05em">{chapter.data.summary}</p>}
-      {chapter.data.tags.length > 0 && <div>{chapter.data.tags.map((t) => <span class="tag">{t}</span>)}</div>}
-    </header>
-    <Content />
-    <div class="page-nav" set:html={pageNavHtml} />
-  </GalleryLayout>
 )}

@@ -41,3 +41,210 @@ const displayTitle = pageTitle ? `${pageTitle} · ${title}` : title;
     </footer>
   </body>
 </html>
+
+<script is:inline>
+(function () {
+  // 侧栏（章节目录）开关：点击"章节"按钮打开抽屉，点击遮罩或✕或 Esc 关闭
+  function setupSideNav() {
+    const sideNavToggle = document.getElementById('side-nav-toggle');
+    const sideNavClose = document.getElementById('side-nav-close');
+    function openSideNav() {
+      document.body.classList.add('side-nav-open');
+      const overlay = document.getElementById('nav-overlay');
+      if (overlay) {
+        overlay.style.pointerEvents = 'auto';
+        overlay.style.opacity = '1';
+        overlay.setAttribute('aria-hidden', 'false');
+      }
+    }
+    function closeSideNav() {
+      document.body.classList.remove('side-nav-open');
+      const overlay = document.getElementById('nav-overlay');
+      if (overlay) {
+        overlay.style.pointerEvents = 'none';
+        overlay.style.opacity = '0';
+        overlay.setAttribute('aria-hidden', 'true');
+      }
+    }
+    sideNavToggle?.addEventListener('click', function () {
+      if (document.body.classList.contains('side-nav-open')) closeSideNav();
+      else openSideNav();
+    });
+    sideNavClose?.addEventListener('click', closeSideNav);
+    const overlay = document.getElementById('nav-overlay');
+    overlay?.addEventListener('click', closeSideNav);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closeSideNav();
+        // 关闭 TOC 弹出层（若存在）
+        const pop = document.getElementById('toc-popover');
+        if (pop) {
+          pop.classList.remove('is-open');
+          pop.setAttribute('hidden', '');
+        }
+        const tocToggle = document.getElementById('toc-toggle');
+        if (tocToggle) tocToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  // 章节目录的"全部展开 / 收起"与逐章展开
+  function setupChapterNav() {
+    const root = document.querySelector('.side-nav .chap-nav');
+    if (!root) return;
+    const expandAll = root.querySelector('[data-chap-action="expand-all"]');
+    const collapseAll = root.querySelector('[data-chap-action="collapse-all"]');
+    function setAll(open) {
+      root.querySelectorAll('.chap-toggle, .chap-sub-toggle').forEach(function (btn) {
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        const id = btn.getAttribute('aria-controls');
+        const panel = id ? document.getElementById(id) : null;
+        if (panel) {
+          if (open) panel.removeAttribute('hidden');
+          else panel.setAttribute('hidden', '');
+        }
+      });
+    }
+    expandAll?.addEventListener('click', function () { setAll(true); });
+    collapseAll?.addEventListener('click', function () { setAll(false); });
+
+    // 逐章切换
+    root.addEventListener('click', function (e) {
+      const btn = e.target.closest('.chap-toggle, .chap-sub-toggle');
+      if (!btn) return;
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      const next = !isExpanded;
+      btn.setAttribute('aria-expanded', next ? 'true' : 'false');
+      const id = btn.getAttribute('aria-controls');
+      const panel = id ? document.getElementById(id) : null;
+      if (panel) {
+        if (next) panel.removeAttribute('hidden');
+        else panel.setAttribute('hidden', '');
+      }
+      e.stopPropagation();
+    });
+  }
+
+  // TOC rail / 弹出层：层级展开 + 平滑滚动 + 当前高亮
+  function setupTocRail() {
+    // 为页面内所有 .toc-rail 绑定
+    const rails = document.querySelectorAll('.toc-rail');
+    rails.forEach(function (rail) {
+      // 1) 层级展开按钮
+      rail.querySelectorAll('.toc-toggle').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+          const next = !isExpanded;
+          btn.setAttribute('aria-expanded', next ? 'true' : 'false');
+          const id = btn.getAttribute('aria-controls');
+          const panel = id ? document.getElementById(id) : null;
+          if (panel) {
+            if (next) panel.removeAttribute('hidden');
+            else panel.setAttribute('hidden', '');
+          }
+          e.stopPropagation();
+        });
+      });
+
+      // 2) 链接点击：平滑滚动 + 关闭弹出层
+      rail.querySelectorAll('.toc-link').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          const href = link.getAttribute('href') || '';
+          if (!href.startsWith('#')) return;
+          const id = href.slice(1);
+          const target = document.getElementById(id);
+          if (!target) return;
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', '#' + id);
+          const pop = document.getElementById('toc-popover');
+          if (pop) {
+            pop.classList.remove('is-open');
+            pop.setAttribute('hidden', '');
+          }
+          const toggle = document.getElementById('toc-toggle');
+          if (toggle) toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // 3) IntersectionObserver 高亮当前段落
+      const links = Array.from(rail.querySelectorAll('.toc-link'));
+      if (links.length === 0) return;
+      const targetIds = [];
+      const idToLink = new Map();
+      for (const l of links) {
+        const href = l.getAttribute('data-target') || l.getAttribute('href') || '';
+        if (!href.startsWith('#')) continue;
+        const id = href.slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+          targetIds.push(id);
+          idToLink.set(id, l);
+        }
+      }
+      const hEls = targetIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+      if (hEls.length === 0) return;
+
+      const obs = new IntersectionObserver(function (entries) {
+        const visible = entries
+          .filter(function (e) { return e.isIntersecting; })
+          .sort(function (a, b) { return a.boundingClientRect.top - b.boundingClientRect.top; });
+        if (visible.length > 0) {
+          const activeId = visible[0].target.id;
+          requestAnimationFrame(function () {
+            idToLink.forEach(function (l) { l.classList.remove('toc-link-active'); });
+            const a = idToLink.get(activeId);
+            if (a) a.classList.add('toc-link-active');
+          });
+        }
+      }, { rootMargin: '-120px 0px -70% 0px', threshold: [0, 1] });
+      hEls.forEach(function (h) { obs.observe(h); });
+    });
+
+    // TOC 弹出层开关
+    const tocToggle = document.getElementById('toc-toggle');
+    function openTocPop() {
+      const p = document.getElementById('toc-popover');
+      if (!p) return;
+      p.removeAttribute('hidden');
+      requestAnimationFrame(function () { p.classList.add('is-open'); });
+      tocToggle?.setAttribute('aria-expanded', 'true');
+    }
+    function closeTocPop() {
+      const p = document.getElementById('toc-popover');
+      if (!p) return;
+      p.classList.remove('is-open');
+      setTimeout(function () { p.setAttribute('hidden', ''); }, 200);
+      tocToggle?.setAttribute('aria-expanded', 'false');
+    }
+    tocToggle?.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const p = document.getElementById('toc-popover');
+      if (p && p.classList.contains('is-open')) closeTocPop();
+      else openTocPop();
+    });
+    document.addEventListener('click', function (e) {
+      const p = document.getElementById('toc-popover');
+      if (!p || !p.classList.contains('is-open')) return;
+      if (p.contains(e.target)) return;
+      const t = document.getElementById('toc-toggle');
+      if (t && t.contains(e.target)) return;
+      closeTocPop();
+    });
+  }
+
+  function setupAll() {
+    setupSideNav();
+    setupChapterNav();
+    setupTocRail();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupAll, { once: true });
+  } else {
+    setupAll();
+  }
+  document.addEventListener('astro:page-load', setupAll);
+  document.addEventListener('astro:after-swap', setupAll);
+})();
+</script>
