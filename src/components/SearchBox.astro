@@ -86,81 +86,70 @@ const base = import.meta.env.BASE_URL;
   // Pagefind 搜索 + 弹窗控制
   (function () {
     const base = document.querySelector('meta[name="base-url"]')?.content || '/';
+    const trigger = document.getElementById('search-trigger');
+    const dialog = document.getElementById('search-dialog');
+    const closeBtn = document.getElementById('search-close');
+    const input = document.getElementById('search-input');
+    const results = document.getElementById('search-results');
 
-    function initSearch() {
-      const trigger = document.getElementById('search-trigger');
-      const dialog = document.getElementById('search-dialog');
-      const closeBtn = document.getElementById('search-close');
-      const input = document.getElementById('search-input');
-      const results = document.getElementById('search-results');
+    if (!trigger || !dialog) return;
 
-      if (!trigger || !dialog) return;
+    function openDialog() {
+      if (typeof dialog.showModal === 'function') dialog.showModal();
+      else dialog.setAttribute('open', '');
+      setTimeout(() => input.focus(), 30);
+    }
+    function closeDialog() {
+      if (typeof dialog.close === 'function') dialog.close();
+      else dialog.removeAttribute('open');
+    }
+    trigger.addEventListener('click', openDialog);
+    closeBtn?.addEventListener('click', closeDialog);
+    dialog?.addEventListener('click', (e) => {
+      if (e.target === dialog) closeDialog();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDialog();
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); openDialog(); }
+    });
 
-      function openDialog() {
-        if (typeof dialog.showModal === 'function') dialog.showModal();
-        else dialog.setAttribute('open', '');
-        setTimeout(() => input?.focus(), 30);
+    // 懒加载 Pagefind 库（索引在 postbuild 阶段生成）
+    let pagefind = null;
+    async function loadPagefind() {
+      if (pagefind) return pagefind;
+      try {
+        const script = document.createElement('script');
+        script.src = base + 'pagefind/pagefind.js';
+        script.async = true;
+        document.head.appendChild(script);
+        await new Promise((resolve) => { script.onload = resolve; });
+        if (window.Pagefind) pagefind = await window.Pagefind();
+      } catch (err) {
+        console.warn('Pagefind 加载失败：', err);
       }
-      function closeDialog() {
-        if (typeof dialog.close === 'function') dialog.close();
-        else dialog.removeAttribute('open');
-      }
-      trigger.addEventListener('click', openDialog);
-      closeBtn?.addEventListener('click', closeDialog);
-      dialog?.addEventListener('click', (e) => {
-        if (e.target === dialog) closeDialog();
-      });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeDialog();
-        if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); openDialog(); }
-      });
-
-      // 懒加载 Pagefind 库（索引在 postbuild 阶段生成）
-      let pagefind = null;
-      async function loadPagefind() {
-        if (pagefind) return pagefind;
-        try {
-          const script = document.createElement('script');
-          script.src = base + 'pagefind/pagefind.js';
-          script.async = true;
-          document.head.appendChild(script);
-          await new Promise((resolve) => { script.onload = resolve; });
-          if (window.Pagefind) pagefind = await window.Pagefind();
-        } catch (err) {
-          console.warn('Pagefind 加载失败：', err);
-        }
-        return pagefind;
-      }
-
-      input?.addEventListener('input', async () => {
-        const query = input.value.trim();
-        if (!query) { results.innerHTML = ''; return; }
-        const pf = await loadPagefind();
-        if (!pf) {
-          results.innerHTML = '<p style="color:var(--text-muted)">搜索索引未就绪，刷新页面或在本地构建后预览。</p>';
-          return;
-        }
-        const currentSearch = await pf.search(query);
-        const items = currentSearch.results;
-        if (items.length === 0) {
-          results.innerHTML = '<p style="color:var(--text-muted)">没有匹配的结果</p>';
-          return;
-        }
-        let html = '';
-        for (const item of items) {
-          const data = await item.data();
-          html += `<div class="pagefind-result"><a href="${data.url}">${data.meta.title || '未命名'}</a><p>${data.excerpt || ''}</p></div>`;
-        }
-        results.innerHTML = html;
-      });
+      return pagefind;
     }
 
-    // 首次加载和 View Transitions 页面切换后初始化
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initSearch);
-    } else {
-      initSearch();
-    }
-    document.addEventListener('astro:after-swap', initSearch);
+    input?.addEventListener('input', async () => {
+      const query = input.value.trim();
+      if (!query) { results.innerHTML = ''; return; }
+      const pf = await loadPagefind();
+      if (!pf) {
+        results.innerHTML = '<p style="color:var(--text-muted)">搜索索引未就绪，刷新页面或在本地构建后预览。</p>';
+        return;
+      }
+      const currentSearch = await pf.search(query);
+      const items = currentSearch.results;
+      if (items.length === 0) {
+        results.innerHTML = '<p style="color:var(--text-muted)">没有匹配的结果</p>';
+        return;
+      }
+      let html = '';
+      for (const item of items) {
+        const data = await item.data();
+        html += `<div class="pagefind-result"><a href="${data.url}">${data.meta.title || '未命名'}</a><p>${data.excerpt || ''}</p></div>`;
+      }
+      results.innerHTML = html;
+    });
   })();
 </script>

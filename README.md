@@ -18,39 +18,13 @@
 | 特性 | 说明 |
 | --- | --- |
 | 📚 **按章节拆分** | 每个作品是一组 `.mdx` 文件；新增章节 = 新增一个文件 |
-| 🎨 **四套主题** | `ocean`（墨蓝青）/ `crimson`（玫瑰胭脂）/ `amber`（青铜金）/ `parchment`（羊皮卷·浅色） |
+| 🎨 **三套主题** | `ocean`（蓝紫科幻）/ `crimson`（酒红）/ `amber`（琥珀金） |
 | 📖 **三套布局** | `document`（三栏文档）/ `gallery`（网格图鉴）/ `timeline`（时间线） |
 | 🔎 **离线索引搜索** | Pagefind 在构建时生成索引，前端即时匹配 |
 | ✨ **SPA 级切换** | Astro View Transitions 在跨章节/跨作品间无缝过渡 |
 | 🧩 **10+ MDX 组件** | `Callout`、`Card`、`HeroCard`、`TimelineNode`、`Quote`、`ImageGallery`、`InfoGrid`、`TagList`、`Aside`、`Divider` |
 | 🖼 **响应式 AVIF/WebP 图片** | Astro `<Image>` 自动选择最佳格式 |
-| 📑 **可折叠章节目录** | 每章的子大纲可展开/收起，章节目录支持"全部展开/收起" |
-| 🎯 **滚动高亮（ScrollSpy）** | 滚动页面时右侧 TOC 自动高亮当前段落 |
-| 📱 **响应式导航** | 窄屏设备上支持抽屉式侧边栏、固定返回按钮、弹出式本章目录 |
-| 🎨 **统一滚动条样式** | 所有滚动条使用主题色，窄屏自动降级 |
 | 🚀 **一键部署** | GitHub Pages + Actions，Push 到 `main` 即发布 |
-
-## 📱 响应式导航说明
-
-### 窄屏设备（≤720px）
-- **顶部 action bar**：左侧为"← 返回作品首页"按钮；右侧为"☰ 章节"抽屉按钮（DocLayout 还有额外的"📑 目录"弹出层）
-- **章节目录**：点击"☰ 章节"从左侧滑出，支持逐章展开子目录（h2/h3），也支持"全部展开/收起"
-- **本章目录**：仅在 DocLayout 中可用，点击"📑 目录"弹出当前章节的大纲导航
-- **返回按钮**：固定显示在 action bar 左侧，返回 `/{base}/works/<work>/`
-
-### 平板（720–1100px）
-- **左侧**：章节目录栏仍为三列布局，宽度缩减
-- **右侧**：本章 TOC rail（DocLayout）
-
-### 宽屏设备（＞1100px）
-- **左侧**：sticky 章节目录栏，带滚动条美化，支持每章子目录展开/收起
-- **右侧**（DocLayout 独有）：sticky 本章目录 rail，随页面滚动保持可见，配合 ScrollSpy 高亮
-
-### 核心设计原则
-1. **三栏 → 单栏 退化**：所有布局（Doc/Timeline/Gallery）共用同一套断点策略
-2. **Action bar 固定**：窄屏顶部固定一个操作栏，避免用户在长文中迷失
-3. **z-index 栈固定**：overlay(98) < side-nav(99) < action-bar(100) < TOC popover(101) < search dialog(200)
-4. **单一 JS 脚本**：所有交互（侧栏开关、章节目录展开、TOC 高亮、Esc 关闭）集中在 `BaseLayout.astro` 中，避免重复
 
 ## 📁 目录结构
 
@@ -70,13 +44,13 @@
 │   │       └── [work]/[...slug].astro  # 章节详情（根据 frontmatter 选布局）
 │   │
 │   ├── layouts/              # 布局模板
-│   │   ├── BaseLayout.astro        # 全局：header/footer/主题 + ViewTransitions + 所有交互脚本（侧栏/TOC/章节）
-│   │   ├── DocLayout.astro         # 三栏文档（左章节目录 / 中正文 / 右 TOC rail）
-│   │   ├── GalleryLayout.astro     # 响应式网格（图鉴型），也支持左侧章节目录
-│   │   └── TimelineLayout.astro    # 时间线（剧情型），也支持左侧章节目录
+│   │   ├── BaseLayout.astro        # 全局：header/footer/主题 + ViewTransitions
+│   │   ├── DocLayout.astro         # 三栏文档（左章节目录 / 中正文 / 右 TOC）
+│   │   ├── GalleryLayout.astro     # 响应式网格（图鉴型）
+│   │   └── TimelineLayout.astro    # 时间线（剧情型）
 │   │
 │   ├── components/           # Astro 组件
-│   │   ├── TableOfContents.astro   # 动态大纲目录（h2/h3/h4，可折叠，支持 rail/popover 两种模式）
+│   │   ├── TableOfContents.astro   # 动态大纲目录（h2/h3/h4）
 │   │   ├── WorkNavigator.astro     # 作品切换 pill
 │   │   ├── Pagination.astro        # 上/下章翻页
 │   │   ├── SearchBox.astro         # 搜索按钮 + dialog 弹窗
@@ -96,7 +70,7 @@
 │   │
 │   ├── utils/
 │   │   ├── works.ts           # getWorks / getChapters / extract slugs
-│   │   └── toc.ts             # slugify / buildToc / buildTocTree / ensureUnique / renderChaptersNav / renderTocForRail
+│   │   └── toc.ts             # slugify / buildToc
 │   │
 │   ├── content/               # ★ 创作者编辑区（Content Collections）
 │   │   ├── config.ts          # Zod Schema（章节 + 作品元数据）
@@ -106,16 +80,14 @@
 │   │   └── chapters/          # 章节 → 按作品子目录组织
 │   │       ├── dr-stone/
 │   │       │   ├── chapter-01.mdx
-│   │       │   └── chapter-02.mdx
+│   │       │   ├── chapter-02.mdx
+│   │       │   └── chapter-03.mdx
 │   │       └── maoyuu/
 │   │           ├── chapter-01.mdx
 │   │           └── chapter-02.mdx
 │   │
 │   └── styles/
-│       └── theme.css          # 全局样式 + 四套主题（CSS 变量，含滚动条、选中文、kbd、dialog、callout 语义色等）
-│
-├── docs/
-│   └── code-wiki.md          # 开发者文档（架构、数据层、布局层、组件 API、排错）
+│       └── theme.css          # 全局样式 + 三套主题（CSS 变量）
 │
 ├── public/                    # 静态资源（可选）
 ├── src/assets/images/         # 图片资源（被 <Image> 处理）
@@ -217,11 +189,6 @@ isDraft: false
 </Callout>
 ```
 
-> **关于章节目录**：章节正文中的 `## / ###` 标题会被自动提取为子目录，出现在：
-> - 作品首页的章节目录中（窄屏需点击"全部展开"查看）
-> - DocLayout 右侧的本章目录 rail（宽屏）
-> - DocLayout 窄屏的"📑 目录"弹出层
-
 按需添加更多章节（`chapter-02.mdx`、`chapter-03.mdx` …）。
 
 ### 步骤 3：确认
@@ -247,7 +214,7 @@ npm run build      # Schema 校验 + 生成路由
 | `summary` | string | ➖ | 用于作品卡片的简介 |
 | `tags` | string[] | ➖ | 标签列表 |
 | `cover` | string | ➖ | 封面路径（`src/assets/…`） |
-| `defaultThemePalette` | `ocean \| crimson \| amber \| parchment` | ➖ | 章节默认主题（默认 `ocean`） |
+| `defaultThemePalette` | `ocean \| crimson \| amber` | ➖ | 章节默认主题（默认 `ocean`） |
 | `defaultLayoutType` | `document \| gallery \| timeline` | ➖ | 章节默认布局（默认 `document`） |
 | `isDraft` | boolean | ➖ | `true` 时不渲染 |
 
@@ -258,18 +225,10 @@ npm run build      # Schema 校验 + 生成路由
 | `title` | string | ✅ | 章节标题 |
 | `order` | number | ✅ | 作品内的章节序号（用于翻页与排序） |
 | `layoutType` | 同作品 | ➖ | **覆盖**作品默认布局 |
-| `themePalette` | `ocean \| crimson \| amber \| parchment` | ➖ | **覆盖**作品默认主题 |
+| `themePalette` | 同作品 | ➖ | **覆盖**作品默认主题 |
 | `tags` | string[] | ➖ | 章节标签 |
 | `summary` | string | ➖ | 章节简介 |
 | `isDraft` | boolean | ➖ | `true` 时不渲染 |
-
-**布局类型说明**：
-
-| layoutType | 适用场景 | 章节目录 | 本章 TOC |
-| --- | --- | --- | --- |
-| `document` | 剧情/设定类长文 | ✅ 左栏 | ✅ 右栏 rail + 窄屏弹出层 |
-| `timeline` | 编年史/事件列表 | ✅ 左栏 | ❌ |
-| `gallery` | 角色图鉴/设定图 | ✅ 左栏 | ❌ |
 
 ## 🎨 MDX 自定义组件（白名单）
 
@@ -396,10 +355,9 @@ npm run build      # Schema 校验 + 生成路由
 
 - 数据层与视图层分离（Content Collections → Astro 布局）
 - Zod Schema 与 fail-fast 构建
-- CSS 变量驱动的多主题系统（含滚动条、kbd、dialog 等统一变量）
+- CSS 变量驱动的多主题系统
 - TOC ScrollSpy 的 IntersectionObserver 生命周期
 - View Transitions 在 Astro 中的使用模式
-- 响应式断点与 z-index 栈
 - 常见部署错误排查
 
 ## 📜 License

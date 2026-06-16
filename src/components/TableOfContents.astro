@@ -1,81 +1,60 @@
 ---
-import { buildTocTree } from '../utils/toc';
+import { slugify } from '../utils/toc';
 
 export interface Props {
   headings: { depth: number; text: string; slug?: string }[];
-  /** 标题 */
   title?: string;
-  /** 显示模式（rail 用于宽屏侧栏；popover 用于窄屏弹出层） */
-  mode?: 'rail' | 'popover';
 }
 
-const { headings = [], title = '本章目录', mode = 'rail' } = Astro.props;
+const { headings, title = '目录' } = Astro.props;
 
 type Node = { depth: number; text: string; slug: string; children: Node[] };
-const root: Node[] = buildTocTree(headings);
+const root: Node[] = [];
+const stack: Node[] = [];
+let counter = 0;
+
+for (const h of headings) {
+  if (h.depth < 2 || h.depth > 4) continue;
+  const slug = h.slug ?? slugify(h.text) + '-' + (++counter);
+  const node: Node = { depth: h.depth, text: h.text, slug, children: [] };
+  while (stack.length > 0 && stack[stack.length - 1].depth >= h.depth) stack.pop();
+  if (stack.length === 0) root.push(node);
+  else stack[stack.length - 1].children.push(node);
+  stack.push(node);
+}
+
+function render(list: Node[]): string {
+  let html = '<ul>';
+  for (const n of list) {
+    html += `<li data-depth="${n.depth}"><a class="toc-link" href="#${n.slug}" data-target="#${n.slug}">${n.text}</a>`;
+    if (n.children.length > 0) html += render(n.children);
+    html += '</li>';
+  }
+  html += '</ul>';
+  return html;
+}
+
+const tocHtml = root.length > 0 ? render(root) : '';
 ---
 
-<aside class:list={["toc-rail", "toc-rail-mode-" + mode]} role="navigation" aria-label={title}>
-  <div class="toc-rail-header">{title}</div>
-  {root.length > 0 ? (
-    <ul class="toc-list">
-      {root.map((node) => (
-        <li class="toc-item" data-depth={node.depth}>
-          <div class="toc-row">
-            {node.children.length > 0 ? (
-              <button type="button" class="toc-toggle" aria-expanded="false" aria-controls={`toc-${node.slug}`} aria-label={`展开 ${node.text}`}>
-                <span class="toc-toggle-icon">▸</span>
-              </button>
-            ) : (
-              <span class="toc-spacer" aria-hidden="true"></span>
-            )}
-            <a class="toc-link" href={`#${node.slug}`} data-target={`#${node.slug}`}>{node.text}</a>
-          </div>
-          {node.children.length > 0 && (
-            <div class="toc-children" id={`toc-${node.slug}`} hidden>
-              <ul class="toc-list">
-                {node.children.map((child) => (
-                  <li class="toc-item" data-depth={child.depth}>
-                    <div class="toc-row">
-                      <span class="toc-spacer" aria-hidden="true"></span>
-                      <a class="toc-link" href={`#${child.slug}`} data-target={`#${child.slug}`}>{child.text}</a>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </li>
-      ))}
-    </ul>
-  ) : (
-    <p class="toc-empty">本章暂无小标题</p>
-  )}
+<aside class="toc-rail" id="toc-rail" aria-label="章节目录">
+  <div class="toc-header">{title}</div>
+  <nav class="toc-body" set:html={tocHtml} />
 </aside>
 
 <style>
-  /* 组件内部仅维护与容器尺寸相关的细节，其余样式（颜色/滚动条/高亮/折叠过渡）均继承 theme.css 中的 .toc-rail 等公共样式 */
   .toc-rail {
     position: sticky;
     top: 80px;
     max-height: calc(100vh - 120px);
     overflow-y: auto;
-    padding: 1rem 1rem 1.2rem;
+    padding: 1.2rem 1rem;
     background: var(--bg-elevated);
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
     font-size: 0.9em;
-    scrollbar-width: thin;
   }
-  .toc-rail::-webkit-scrollbar { width: 6px; }
-  .toc-rail::-webkit-scrollbar-track { background: transparent; }
-  .toc-rail::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-thumb);
-    border-radius: 999px;
-  }
-  .toc-rail::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
-
-  .toc-rail-header {
+  .toc-header {
     font-weight: 700;
     color: var(--accent-primary);
     margin-bottom: 0.6rem;
@@ -83,74 +62,48 @@ const root: Node[] = buildTocTree(headings);
     text-transform: uppercase;
     font-size: 0.78em;
   }
-  .toc-empty {
-    color: var(--text-muted);
-    font-size: 0.9em;
-    margin: 0.5rem 0 0;
-  }
-  /* 层级列表 */
-  .toc-list {
+  .toc-body ul {
     list-style: none;
     padding: 0;
     margin: 0;
   }
-  .toc-children .toc-list {
-    padding-left: 0.5rem;
-    margin-top: 0.15rem;
-    border-left: 1px dashed color-mix(in srgb, var(--border-color) 70%, transparent);
-    margin-left: 0.55rem;
+  .toc-body ul ul {
+    padding-left: 0.9rem;
+    margin-top: 0.15em;
   }
-  .toc-item { margin: 0.18em 0; }
-  .toc-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.25rem;
-  }
-  .toc-toggle,
-  .toc-spacer {
-    flex: 0 0 auto;
-    width: 1.1rem;
-    height: 1.5rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .toc-toggle {
-    background: transparent;
-    border: none;
-    padding: 0;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-size: 0.7em;
-    transition: color 0.15s ease;
-  }
-  .toc-toggle:hover { color: var(--accent-primary); }
-  .toc-toggle-icon {
-    display: inline-block;
-    transition: transform 0.2s ease;
-  }
-  .toc-toggle[aria-expanded="true"] .toc-toggle-icon {
-    transform: rotate(90deg);
-  }
+  .toc-body li { margin: 0.18em 0; }
   .toc-link {
     display: block;
-    flex: 1 1 auto;
     padding: 0.3em 0.7em;
     border-left: 2px solid var(--border-color);
     color: var(--text-muted);
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     transition: all 0.15s ease;
-    line-height: 1.4;
   }
   .toc-link:hover {
     color: var(--accent-primary);
     text-decoration: none;
     background: color-mix(in srgb, var(--accent-primary) 6%, transparent);
   }
-  .toc-children {
-    padding-top: 0.1rem;
-  }
-  .toc-children[hidden] {
-    display: none;
+  @media (max-width: 960px) {
+    .toc-rail {
+      position: fixed;
+      top: 60px;
+      right: 1rem;
+      left: 1rem;
+      bottom: auto;
+      max-height: 70vh;
+      z-index: 100;
+      transform: translateY(-10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-hover);
+    }
+    body.toc-open .toc-rail {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
   }
 </style>
