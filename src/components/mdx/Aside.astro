@@ -13,8 +13,8 @@ const { title, position = 'right' } = Astro.props;
 <style>
   .mdx-aside {
     padding: 1rem 1.2rem;
-    background: color-mix(in srgb, #818cf8 14%, var(--bg-elevated));
-    border: 1px solid color-mix(in srgb, #818cf8 35%, transparent);
+    background: color-mix(in srgb, var(--aside-accent) 14%, var(--bg-elevated));
+    border: 1px solid color-mix(in srgb, var(--aside-accent) 35%, transparent);
     border-radius: var(--radius);
     margin: 1.4rem 0;
     font-size: 0.92em;
@@ -23,7 +23,7 @@ const { title, position = 'right' } = Astro.props;
   }
   .mdx-aside-title {
     display: block;
-    color: var(--accent-secondary);
+    color: var(--aside-accent);
     margin-bottom: 0.3em;
     font-size: 0.95em;
     font-weight: 700;

@@ -1,56 +1,198 @@
-:root {
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Roboto, sans-serif;
-  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+/* =====================================================
+   Astro ACG Wiki · 主题与基础样式
+   -------------------------------------------------------
+   提供 ocean / crimson / amber / parchment 四套主题
+   所有组件应通过 CSS 变量取值，而不是硬编码 hex
+   ===================================================== */
 
+/* =====================================================
+   :root 默认主题 = Ocean（墨蓝青）
+   适合：科幻、冷静、海洋世界观的作品
+   ===================================================== */
+:root {
+  /* ---- 字体与基础 ---- */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Consolas", "Liberation Mono", monospace;
+
+  /* ---- 尺寸与圆角 ---- */
   --radius: 10px;
   --radius-sm: 6px;
   --radius-lg: 16px;
-  --shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
-  --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.12);
 
-  --bg-color: #0f172a;
-  --bg-elevated: #1e293b;
-  --text-main: #e2e8f0;
-  --text-muted: #94a3b8;
-  --accent-primary: #38bdf8;
-  --accent-secondary: #818cf8;
-  --border-color: #334155;
-  --code-bg: #1e293b;
-  --link-color: var(--accent-primary);
+  /* ---- 阴影 ---- */
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.12);
+  --shadow: 0 2px 16px rgba(0, 0, 0, 0.14);
+  --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.24);
+
+  /* ---- 主色板（Ocean） ---- */
+  --bg-color: #0e1a1f;              /* 墨蓝绿深底 */
+  --bg-elevated: #1a2b36;           /* 青色调升高层 */
+  --text-main: #e0f2fe;             /* 冷白文字 */
+  --text-muted: #7a94a3;            /* 青灰 */
+  --accent-primary: #22d3ee;        /* 海面反光：亮青 */
+  --accent-secondary: #67e8f9;      /* 亮青 */
+  --accent-tertiary: #a78bfa;       /* 紫（对比点缀） */
+  --border-color: #243c4d;          /* 深青灰 */
+  --code-bg: #1a2b36;               /* 与 elevated 一致 */
+
+  /* ---- 滚动条 ---- */
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: rgba(103, 232, 249, 0.28);
+  --scrollbar-thumb-hover: var(--accent-primary);
+
+  /* ---- 选中文本 / 分隔线 ---- */
+  --selection-bg: color-mix(in srgb, var(--accent-primary) 30%, transparent);
+  --hr-color: color-mix(in srgb, var(--border-color) 65%, transparent);
+
+  /* ---- 键盘标签 ---- */
+  --kbd-bg: var(--bg-elevated);
+  --kbd-border: var(--border-color);
+
+  /* ---- 模态遮罩 ---- */
+  --dialog-backdrop: rgba(14, 26, 31, 0.68);
+
+  /* ---- Callout 语义色（与主题协调） ---- */
+  --callout-info: #22d3ee;
+  --callout-warning: #f59e0b;
+  --callout-success: #10b981;
+  --callout-note: #a78bfa;
+
+  /* ---- Aside 边注色 ---- */
+  --aside-accent: #818cf8;
+
+  /* ---- focus 环（可访问性） ---- */
+  --focus-ring: 0 0 0 2px var(--bg-color), 0 0 0 4px var(--accent-primary);
 }
 
+/* =====================================================
+   Ocean 主题 —— 与 :root 一致（明确声明以保证覆盖）
+   ===================================================== */
 body.theme-ocean {
-  --bg-color: #0f172a;
-  --bg-elevated: #1e293b;
-  --text-main: #e2e8f0;
-  --text-muted: #94a3b8;
-  --accent-primary: #38bdf8;
-  --accent-secondary: #818cf8;
-  --border-color: #334155;
-  --code-bg: #1e293b;
+  --bg-color: #0e1a1f;
+  --bg-elevated: #1a2b36;
+  --text-main: #e0f2fe;
+  --text-muted: #7a94a3;
+  --accent-primary: #22d3ee;
+  --accent-secondary: #67e8f9;
+  --accent-tertiary: #a78bfa;
+  --border-color: #243c4d;
+  --code-bg: #1a2b36;
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: rgba(103, 232, 249, 0.28);
+  --scrollbar-thumb-hover: var(--accent-primary);
+  --selection-bg: color-mix(in srgb, var(--accent-primary) 30%, transparent);
+  --hr-color: color-mix(in srgb, var(--border-color) 65%, transparent);
+  --dialog-backdrop: rgba(14, 26, 31, 0.68);
+  --callout-info: #22d3ee;
+  --callout-warning: #f59e0b;
+  --callout-success: #10b981;
+  --callout-note: #a78bfa;
+  --aside-accent: #818cf8;
 }
 
+/* =====================================================
+   Crimson 主题 —— 玫瑰胭脂（深红粉）
+   适合：情感、战斗、奇幻世界中的热血剧情
+   ===================================================== */
 body.theme-crimson {
-  --bg-color: #1a0a0a;
-  --bg-elevated: #2d0f14;
-  --text-main: #f8d7d7;
-  --text-muted: #c99a9a;
-  --accent-primary: #f43f5e;
-  --accent-secondary: #fb7185;
-  --border-color: #4c1d24;
-  --code-bg: #2d0f14;
+  --bg-color: #1f0d0d;              /* 暗红棕 */
+  --bg-elevated: #2d1414;           /* 更深 */
+  --text-main: #fde2e2;             /* 暖白 */
+  --text-muted: #a57373;            /* 红灰 */
+  --accent-primary: #fb7185;        /* 玫瑰粉 —— 柔和优雅 */
+  --accent-secondary: #f472b6;      /* 粉 */
+  --accent-tertiary: #fcd34d;       /* 暖金，作为对比点缀点 */
+  --border-color: #4c1d24;          /* 深红棕 */
+  --code-bg: #2d1414;
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: rgba(251, 113, 133, 0.28);
+  --scrollbar-thumb-hover: var(--accent-primary);
+  --selection-bg: color-mix(in srgb, var(--accent-primary) 28%, transparent);
+  --hr-color: color-mix(in srgb, var(--border-color) 65%, transparent);
+  --dialog-backdrop: rgba(31, 13, 13, 0.72);
+  --callout-info: #60a5fa;
+  --callout-warning: #f59e0b;
+  --callout-success: #34d399;
+  --callout-note: #f472b6;
+  --aside-accent: #f472b6;
 }
 
+/* =====================================================
+   Amber 主题 —— 青铜金（深暖棕）
+   适合：古代、沙漠、蒸汽朋克、历史编年史
+   ===================================================== */
 body.theme-amber {
-  --bg-color: #1c1208;
-  --bg-elevated: #2d1d0b;
-  --text-main: #fef3c7;
-  --text-muted: #d6b379;
-  --accent-primary: #f59e0b;
-  --accent-secondary: #fbbf24;
-  --border-color: #5c3a12;
-  --code-bg: #2d1d0b;
+  --bg-color: #1a1410;              /* 深棕 */
+  --bg-elevated: #2b2218;           /* 棕金 */
+  --text-main: #fef3c7;             /* 暖米黄 */
+  --text-muted: #a89678;            /* 暗金棕 */
+  --accent-primary: #d97706;        /* 琥珀 —— 沉稳不刺眼 */
+  --accent-secondary: #fbbf24;      /* 金色 */
+  --accent-tertiary: #fb923c;       /* 橙 */
+  --border-color: #4a3322;          /* 深棕 */
+  --code-bg: #2b2218;
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: rgba(251, 191, 36, 0.28);
+  --scrollbar-thumb-hover: var(--accent-primary);
+  --selection-bg: color-mix(in srgb, var(--accent-primary) 28%, transparent);
+  --hr-color: color-mix(in srgb, var(--border-color) 65%, transparent);
+  --dialog-backdrop: rgba(26, 20, 16, 0.72);
+  --callout-info: #60a5fa;
+  --callout-warning: #f59e0b;
+  --callout-success: #10b981;
+  --callout-note: #fbbf24;
+  --aside-accent: #fbbf24;
 }
+
+/* =====================================================
+   Parchment 主题 —— 羊皮卷（浅色）
+   适合：古典文学、魔法书、编年史、浪漫题材
+   注意：这是唯一的浅色主题，所有颜色需要单独定义
+   ===================================================== */
+body.theme-parchment {
+  --bg-color: #f5f1e6;              /* 浅米黄 —— 羊皮纸基底 */
+  --bg-elevated: #ebe4d2;           /* 稍深米黄 */
+  --text-main: #1c1917;             /* 深棕黑 */
+  --text-muted: #57534e;            /* 灰棕 */
+  --accent-primary: #7c2d12;        /* 深红棕 —— 古典书籍标题色 */
+  --accent-secondary: #92400e;      /* 金棕 */
+  --accent-tertiary: #a2641c;       /* 琥珀 */
+  --border-color: #c9b88a;          /* 浅金棕分隔 */
+  --code-bg: #e8dfc8;               /* 代码块米黄 */
+
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: rgba(124, 45, 18, 0.28);
+  --scrollbar-thumb-hover: rgba(124, 45, 18, 0.55);
+
+  /* 选中文本：深棕红半透明 */
+  --selection-bg: color-mix(in srgb, var(--accent-primary) 25%, transparent);
+  --hr-color: color-mix(in srgb, var(--border-color) 80%, transparent);
+
+  --kbd-bg: #ebe4d2;
+  --kbd-border: #c9b88a;
+
+  /* 模态遮罩：偏暗棕 */
+  --dialog-backdrop: rgba(28, 25, 23, 0.45);
+
+  /* 浅色主题下，callout 颜色要更饱和才能看清 */
+  --callout-info: #0891b2;
+  --callout-warning: #d97706;
+  --callout-success: #059669;
+  --callout-note: #7c3aed;
+  --aside-accent: #7c3aed;
+
+  /* 浅色阴影：降低不透明度，避免形成"脏边" */
+  --shadow-sm: 0 1px 3px rgba(92, 51, 23, 0.08);
+  --shadow: 0 2px 12px rgba(92, 51, 23, 0.10);
+  --shadow-hover: 0 8px 28px rgba(92, 51, 23, 0.16);
+
+  /* focus ring 在浅色背景上使用白色内圈 */
+  --focus-ring: 0 0 0 2px var(--bg-color), 0 0 0 4px var(--accent-primary);
+}
+
+/* =====================================================
+   Reset & Base
+   ===================================================== */
 
 *,
 *::before,
@@ -68,10 +210,55 @@ body {
   font-size: 16px;
   line-height: 1.7;
   transition: background-color 0.25s ease, color 0.25s ease;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  scrollbar-width: thin;
+}
+
+/* 羊皮卷主题 —— 给页面一点质感（细微纹理） */
+body.theme-parchment {
+  /* 叠加一层极淡的渐变，模拟羊皮纸边缘略深的效果 */
+  background-image:
+    radial-gradient(ellipse at top, color-mix(in srgb, var(--accent-secondary) 5%, transparent) 0%, transparent 60%),
+    radial-gradient(ellipse at bottom right, color-mix(in srgb, var(--accent-secondary) 4%, transparent) 0%, transparent 55%);
+  background-color: var(--bg-color);
+}
+
+/* WebKit 滚动条 */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 0.2s ease;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+/* 侧栏/rail 等窄滚动条区域 */
+.thin-scrollbar {
+  scrollbar-width: thin;
+}
+.thin-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--text-main);
 }
 
 a {
-  color: var(--link-color);
+  color: var(--accent-primary);
   text-decoration: none;
   transition: color 0.15s ease;
 }
@@ -86,6 +273,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.6em;
   scroll-margin-top: 120px;
   color: var(--text-main);
+  font-weight: 700;
 }
 
 h1 { font-size: 2.2rem; font-weight: 800; }
@@ -93,7 +281,20 @@ h2 { font-size: 1.6rem; font-weight: 700; border-bottom: 1px solid var(--border-
 h3 { font-size: 1.25rem; font-weight: 600; }
 h4 { font-size: 1.05rem; font-weight: 600; color: var(--text-muted); }
 
+/* 羊皮卷主题：h1/h2 使用深棕红，更有古籍标题感 */
+body.theme-parchment h1,
+body.theme-parchment h2,
+body.theme-parchment h3 {
+  color: var(--accent-primary);
+}
+
 p { margin: 0.8em 0; }
+
+hr {
+  border: none;
+  border-top: 1px solid var(--hr-color);
+  margin: 2rem 0;
+}
 
 blockquote {
   margin: 1.2em 0;
@@ -109,9 +310,9 @@ code {
   font-family: var(--font-mono);
   font-size: 0.9em;
   background: var(--code-bg);
+  color: var(--accent-primary);
   padding: 0.15em 0.4em;
   border-radius: 4px;
-  color: var(--accent-primary);
 }
 
 pre {
@@ -125,6 +326,20 @@ pre code {
   background: transparent;
   padding: 0;
   color: var(--text-main);
+}
+
+kbd {
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  padding: 0.15em 0.5em;
+  border-radius: 6px;
+  background: var(--kbd-bg);
+  color: var(--accent-primary);
+  border: 1px solid var(--kbd-border);
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.25);
+}
+body.theme-parchment kbd {
+  box-shadow: inset 0 -2px 0 rgba(92, 51, 23, 0.2);
 }
 
 table {
@@ -150,6 +365,17 @@ th {
   padding: 0 1.2rem;
 }
 
+button {
+  font-family: inherit;
+}
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: 4px;
+}
+
 @media (max-width: 960px) {
   body { font-size: 15px; }
 }
@@ -159,6 +385,122 @@ th {
   h2 { font-size: 1.35rem; }
 }
 
+/* dialog 基础样式 */
+dialog {
+  background: var(--bg-elevated);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  max-width: min(640px, 92vw);
+}
+dialog::backdrop {
+  background: var(--dialog-backdrop);
+  backdrop-filter: blur(2px);
+}
+
+/* =====================================================
+   TOC / Navigation 公共样式
+   （为 DocLayout / TimelineLayout / GalleryLayout
+    中的 TOC rail / 侧边目录 / 弹出层统一提供）
+   ===================================================== */
+
+/* 当前高亮 TOC 链接 */
+.toc-link-active {
+  color: var(--accent-primary) !important;
+  border-left-color: var(--accent-primary) !important;
+  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+}
+
+/* 通用 tag（作品标签 / 章节标签） */
+.tag {
+  display: inline-block;
+  font-size: 0.78em;
+  padding: 0.2em 0.7em;
+  margin: 0 0.3em 0.3em 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-primary) 18%, transparent);
+  color: var(--accent-primary);
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 40%, transparent);
+}
+
+/* 通用按钮（用于导航按钮） */
+.btn {
+  display: inline-block;
+  padding: 0.55em 1.2em;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  border: 1px solid var(--accent-primary);
+  background: transparent;
+  color: var(--accent-primary);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-size: 0.92em;
+  line-height: 1.2;
+}
+.btn:hover {
+  background: var(--accent-primary);
+  color: var(--bg-color);
+  text-decoration: none;
+}
+.btn-primary {
+  background: var(--accent-primary);
+  color: var(--bg-color);
+}
+.btn-primary:hover {
+  background: var(--accent-secondary);
+  border-color: var(--accent-secondary);
+  color: var(--bg-color);
+}
+
+/* =====================================================
+   全站头部 & 页脚
+   ===================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(12px);
+  background: color-mix(in srgb, var(--bg-color) 85%, transparent);
+  border-bottom: 1px solid var(--border-color);
+}
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.site-header-left,
+.site-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.site-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--text-main);
+}
+.site-title span.accent {
+  color: var(--accent-primary);
+}
+
+.site-footer {
+  margin-top: 4rem;
+  padding: 2rem 1rem 3rem;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85em;
+}
+
+/* View Transitions 过渡 */
 @media (prefers-reduced-motion: no-preference) {
   ::view-transition-old(root),
   ::view-transition-new(root) {
@@ -180,81 +522,371 @@ th {
   }
 }
 
-.toc-link-active {
-  color: var(--accent-primary) !important;
-  border-left-color: var(--accent-primary) !important;
-  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
-}
+/* =====================================================
+   DocLayout / Timeline / Gallery 通用侧栏与导航
+   （详细的布局在各自 Layout 的 <style> 内）
+   ===================================================== */
 
-.tag {
-  display: inline-block;
-  font-size: 0.78em;
-  padding: 0.2em 0.7em;
-  margin: 0 0.3em 0.3em 0;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--accent-primary) 18%, transparent);
-  color: var(--accent-primary);
-  border: 1px solid color-mix(in srgb, var(--accent-primary) 40%, transparent);
-}
-
-.site-header {
+/* 窄屏固定的导航 action bar */
+.reader-action-bar {
   position: sticky;
   top: 0;
-  z-index: 50;
-  backdrop-filter: blur(12px);
-  background: color-mix(in srgb, var(--bg-color) 85%, transparent);
-  border-bottom: 1px solid var(--border-color);
-}
-.site-header-inner {
-  display: flex;
+  z-index: 60;
+  display: none;
   align-items: center;
   justify-content: space-between;
-  padding: 0.9rem 1.2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  gap: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  background: color-mix(in srgb, var(--bg-elevated) 92%, transparent);
+  border-bottom: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
 }
-.site-title {
-  font-size: 1.1rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
+.reader-action-bar .reader-action-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.reader-action-bar .btn-sm {
+  padding: 0.4em 0.8em;
+  font-size: 0.85em;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background: var(--bg-elevated);
   color: var(--text-main);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
 }
-.site-title span.accent {
+.reader-action-bar .btn-sm:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+.reader-action-bar .btn-sm.btn-primary-sm {
+  background: var(--accent-primary);
+  color: var(--bg-color);
+  border-color: var(--accent-primary);
+}
+.reader-action-bar .btn-sm.btn-ghost {
+  background: transparent;
+  color: var(--text-main);
+  border-color: transparent;
+}
+.reader-action-bar .btn-sm.btn-ghost:hover {
   color: var(--accent-primary);
 }
 
-.btn {
-  display: inline-block;
-  padding: 0.55em 1.2em;
-  border-radius: var(--radius-sm);
-  font-weight: 600;
-  border: 1px solid var(--accent-primary);
+/* 返回按钮文字在窄屏使用更紧凑排版 */
+.btn-sm .btn-label {
+  display: inline;
+}
+@media (max-width: 420px) {
+  .btn-sm .btn-label {
+    display: none;
+  }
+  .reader-action-bar .btn-sm {
+    padding: 0.4em 0.55em;
+    font-size: 0.95em;
+  }
+}
+
+/* 遮罩层（供 side-nav 使用） */
+.nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 80;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+body.theme-parchment .nav-overlay {
+  background: rgba(28, 25, 23, 0.55);
+}
+
+/* TOC rail（右侧目录）基础容器，位置与响应式在 Layout 内设置 */
+.toc-rail {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1rem 0.9rem;
+  font-size: 0.9em;
+  scrollbar-width: thin;
+}
+.toc-rail::-webkit-scrollbar { width: 6px; }
+.toc-rail::-webkit-scrollbar-track { background: transparent; }
+.toc-rail::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 999px;
+}
+.toc-rail::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
+
+.toc-rail-header {
+  font-weight: 700;
+  color: var(--accent-primary);
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.78em;
+}
+
+/* TOC 层级列表（由 renderTocForRail 生成） */
+.toc-rail .toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.toc-rail .toc-list .toc-list {
+  /* 子层级缩进 */
+  padding-left: 1rem;
+  margin-top: 0.1rem;
+}
+.toc-rail .toc-item { margin: 0.18em 0; }
+.toc-rail .toc-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+.toc-rail .toc-toggle,
+.toc-rail .toc-spacer {
+  flex: 0 0 auto;
+  width: 1.1rem;
+  height: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.toc-rail .toc-toggle {
   background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.7em;
+  transition: transform 0.2s ease, color 0.15s ease;
+}
+.toc-rail .toc-toggle:hover { color: var(--accent-primary); }
+.toc-rail .toc-toggle[aria-expanded="true"] .toc-toggle-icon {
+  display: inline-block;
+  transform: rotate(90deg);
+}
+.toc-rail .toc-toggle-icon {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+.toc-rail .toc-spacer { height: 1.5rem; }
+.toc-rail .toc-link {
+  display: block;
+  flex: 1 1 auto;
+  padding: 0.3em 0.6em;
+  border-left: 2px solid var(--border-color);
+  color: var(--text-muted);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  transition: all 0.15s ease;
+  line-height: 1.4;
+}
+.toc-rail .toc-link:hover {
+  color: var(--accent-primary);
+  text-decoration: none;
+  background: color-mix(in srgb, var(--accent-primary) 6%, transparent);
+}
+.toc-rail .toc-children {
+  padding-top: 0.1rem;
+}
+.toc-rail .toc-children[hidden] {
+  display: none;
+}
+
+/* 作品章节目录（左侧侧栏 / 抽屉） */
+.chap-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.chap-nav-header {
+  margin-bottom: 0.3rem;
+}
+.chap-nav-title {
+  display: block;
+  font-size: 0.85em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent-primary);
+}
+.chap-nav-actions {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+}
+.chap-action-btn {
+  padding: 0.25em 0.7em;
+  font-size: 0.78em;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 30%, transparent);
   color: var(--accent-primary);
   cursor: pointer;
-  transition: all 0.18s ease;
-  font-size: 0.92em;
+  transition: all 0.15s ease;
 }
-.btn:hover {
-  background: var(--accent-primary);
-  color: var(--bg-color);
-  text-decoration: none;
-}
-.btn-primary {
-  background: var(--accent-primary);
-  color: var(--bg-color);
-}
-.btn-primary:hover {
-  background: var(--accent-secondary);
-  border-color: var(--accent-secondary);
-  color: var(--bg-color);
+.chap-action-btn:hover {
+  background: color-mix(in srgb, var(--accent-primary) 20%, transparent);
 }
 
-.site-footer {
-  margin-top: 4rem;
-  padding: 2rem 1rem 3rem;
-  border-top: 1px solid var(--border-color);
-  text-align: center;
+.chap-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.chap-item { margin: 0; }
+.chap-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+.chap-toggle,
+.chap-spacer {
+  flex: 0 0 auto;
+  width: 1.1rem;
+  height: 1.7rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.chap-toggle {
+  background: transparent;
+  border: none;
+  padding: 0;
   color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.7em;
+  transition: color 0.15s ease, transform 0.2s ease;
+}
+.chap-toggle:hover { color: var(--accent-primary); }
+.chap-toggle-icon {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+.chap-toggle[aria-expanded="true"] .chap-toggle-icon {
+  transform: rotate(90deg);
+}
+
+.chap-link {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35em 0.7em;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-size: 0.92em;
+  transition: all 0.15s ease;
+  line-height: 1.45;
+}
+.chap-link:hover {
+  color: var(--accent-primary);
+  background: color-mix(in srgb, var(--accent-primary) 8%, transparent);
+  text-decoration: none;
+}
+.chap-link.active {
+  color: var(--accent-primary);
+  background: color-mix(in srgb, var(--accent-primary) 12%, transparent);
+  font-weight: 600;
+}
+.chap-num {
+  font-variant-numeric: tabular-nums;
   font-size: 0.85em;
+  color: var(--accent-primary);
+  min-width: 1.5rem;
+}
+.chap-text {
+  word-break: break-word;
+}
+
+.chap-sub {
+  padding-left: 1.35rem;
+  padding-top: 0.2rem;
+}
+.chap-sub[hidden] { display: none; }
+
+.chap-sub-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.chap-sub-list .chap-sub-list {
+  padding-left: 1rem;
+}
+.chap-sub-item { margin: 0; }
+.chap-sub-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+.chap-sub-toggle,
+.chap-spacer {
+  flex: 0 0 auto;
+  width: 1.1rem;
+  height: 1.5rem;
+}
+.chap-sub-toggle {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.7em;
+  transition: color 0.15s ease, transform 0.2s ease;
+}
+.chap-sub-toggle:hover { color: var(--accent-primary); }
+.chap-sub-toggle-icon { transition: transform 0.2s ease; display: inline-block; }
+.chap-sub-toggle[aria-expanded="true"] .chap-sub-toggle-icon { transform: rotate(90deg); }
+.chap-sub-link {
+  flex: 1 1 auto;
+  display: block;
+  padding: 0.25em 0.6em;
+  color: var(--text-muted);
+  border-left: 2px solid var(--border-color);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.88em;
+  transition: all 0.15s ease;
+}
+.chap-sub-link:hover {
+  color: var(--accent-primary);
+  background: color-mix(in srgb, var(--accent-primary) 6%, transparent);
+  text-decoration: none;
+}
+.chap-sub-children[hidden] { display: none; }
+.chap-sub-children { padding-top: 0.1rem; }
+
+/* 弹出层型 TOC（窄屏使用） */
+.toc-popover {
+  position: fixed;
+  top: 3.8rem;
+  right: 1rem;
+  left: 1rem;
+  max-height: 72vh;
+  overflow-y: auto;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-hover);
+  z-index: 100;
+  padding: 1rem;
+  transform: translateY(-6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.toc-popover.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
