@@ -18,7 +18,7 @@
 | 特性 | 说明 |
 | --- | --- |
 | 📚 **按章节拆分** | 每个作品是一组 `.mdx` 文件；新增章节 = 新增一个文件 |
-| 🎨 **三套主题** | `ocean`（蓝紫科幻）/ `crimson`（酒红）/ `amber`（琥珀金） |
+| 🎨 **四套主题** | `ocean`（墨蓝青）/ `crimson`（玫瑰胭脂）/ `amber`（青铜金）/ `parchment`（羊皮卷·浅色） |
 | 📖 **三套布局** | `document`（三栏文档）/ `gallery`（网格图鉴）/ `timeline`（时间线） |
 | 🔎 **离线索引搜索** | Pagefind 在构建时生成索引，前端即时匹配 |
 | ✨ **SPA 级切换** | Astro View Transitions 在跨章节/跨作品间无缝过渡 |
@@ -112,7 +112,7 @@
 │   │           └── chapter-02.mdx
 │   │
 │   └── styles/
-│       └── theme.css          # 全局样式 + 三套主题（CSS 变量，含滚动条、选中文、kbd、dialog 等）
+│       └── theme.css          # 全局样式 + 四套主题（CSS 变量，含滚动条、选中文、kbd、dialog、callout 语义色等）
 │
 ├── docs/
 │   └── code-wiki.md          # 开发者文档（架构、数据层、布局层、组件 API、排错）
@@ -247,7 +247,7 @@ npm run build      # Schema 校验 + 生成路由
 | `summary` | string | ➖ | 用于作品卡片的简介 |
 | `tags` | string[] | ➖ | 标签列表 |
 | `cover` | string | ➖ | 封面路径（`src/assets/…`） |
-| `defaultThemePalette` | `ocean \| crimson \| amber` | ➖ | 章节默认主题（默认 `ocean`） |
+| `defaultThemePalette` | `ocean \| crimson \| amber \| parchment` | ➖ | 章节默认主题（默认 `ocean`） |
 | `defaultLayoutType` | `document \| gallery \| timeline` | ➖ | 章节默认布局（默认 `document`） |
 | `isDraft` | boolean | ➖ | `true` 时不渲染 |
 
@@ -258,7 +258,7 @@ npm run build      # Schema 校验 + 生成路由
 | `title` | string | ✅ | 章节标题 |
 | `order` | number | ✅ | 作品内的章节序号（用于翻页与排序） |
 | `layoutType` | 同作品 | ➖ | **覆盖**作品默认布局 |
-| `themePalette` | 同作品 | ➖ | **覆盖**作品默认主题 |
+| `themePalette` | `ocean \| crimson \| amber \| parchment` | ➖ | **覆盖**作品默认主题 |
 | `tags` | string[] | ➖ | 章节标签 |
 | `summary` | string | ➖ | 章节简介 |
 | `isDraft` | boolean | ➖ | `true` 时不渲染 |

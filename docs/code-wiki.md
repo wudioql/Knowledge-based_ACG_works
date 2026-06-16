@@ -39,7 +39,7 @@
 1. **数据流单向**：`内容（MDX）` → `数据层（Zod）` → `组件` → `布局` → `页面` → `静态 HTML`
 2. **内容创作者与开发者解耦**：新增作品只需在 `content/` 中添加 MDX 文件，不碰任何代码
 3. **Fail-fast**：任何不符合 Schema 的 frontmatter 都会让构建立即失败，防止坏数据上线
-4. **主题可插拔**：通过在 `<body>` 上添加 `.theme-ocean / .theme-crimson / .theme-amber` 实现
+4. **主题可插拔**：通过在 `<body>` 上添加 `.theme-ocean / .theme-crimson / .theme-amber / .theme-parchment` 实现
 5. **零 JS by default**：Astro 默认不打包运行时 JS；搜索、ScrollSpy、侧栏开关通过 BaseLayout 中的 `<script is:inline>` 按需注入（全页面共享，避免重复）
 
 ---
@@ -60,7 +60,7 @@ const works = defineCollection({
     summary: z.string().optional(),
     tags: z.array(z.string()).default([]),
     cover: z.string().optional(),
-    defaultThemePalette: z.enum(['ocean', 'crimson', 'amber']).default('ocean'),
+    defaultThemePalette: z.enum(['ocean', 'crimson', 'amber', 'parchment']).default('ocean'),
     defaultLayoutType: z.enum(['document', 'gallery', 'timeline']).default('document'),
     isDraft: z.boolean().default(false),
   }),
@@ -73,7 +73,7 @@ const chapters = defineCollection({
     title: z.string(),
     order: z.number(),
     layoutType: z.enum(['document', 'gallery', 'timeline']).optional(),
-    themePalette: z.enum(['ocean', 'crimson', 'amber']).optional(),
+    themePalette: z.enum(['ocean', 'crimson', 'amber', 'parchment']).optional(),
     tags: z.array(z.string()).default([]),
     summary: z.string().optional(),
     cover: z.string().optional(),
@@ -247,7 +247,7 @@ const layoutType = chapter.data.layoutType ?? work.data.defaultLayoutType;
 **职责**：
 - 注入全局 CSS（`theme.css`）
 - 注入 `<ViewTransitions />` 以启用页面动画
-- 设置 `<body>` 的主题类（`theme-ocean / theme-crimson / theme-amber`）
+- 设置 `<body>` 的主题类（`theme-ocean / theme-crimson / theme-amber / theme-parchment`）
 - 渲染站点 header（含搜索按钮）与 footer
 - **注入全站交互脚本**（`<script is:inline>`）：
   - 侧栏（章节目录）开关
@@ -335,71 +335,128 @@ const layoutType = chapter.data.layoutType ?? work.data.defaultLayoutType;
   --shadow: 0 2px 16px rgba(0, 0, 0, 0.10);
   --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.18);
 
-  /* 颜色（深底，深色基调） */
-  --bg-color: #0f172a;
-  --bg-elevated: #1e293b;
-  --text-main: #e2e8f0;
-  --text-muted: #94a3b8;
-  --accent-primary: #38bdf8;    /* 亮蓝（ocean 主题） */
-  --accent-secondary: #818cf8;  /* 紫蓝 */
-  --accent-tertiary: #f43f5e;   /* 洋红（强调色） */
-  --border-color: #334155;
-  --code-bg: #1e293b;
+  /* 颜色（ocean 默认：墨蓝青） */
+  --bg-color: #0e1a1f;
+  --bg-elevated: #1a2b36;
+  --text-main: #e0f2fe;
+  --text-muted: #7a94a3;
+  --accent-primary: #22d3ee;    /* 青色海面反光 */
+  --accent-secondary: #67e8f9;  /* 亮青 */
+  --accent-tertiary: #a78bfa;   /* 紫 */
+  --border-color: #243c4d;
+  --code-bg: #1a2b36;
 
   /* 滚动条 */
   --scrollbar-track: transparent;
-  --scrollbar-thumb: rgba(148, 163, 184, 0.35);
+  --scrollbar-thumb: rgba(103, 232, 249, 0.28);
   --scrollbar-thumb-hover: var(--accent-primary);
 
   /* 文本选中 */
-  --selection-bg: color-mix(in srgb, var(--accent-primary) 35%, transparent);
+  --selection-bg: color-mix(in srgb, var(--accent-primary) 30%, transparent);
 
   /* 分隔线 */
-  --hr-color: color-mix(in srgb, var(--border-color) 60%, transparent);
+  --hr-color: color-mix(in srgb, var(--border-color) 65%, transparent);
 
   /* kbd 键盘提示 */
   --kbd-bg: var(--bg-elevated);
   --kbd-border: var(--border-color);
 
+  /* Callout 语义色（info/warning/success/note） */
+  --callout-info: #22d3ee;
+  --callout-warning: #f59e0b;
+  --callout-success: #10b981;
+  --callout-note: #a78bfa;
+
+  /* Aside 边注色 */
+  --aside-accent: #818cf8;
+
   /* dialog / popover 遮罩 */
-  --dialog-backdrop: rgba(15, 23, 42, 0.62);
+  --dialog-backdrop: rgba(14, 26, 31, 0.68);
 
   /* focus ring（可访问性） */
   --focus-ring: 0 0 0 2px var(--bg-color), 0 0 0 4px var(--accent-primary);
 }
 ```
 
-### 6.2 三套主题重写（通过选择器覆盖）
+### 6.2 四套主题重写（通过选择器覆盖）
 
 ```css
 body.theme-ocean {
-  /* 继承 :root 的默认值（蓝紫科幻） */
+  /* 墨蓝青：冷色科幻 / 海洋主题 —— 继承 :root 默认值 */
+  --callout-info: #22d3ee;
+  --callout-note: #a78bfa;
 }
 
 body.theme-crimson {
-  --bg-color: #1a0a0a;
-  --bg-elevated: #2d0f14;
-  --text-main: #f8d7d7;
-  --text-muted: #c99a9a;
-  --accent-primary: #f43f5e;   /* 酒红 */
-  --accent-secondary: #fb7185;
-  --accent-tertiary: #818cf8;  /* 反转：用紫色作为 tertiary */
+  /* 玫瑰胭脂：暖色，情感 / 战斗向作品 */
+  --bg-color: #1f0d0d;
+  --bg-elevated: #2d1414;
+  --text-main: #fde2e2;
+  --text-muted: #a57373;
+  --accent-primary: #fb7185;    /* 玫瑰粉 */
+  --accent-secondary: #f472b6;
+  --accent-tertiary: #fcd34d;   /* 暖金，作为对比点缀 */
   --border-color: #4c1d24;
-  --code-bg: #2d0f14;
+  --code-bg: #2d1414;
+  --scrollbar-thumb: rgba(251, 113, 133, 0.28);
+  --selection-bg: color-mix(in srgb, var(--accent-primary) 28%, transparent);
+  --callout-info: #60a5fa;
+  --callout-success: #34d399;
+  --callout-note: #f472b6;
+  --aside-accent: #f472b6;
+  --dialog-backdrop: rgba(31, 13, 13, 0.72);
 }
 
 body.theme-amber {
-  --bg-color: #1c1208;
-  --bg-elevated: #2d1d0b;
+  /* 青铜金：沉郁的古代/沙漠/蒸汽朋克 */
+  --bg-color: #1a1410;
+  --bg-elevated: #2b2218;
   --text-main: #fef3c7;
-  --text-muted: #d6b379;
-  --accent-primary: #f59e0b;   /* 琥珀金 */
+  --text-muted: #a89678;
+  --accent-primary: #d97706;    /* 琥珀橙 */
   --accent-secondary: #fbbf24;
-  --accent-tertiary: #f43f5e;
-  --border-color: #5c3a12;
-  --code-bg: #2d1d0b;
+  --accent-tertiary: #fb923c;
+  --border-color: #4a3322;
+  --code-bg: #2b2218;
+  --scrollbar-thumb: rgba(251, 191, 36, 0.28);
+  --selection-bg: color-mix(in srgb, var(--accent-primary) 28%, transparent);
+  --callout-info: #60a5fa;
+  --callout-note: #fbbf24;
+  --aside-accent: #fbbf24;
+  --dialog-backdrop: rgba(26, 20, 16, 0.72);
+}
+
+body.theme-parchment {
+  /* 羊皮卷：浅色主题，古典文学/编年史/魔法书 —— 注意这是唯一的浅色主题 */
+  --bg-color: #f5f1e6;
+  --bg-elevated: #ebe4d2;
+  --text-main: #1c1917;
+  --text-muted: #57534e;
+  --accent-primary: #7c2d12;    /* 深红棕（古典标题色） */
+  --accent-secondary: #92400e;  /* 金棕 */
+  --accent-tertiary: #a2641c;   /* 琥珀 */
+  --border-color: #c9b88a;
+  --code-bg: #e8dfc8;
+  --scrollbar-thumb: rgba(124, 45, 18, 0.28);
+  --scrollbar-thumb-hover: rgba(124, 45, 18, 0.55);
+  --selection-bg: color-mix(in srgb, var(--accent-primary) 25%, transparent);
+  --hr-color: color-mix(in srgb, var(--border-color) 80%, transparent);
+  --callout-info: #0891b2;
+  --callout-warning: #d97706;
+  --callout-success: #059669;
+  --callout-note: #7c3aed;
+  --aside-accent: #7c3aed;
+  --kbd-bg: #ebe4d2;
+  --kbd-border: #c9b88a;
+  --dialog-backdrop: rgba(28, 25, 23, 0.45);
+  --shadow-sm: 0 1px 3px rgba(92, 51, 23, 0.08);
+  --shadow: 0 2px 12px rgba(92, 51, 23, 0.10);
+  --shadow-hover: 0 8px 28px rgba(92, 51, 23, 0.16);
+  --focus-ring: 0 0 0 2px var(--bg-color), 0 0 0 4px var(--accent-primary);
 }
 ```
+
+> **设计原则**：三深一浅。三套深色主题共享底色与滚动条基础风格，通过 `accent-primary` 决定情感基调；`parchment` 作为唯一的浅色主题，所有变量必须单独定义。
 
 ### 6.3 滚动条统一（跨浏览器）
 
@@ -438,7 +495,7 @@ body.theme-amber {
 ### 为什么不用 class-in-js
 
 - **零运行时代价**：纯 CSS，客户端无需 JS 来切换主题
-- **易于扩展**：想添加 `theme-neon`？新增一个选择器即可，不碰代码
+- **易于扩展**：想添加 `theme-neon` 或 `theme-forest`？新增一个选择器即可，不碰代码；若需语义色或浅色主题，别忘了新增 `--callout-*` 与 `--aside-accent` 等变量
 - **构建时注入**：主题类由 Astro 静态输出，被 Pagefind 索引时也能正确分类
 
 ---
