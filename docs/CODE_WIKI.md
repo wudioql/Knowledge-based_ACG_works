@@ -1,10 +1,19 @@
 # ACG 知识手册库 — 项目结构规范
 
-## 项目概述
+> 本文档面向开发者、内容贡献者和项目维护者。如果你只是想浏览内容，请直接访问 [项目主页](https://wudioql.github.io/Knowledge-based_ACG_works/) 或阅读 [README.md](../README.md)。
 
-**ACG 知识手册库**（ACG Knowledge Handbook）是一个静态HTML网站项目，通过GitHub Pages托管。网站从动漫与游戏中挖掘真实世界的知识，建立"虚构作品内容 ↔ 学术理论 ↔ 真实历史"的三方对照体系。
+---
 
 ## 项目架构
+
+### 设计哲学
+
+本项目选择**原生技术栈**（HTML5 + CSS3 + Vanilla JavaScript），基于以下考量：
+
+- **零依赖**：无需 npm、构建工具或框架升级，项目可独立运行十年以上
+- **零构建**：保存即生效，贡献者无需学习构建流程
+- **透明可控**：每一行代码都直接作用于页面，无抽象层带来的调试成本
+- **GitHub Pages 原生友好**：静态文件直接托管，无需额外配置
 
 ### 目录结构
 
@@ -15,133 +24,239 @@ acg-knowledge-handbook/
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml              # GitHub Actions 自动部署工作流
-├── _shared/                         # 项目级共享资源（根级别）
+├── _shared/                         # 项目级共享资源
 │   ├── style.css                   # 主页样式表
 │   ├── home-button.css             # 主页按钮样式
-│   └── home-button.js             # 主页按钮注入脚本
-└── doc/                            # 作品内容目录
-    ├── maoyuu/                     # 魔王勇者（政治经济学手册）
+│   └── home-button.js              # 主页按钮注入脚本
+└── doc/                             # 作品内容目录
+    ├── maoyuu/                      # 魔王勇者（政治经济学手册）
     │   ├── index.html               # 作品首页
     │   ├── glossary.html            # 术语表
     │   ├── references.html          # 参考文献
-    │   ├── vol-01-*.html            # 各卷内容页（8卷+番外）
+    │   ├── vol-01-*.html            # 各卷内容页（8 卷 + 番外）
     │   └── _shared/                 # 作品级共享资源
-    │       ├── style.css           # 作品样式表
-    │       └── script.js           # 作品交互脚本
-    └── shokugeki_no_soma/          # 食戟之灵（料理全鉴）
+    │       ├── style.css            # 作品样式表
+    │       └── script.js            # 作品交互脚本
+    └── shokugeki_no_soma/           # 食戟之灵（料理全鉴）
         ├── index.html               # 作品首页
-        ├── arc-*.html              # 各篇章内容页（10个篇章）
+        ├── arc-*.html               # 各篇章内容页（10 个篇章）
         └── _shared/                 # 作品级共享资源
-            ├── style.css           # 作品样式表
-            └── script.js           # 作品交互脚本
+            ├── style.css            # 作品样式表
+            └── script.js            # 作品交互脚本
 ```
 
 ### 技术栈
 
-| 类别 | 技术 |
-|------|------|
-| 页面结构 | HTML5（原生，无框架） |
-| 样式 | CSS3（原生，无预处理器） |
-| 交互 | Vanilla JavaScript（原生，无框架） |
-| 部署 | GitHub Actions + GitHub Pages |
-| 托管 | GitHub Pages（静态托管） |
-| 构建工具 | 无（纯静态） |
+| 类别 | 技术 | 说明 |
+|------|------|------|
+| 页面结构 | HTML5 | 语义化标签，无框架 |
+| 样式 | CSS3 | CSS 变量 + 原生选择器，无预处理器 |
+| 交互 | Vanilla JavaScript | 模块化函数，无框架 |
+| 字体 | Google Fonts (Lora, WorkSans) | 通过 `@import` 引入 |
+| 部署 | GitHub Actions + GitHub Pages | 推送即部署 |
+| 构建工具 | 无 | 纯静态，零构建 |
 
-### 部署架构
+---
 
-```
-Push to main/master
-       │
-       ▼
-  GitHub Actions
-       │
-       ├── Checkout code
-       │
-       ├── Inject home-button.css/js into all doc/*.html
-       │      (自动化注入，路径深度计算)
-       │
-       └── Deploy to GitHub Pages
-                 │
-                 ▼
-           GitHub Pages
-           (your-username.github.io/acg-knowledge-handbook/)
-```
+## 模块体系
 
-## 模块职责
+### 核心模块
 
-### 1. 主页模块（Project Root）
+#### `index.html` — 项目主页
 
-#### `index.html` — 项目落地页
-- 展示所有作品手册入口
+- 展示所有作品手册入口卡片
 - 显示项目统计数据（作品数、知识点数、学科领域数）
 - 包含 Hero 区域和 About 区域
 
 #### `_shared/style.css` — 项目级样式
+
 - 定义全局 CSS 变量（颜色、字体、间距）
 - 包含 Header、Hero、Works Card、Footer 样式
-- 定义 tag 颜色类（经济、政治、历史等）
+- 定义学科标签颜色类（经济、政治、历史等）
 
-#### `_shared/home-button.css` — 主页按钮样式
-- 固定定位的圆形返回主页按钮
-- 悬停显示"主页"标签
+#### `_shared/home-button.css` / `home-button.js` — 主页按钮
 
-#### `_shared/home-button.js` — 主页按钮注入脚本
-- 自动检测当前页面是否为项目主页
-- 根据 URL 深度计算相对路径
-- 动态创建并注入主页按钮元素
-- **由 CI/CD 在部署时注入到所有 `doc/` 下的 HTML 文件**
+- 固定定位的圆形返回主页按钮，悬停显示「主页」标签
+- **由 CI/CD 在部署时自动注入到所有 `doc/` 下的 HTML 文件**
+- 根据 URL 深度动态计算返回主页的相对路径
 
-### 2. 魔王勇者模块（`doc/maoyuu/`）
+### 作品模块（通用模板）
 
-#### 内容结构
-- **索引页**：`index.html` — 卷导航、理论分类、学者著作索引
-- **内容页**：`vol-01-agricultural-revolution.html` 等 — 各卷知识点详情
-- **辅助页**：`glossary.html`（术语表）、`references.html`（参考文献）
+每个作品模块遵循以下统一结构：
 
-#### `_shared/style.css` — 作品样式
-- 扩展全局样式变量
-- 定义 Volume Card、Theory Card、Scholar Card 样式
-- 定义 Comparison Table（三方对照表）样式
-- 定义 Side TOC、Collapsible、Back to Top 样式
-
-#### `_shared/script.js` — 作品交互脚本
-```javascript
-// 主要功能
-initNavToggle()      // 移动端导航切换
-initCollapsibles()   // 可折叠内容区
-initFilter()         // 知识点筛选（按学科）
-initBackToTop()      // 返回顶部按钮
-initSideToc()         // 侧边目录导航（滚动高亮）
-initSmoothScroll()   // 平滑滚动
+```
+doc/<work-id>/
+├── index.html               # 作品入口页：导航、分类索引
+├── content-*.html           # 内容页：知识点/料理详情
+├── glossary.html            # 术语表（可选）
+├── references.html          # 参考文献（可选）
+└── _shared/
+    ├── style.css            # 作品专属样式：扩展全局变量
+    └── script.js            # 作品交互脚本
 ```
 
-### 3. 食戟之灵模块（`doc/shokugeki_no_soma/`）
+#### 现有作品实例
 
-#### 内容结构
-- **索引页**：`index.html` — 篇章导航、料理体系分类、烹饪技法索引
-- **内容页**：`arc-01-enrollment.html` 等 — 各篇章料理详情
+| 作品 ID | 目录 | 知识领域 | 内容类型 | 内容页命名 |
+|---------|------|----------|----------|------------|
+| maoyuu | `doc/maoyuu/` | 政治经济学 | 手册 | `vol-01-*.html` ~ `vol-08-*.html` |
+| shokugeki | `doc/shokugeki_no_soma/` | 料理学 | 全鉴 | `arc-01-*.html` ~ `arc-10-*.html` |
 
-#### `_shared/style.css` — 作品样式
-- 定义 Arc Card、Stats、Cuisine Card 样式
-- 定义 Dish Card（料理卡片）样式
-- 定义 Recipe Section（食谱步骤）样式
-- 定义 Battle Section（食戟对决）样式
+#### 作品 `_shared/script.js` 通用功能
 
-#### `_shared/script.js` — 作品交互脚本
-```javascript
-// 主要功能
-initNavToggle()      // 移动端导航切换
-initCollapsibles()   // 可折叠内容区
-initFilter()         // 料理筛选（按料理体系）
-initBackToTop()      // 返回顶部按钮
-initSideToc()         // 侧边目录导航
-initSmoothScroll()   // 平滑滚动
+每个作品的 `script.js` 通常包含以下功能模块：
+
+| 函数 | 职责 |
+|------|------|
+| `initNavToggle()` | 移动端 Hamburger 菜单展开/收起 |
+| `initCollapsibles()` | 绑定折叠按钮点击事件，切换 `aria-expanded` |
+| `initFilter()` | 按学科/料理体系筛选卡片 |
+| `initBackToTop()` | 滚动超过 400px 显示返回顶部按钮 |
+| `initSideToc()` | 侧边目录滚动监听，更新当前高亮链接 |
+| `initSmoothScroll()` | 拦截锚点链接，启用平滑滚动 |
+
+---
+
+## 开发规范
+
+### 文件组织规范
+
+- 作品目录使用**小写英文 + 下划线**，如 `shokugeki_no_soma`
+- 内容页文件名使用**前缀 + 描述**，如 `vol-01-agricultural-revolution.html`
+- 共享资源必须放在 `_shared/` 子目录中
+- 所有 HTML 文件使用语义化标签（`header`、`main`、`section`、`article`、`footer`）
+
+### CSS 命名约定
+
+| 前缀 | 用途 | 示例 |
+|------|------|------|
+| `.site-` | 全局站点元素 | `.site-header`、`.site-nav`、`.site-footer` |
+| `.hero-` | 首屏区域 | `.hero-title`、`.hero-lead` |
+| `.works-` | 作品卡片区域 | `.works-grid`、`.works-card` |
+| `.vol-` | 魔王勇者卷卡 | `.vol-card`、`.vol-title` |
+| `.arc-` | 食戟之灵篇章卡 | `.arc-card`、`.arc-title` |
+| `.topic-` | 知识点卡片 | `.topic-card`、`.topic-meta` |
+| `.dish-` | 料理卡片 | `.dish-card`、`.dish-recipe` |
+| `.filter-` | 筛选器控件 | `.filter-group`、`.filter-btn` |
+| `.collapsible-` | 可折叠内容 | `.collapsible-header`、`.collapsible-body` |
+| `.side-toc` | 侧边目录 | `.side-toc-list`、`.side-toc-link` |
+| `.back-to-top` | 返回顶部 | `.back-to-top` |
+| `.disc-tag-` | 学科标签 | `.disc-tag-econ`、`.disc-tag-politics` |
+
+### CSS 变量系统
+
+全局变量定义在 `_shared/style.css` 中，作品样式通过覆盖或扩展实现差异化：
+
+```css
+/* 全局颜色 */
+--bg: #FAFAF5;              /* 背景色 */
+--bg2: #F0EDE5;             /* 次要背景 */
+--ink: #1A1A2E;             /* 主文字色 */
+--muted: #6B7280;           /* 次要文字 */
+--rule: #D4CFC5;            /* 分隔线 */
+--accent: #8B0000;          /* 主强调色 */
+--accent2: #B8860B;         /* 次强调色 */
+
+/* 学科颜色 */
+--disc-econ: #1565C0;       /* 经济学 */
+--disc-politics: #C62828;   /* 政治学 */
+--disc-history: #2E7D32;    /* 历史学 */
+--disc-tech: #00838F;       /* 技术 */
+--disc-philosophy: #6A1B9A; /* 哲学 */
+
+/* 字体 */
+--font-heading: 'Lora', serif;
+--font-body: 'WorkSans', sans-serif;
 ```
 
-### 4. CI/CD 模块（`.github/workflows/deploy.yml`）
+新增作品时，如需新学科标签，应在全局 CSS 变量中注册颜色，并在 `.disc-tag-*` 类中使用。
 
-#### 部署工作流
-```yaml
+### JavaScript 模块规范
+
+- 每个作品 `script.js` 使用立即执行函数（IIFE）封装，避免全局污染
+- 功能按 `initXxx()` 函数拆分，在 DOMContentLoaded 时统一调用
+- 优先使用原生 DOM API，避免引入外部库
+- 事件委托优先于逐个元素绑定
+
+---
+
+## 扩展指南
+
+### 添加新作品的完整流程
+
+#### 步骤 1：规划内容
+
+确定以下要素：
+
+- **知识领域**：作品涉及的真实知识领域（如军事学、物理学、法学）
+- **内容类型**：选择手册、全鉴、年表、地图中的一种（参见 README 内容体系章节）
+- **三方对照点**：列出作品中可与学术理论/真实历史对照的关键内容
+
+#### 步骤 2：创建目录
+
+在 `doc/` 下创建新作品文件夹：
+
+```bash
+mkdir doc/<work-id>
+mkdir doc/<work-id>/_shared
+```
+
+创建基础文件：
+
+```bash
+touch doc/<work-id>/index.html
+touch doc/<work-id>/_shared/style.css
+touch doc/<work-id>/_shared/script.js
+```
+
+#### 步骤 3：开发页面
+
+1. **复制基础模板**：从现有作品（如 `doc/maoyuu/`）复制 `index.html` 作为起点
+2. **修改共享资源路径**：确保 `<link>` 和 `<script>` 的 `href`/`src` 指向 `doc/<work-id>/_shared/`
+3. **编写内容页**：按内容类型创建内容 HTML 文件
+4. **自定义样式**：在 `_shared/style.css` 中扩展全局变量，添加作品专属样式
+5. **添加交互**：在 `_shared/script.js` 中实现筛选、目录、折叠等功能
+
+> **注意**：`home-button.css` 和 `home-button.js` 由 CI/CD 自动注入，无需手动添加。
+
+#### 步骤 4：注册作品
+
+在根目录 `index.html` 的「作品知识手册」区域添加作品卡片：
+
+```html
+<a href="doc/<work-id>/" class="works-card">
+  <h3>作品名称</h3>
+  <p>知识领域 · 内容类型</p>
+</a>
+```
+
+#### 步骤 5：更新文档
+
+1. 在 [README.md](../README.md) 的作品总览表格中添加新行
+2. 在本文档的「现有作品实例」表格中添加新行
+3. 如新增学科标签，更新本文档的 CSS 变量说明
+
+### 主页集成检查清单
+
+- [ ] 作品目录创建在 `doc/<work-id>/`
+- [ ] `_shared/style.css` 和 `_shared/script.js` 已创建
+- [ ] 至少一个内容页已编写
+- [ ] `index.html` 的共享资源路径正确
+- [ ] 根目录 `index.html` 已添加作品卡片
+- [ ] README.md 作品表格已更新
+- [ ] CODE_WIKI.md 作品实例表格已更新
+- [ ] 本地预览确认页面渲染正常
+- [ ] 移动端导航和筛选功能测试通过
+
+---
+
+## 部署架构
+
+### GitHub Actions 工作流
+
+`.github/workflows/deploy.yml` 负责自动部署：
+
+```
 触发条件:
   - push 到 main/master 分支
   - 手动 workflow_dispatch
@@ -156,147 +271,20 @@ initSmoothScroll()   // 平滑滚动
   4. Deploy to GitHub Pages
 ```
 
-## 关键类与函数说明
+### 主页按钮注入逻辑
 
-### JavaScript 函数
+部署时，工作流自动为每个 `doc/` 下的 HTML 文件注入返回主页的按钮：
 
-#### `home-button.js` — 主页按钮注入
+- 解析文件路径，计算相对于项目根的深度
+- 生成对应的 `../` 前缀
+- 在 `</head>` 前注入 `<link rel="stylesheet" href="{prefix}_shared/home-button.css">`
+- 在 `</body>` 前注入 `<script src="{prefix}_shared/home-button.js"></script>`
 
-```javascript
-// 检测当前是否为项目主页
-function isProjectHomepage() {
-  // 返回 true 如果路径匹配项目根
-}
-
-// 计算返回项目根的相对路径
-function getRootPath() {
-  // 解析 URL 路径段，计算 ../ 数量
-  // 例: /doc/maoyuu/vol-01.html -> ../../../
-}
-```
-
-#### `script.js`（魔王勇者/食戟之灵共用）
-
-| 函数 | 职责 |
-|------|------|
-| `initNavToggle()` | 移动端 Hamburger 菜单展开/收起 |
-| `initCollapsibles()` | 绑定折叠按钮点击事件，切换 `aria-expanded` |
-| `initFilter()` | 按学科/料理体系筛选卡片 |
-| `initBackToTop()` | 滚动超过 400px 显示返回顶部按钮 |
-| `initSideToc()` | 侧边目录滚动监听，更新当前高亮链接 |
-| `initSmoothScroll()` | 拦截锚点链接，启用平滑滚动 |
-
-### CSS 类命名约定
-
-| 前缀 | 用途 |
-|------|------|
-| `.site-` | 全局站点元素（header, nav, footer） |
-| `.hero-` | 首屏区域 |
-| `.works-` | 作品卡片区域 |
-| `.vol-` | 魔王勇者卷卡 |
-| `.arc-` | 食戟之灵篇章卡 |
-| `.topic-` | 知识点卡片 |
-| `.dish-` | 料理卡片 |
-| `.filter-` | 筛选器控件 |
-| `.collapsible-` | 可折叠内容 |
-| `.side-toc` | 侧边目录 |
-| `.back-to-top` | 返回顶部 |
-| `.chapter-nav` | 篇章导航 |
-| `.disc-tag-` | 学科标签 |
-| `.tag-` | 通用标签 |
-
-### CSS 变量
-
-```css
-/* 全局颜色 */
---bg: #FAFAF5;           /* 背景色 */
---bg2: #F0EDE5;          /* 次要背景 */
---ink: #1A1A2E;          /* 主文字色 */
---muted: #6B7280;        /* 次要文字 */
---rule: #D4CFC5;         /* 分隔线 */
---accent: #8B0000;       /* 主强调色 */
---accent2: #B8860B;       /* 次强调色 */
-
-/* 学科颜色 */
---disc-econ: #1565C0;    /* 经济学 */
---disc-politics: #C62828; /* 政治学 */
---disc-history: #2E7D32; /* 历史学 */
---disc-tech: #00838F;    /* 技术 */
---disc-philosophy: #6A1B9A; /* 哲学 */
-
-/* 字体 */
---font-heading: 'Lora', serif;
---font-body: 'WorkSans', sans-serif;
-```
-
-## 依赖关系
-
-### 外部依赖
-
-| 依赖 | 用途 | 引入方式 |
-|------|------|----------|
-| Google Fonts (Lora, WorkSans) | 字体 | `@import` in CSS |
-
-### 内部依赖
-
-```
-index.html
-├── _shared/style.css
-└── (无 JS)
-
-doc/maoyuu/*.html
-├── doc/maoyuu/_shared/style.css
-├── _shared/home-button.css    ← CI/CD 注入
-└── _shared/home-button.js    ← CI/CD 注入
-    └── doc/maoyuu/_shared/script.js
-
-doc/shokugeki_no_soma/*.html
-├── doc/shokugeki_no_soma/_shared/style.css
-├── _shared/home-button.css    ← CI/CD 注入
-└── _shared/home-button.js    ← CI/CD 注入
-    └── doc/shokugeki_no_soma/_shared/script.js
-```
-
-## 项目运行方式
-
-### 本地预览
-
-```bash
-# 方式一：Python HTTP Server
-cd acg-knowledge-handbook
-python3 -m http.server 8080
-# 访问 http://localhost:8080
-
-# 方式二：Node.js http-server
-npx http-server -p 8080
-
-# 方式三：直接用浏览器打开 index.html（部分功能受限）
-```
-
-### 部署流程
-
-```bash
-# 1. 本地开发测试
-# 2. 推送到 GitHub
-git add .
-git commit -m "Update content"
-git push origin main
-
-# 3. GitHub Actions 自动触发部署
-#    - 无需手动操作
-```
-
-### 添加新作品
-
-1. 在 `doc/` 下创建新作品文件夹（如 `doc/新作品名/`）
-2. 创建 `_shared/` 目录，包含 `style.css` 和 `script.js`
-3. 创建作品内容 HTML 文件
-4. 在项目根 `index.html` 添加作品卡片入口
-5. 推送后 CI/CD 自动注入主页按钮
+---
 
 ## 设计模式
 
-### HTML 页面结构
+### HTML 页面结构模板
 
 ```html
 <!DOCTYPE html>
@@ -304,40 +292,46 @@ git push origin main
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>页面标题</title>
-  <link rel="stylesheet" href="作品_shared/style.css">
-  <link rel="stylesheet" href="项目级_shared/home-button.css"> <!-- CI/CD 注入 -->
+  <title>页面标题 | 作品名称 | ACG 知识手册库</title>
+  <link rel="stylesheet" href="_shared/style.css">
+  <!-- home-button.css 由 CI/CD 自动注入 -->
 </head>
 <body>
   <header class="site-header">...</header>
-  <section class="hero">...</section>
+
+  <section class="hero">
+    <h1>页面标题</h1>
+    <p class="hero-lead">页面描述</p>
+  </section>
+
   <main class="container">
     <!-- 内容区域 -->
   </main>
+
   <footer class="site-footer">...</footer>
-  <button class="back-to-top">↑</button>
-  <script src="作品_shared/script.js"></script>
-  <script src="项目级_shared/home-button.js"></script> <!-- CI/CD 注入 -->
+  <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+  <script src="_shared/script.js"></script>
+  <!-- home-button.js 由 CI/CD 自动注入 -->
 </body>
 </html>
 ```
 
-### CI/CD 注入逻辑
+### 依赖关系
 
-```bash
-# 遍历所有 doc/*.html 文件
-for f in doc/*/*.html; do
-  # 计算相对路径深度
-  depth=$(dirname "$f" | tr '/' '\n' | grep -c .)
-  prefix="../".repeat(depth)
-
-  # 注入 CSS 到 </head> 前
-  sed -i "s|</head>|  <link rel=\"stylesheet\" href=\"${prefix}_shared/home-button.css\">\n</head>|" "$f"
-
-  # 注入 JS 到 </body> 前
-  sed -i "s|</body>|  <script src=\"${prefix}_shared/home-button.js\"></script>\n</body>|" "$f"
-done
 ```
+index.html
+├── _shared/style.css
+└── (无 JS)
+
+doc/<work-id>/*.html
+├── doc/<work-id>/_shared/style.css
+├── _shared/home-button.css    ← CI/CD 注入
+└── _shared/home-button.js     ← CI/CD 注入
+    └── doc/<work-id>/_shared/script.js
+```
+
+---
 
 ## 内容数据
 
@@ -357,15 +351,15 @@ done
 
 | 篇章 | 话数范围 | 料理数 |
 |------|----------|--------|
-| 入学篇 | 1-13话 | ~12 |
-| 住宿研修 | 14-27话 | ~20 |
-| 秋季选拔 | 28-60话 | ~23 |
-| 食戟vs久我 | 61-87话 | ~16 |
-| 实习篇 | 88-106话 | ~11 |
-| 月飨祭 | 107-137话 | ~17 |
-| 远月列车 | 138-158话 | ~10 |
-| 联队食戟 | 159-217话 | ~29 |
-| THE BLUE | 218-315话 | ~55 |
-| 番外篇 | 3话 | ~5 |
+| 入学篇 | 1-13 话 | ~12 |
+| 住宿研修 | 14-27 话 | ~20 |
+| 秋季选拔 | 28-60 话 | ~23 |
+| 食戟 vs 久我 | 61-87 话 | ~16 |
+| 实习篇 | 88-106 话 | ~11 |
+| 月飨祭 | 107-137 话 | ~17 |
+| 远月列车 | 138-158 话 | ~10 |
+| 联队食戟 | 159-217 话 | ~29 |
+| THE BLUE | 218-315 话 | ~55 |
+| 番外篇 | 3 话 | ~5 |
 
 **料理体系**：日式、法式、意式、中式、东南亚、分子美食学等
