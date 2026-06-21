@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第4卷 己所能为 | 魔王勇者政治经济学手册</title>
+<link rel="stylesheet" href="_shared/style.css">
+</head>
+<body>
+
+<header class="brand">
+  <div class="brand__inner">
+    <div class="brand__mark"><a href="index.html">魔王勇者<span class="pipe">·</span>緋色綸旨</a></div>
+    <span class="brand__sub">Vol. IV · Hands &amp; Famine</span>
+  </div>
+</header>
+<div class="progress" aria-hidden="true"></div>
+
+<div class="layout">
+  <button class="rail-toggle" aria-expanded="false">本卷目录 <span>▾</span></button>
+  <aside class="rail">
+    <div class="rail__cap">本编 · 第4卷</div>
+    <div class="rail__sec">本卷脉络</div>
+    <ul class="rail__list">
+      <li><a href="#overview"><span class="num">·</span>概要与主线</a></li>
+      <li><a href="#supply"><span class="num">一</span>供应链战争：掐住木炭</a></li>
+      <li><a href="#plague"><span class="num">二</span>疫病与公共卫生</a></li>
+      <li><a href="#print"><span class="num">三</span>印刷与识字的扩散</a></li>
+      <li><a href="#serf"><span class="num">四</span>农奴解放运动</a></li>
+      <li><a href="#summary"><span class="num">五</span>本卷小结</a></li>
+    </ul>
+    <div class="rail__nav" data-nav-mount data-active="vol-04"></div>
+  </aside>
+
+  <main class="folio">
+    <section class="spread" id="overview">
+      <div class="spread__eyebrow">MAIN SERIES · VOLUME 4 · 2011.07.16 刊</div>
+      <div class="spread__vol">本编 第4卷</div>
+      <h1 class="spread__title">己所能为</h1>
+      <div class="spread__jp">『まおゆう魔王勇者 4 この手でできること』</div>
+      <div class="spread__meta">
+        <span><b>对应动画：</b>第10–11话前后</span>
+        <span><b>知识主线：</b>供应链与资源 · 公共卫生 · 教育 · 人权</span>
+        <span><b>核心人物：</b>女仆姐 · 女仆长 · 青年商人 · 东之砦将</span>
+      </div>
+    </section>
+
+    <div class="dropcap">
+      <p class="lead">
+        战争工业化后，魔王转而打一场<strong>“看不见的仗”</strong>：她不动刀兵，而是<strong>掐断火药与铳械的命脉——木炭</strong>，
+        让敌方的火器维护难以为继。与此同时，<strong>女仆姐</strong>走出府邸，踏上一条追寻“争端源头”的旅途，
+        农奴解放运动的星火就此点燃；印刷术让识字渗入民间，而<strong>疫病</strong>的阴影又考验着这个新兴社会。
+        本卷是一卷关于<strong>“建设”</strong>的卷——魔王以这双手，在废墟里铺制度、铺卫生、铺教育。
+      </p>
+    </div>
+
+    <!-- 一、供应链战争 -->
+    <h2 class="fol-head" id="supply"><span class="ord">I</span>供应链战争：掐住“木炭”</h2>
+    <p>
+      火药与铳械离不开<strong>木炭（炭烧）</strong>——冶炼钢铁、烧制火药硝石精炼，处处需炭。魔王盯上这条命脉，
+      以经济手段干预炭的供给，使敌军火器<strong>造得出、养不起</strong>。这是一场教科书式的<strong>供应链战争</strong>：
+      不正面击败敌人，而是瘫痪其<strong>关键中间品</strong>。它揭示了一个现代命题——<strong>谁掌控了关键资源与技术链，谁就掌控了战争的可持续性</strong>。
+    </p>
+    <div class="viz">
+      <pre class="mermaid">
+graph LR
+  W["木炭/焦炭 供给"] --> M1["钢铁冶炼"]
+  W --> M2["硝石·火药精炼"]
+  M1 --> G["火绳枪 量产"]
+  M2 --> P["黑色火药"]
+  G --> ARMY["远征军 战力"]
+  P --> ARMY
+  MA("魔王的经济干预") -.切断.-> W
+  style W fill:#85521a,color:#fff
+  style MA fill:#7d1024,color:#f4ebd6,stroke:#b0892d
+  style ARMY fill:#34506b,color:#fff
+      </pre>
+      <p class="viz__cap"><b>图1·火器的供应链瓶颈</b>：木炭/焦炭是冶炼与火药的关键中间品；魔王不攻其矛，而断其根——瘫痪上游，敌军火器便“造得出、养不起”。</p>
+    </div>
+    <div class="ledger">
+      <div class="ledger__title"><span class="dot"></span>三方对照 · Ⅰ 供应链战争 / 关键资源</div>
+      <div class="ledger__grid">
+        <div class="ledger__cell is-fiction">
+          <div class="ledger__label">小说情节</div>
+          <h4>木炭供给的暗战</h4>
+          <p>魔王为阻碍火器量产与维护，着手干预木炭供应；并以苍魔族遗留物资（黑色火药原料）为棋，与同盟展开资源博弈。</p>
+        </div>
+        <div class="ledger__cell is-theory">
+          <div class="ledger__label">学术原著 / 理论</div>
+          <h4>战略物资与瓶颈理论</h4>
+          <p>经济战／<strong>封锁理论</strong>（如马汉海权论）；现代<strong>供应链韧性</strong>与关键矿产（硝石、钨、石油、芯片）的“咽喉点（chokepoint）”理论。</p>
+          <a class="ref" href="references.html#supply">→ 参考：战略资源</a>
+        </div>
+        <div class="ledger__cell is-history">
+          <div class="ledger__label">真实历史事件</div>
+          <h4>硝石、焦炭与封锁</h4>
+          <p>火药依赖<strong>硝石</strong>，近代欧洲各国争夺硝石供给；1709年<strong>亚伯拉罕·达比以焦炭代木炭炼铁</strong>，开启工业革命能源转型；拿破仑<strong>大陆封锁令</strong>、二战盟军<strong>战略轰炸与封锁</strong>皆同构。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 二、疫病与公共卫生 -->
+    <h2 class="fol-head" id="plague"><span class="ord">II</span>疫病与公共卫生的萌芽</h2>
+    <p>
+      疫病（黑死病式的瘟疫）席卷人间。魔王（红之学士）推行<strong>隔离、清洁与组织化的应对</strong>，
+      对抗当时尚被“瘴气说”笼罩的蒙昧。这不仅是医学史，更是<strong>经济史</strong>：疫病造成人口骤减，
+      继而<strong>劳动力稀缺→工资上涨→农奴议价力增强→等级制松动</strong>——一条由微生物改写社会结构的链。
+    </p>
+    <div class="viz">
+      <div class="chart" id="plague-chart" role="img" aria-label="黑死病后人口与工资反相关示意图：人口骤降后工资水平显著上升。"></div>
+      <p class="viz__cap"><b>图2·疫病后的经济连锁（示意）</b>：人口骤降→劳动力稀缺→工资上升→农奴议价力增强。这正是魔王所洞察的、由微生物推动的社会结构变迁。</p>
+    </div>
+    <div class="ledger">
+      <div class="ledger__title"><span class="dot"></span>三方对照 · Ⅱ 疫病 / 公共卫生与劳动力</div>
+      <div class="ledger__grid">
+        <div class="ledger__cell is-fiction">
+          <div class="ledger__label">小说情节</div>
+          <h4>红之学士抗疫</h4>
+          <p>疫病流行，魔王以隔离与卫生组织化应对，凸显“治世”不只是粮与钱，更是公共卫生与制度组织力。</p>
+        </div>
+        <div class="ledger__cell is-theory">
+          <div class="ledger__label">学术原著 / 理论</div>
+          <h4>疾病与经济发展</h4>
+          <p>戴蒙德《枪炮、病菌与钢铁》论<strong>病菌作为文明征服力</strong>；<strong>瘴气说→细菌说</strong>（科赫/巴斯德）的范式革命；阿马蒂亚·森论健康与发展。</p>
+          <a class="ref" href="references.html#diamond">→ 参考：枪炮病菌钢铁</a>
+        </div>
+        <div class="ledger__cell is-history">
+          <div class="ledger__label">真实历史事件</div>
+          <h4>黑死病与检疫制度</h4>
+          <p>1347–1351年<strong>黑死病</strong>消灭欧洲约三分之一人口；1377年<strong>拉古萨（杜布罗夫尼克）首创40天检疫（quarantine）</strong>；疫后西欧<strong>农奴制瓦解、工资革命</strong>，为后续社会变革埋下伏笔。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 三、印刷与识字 -->
+    <h2 class="fol-head" id="print"><span class="ord">III</span>印刷与识字的扩散</h2>
+    <p>
+      第1卷埋下的活字之种，在本卷长成<strong>识字的森林</strong>。魔王办学、印书，让村童识字、让农人看懂契约。
+      这是一场<strong>认知基础设施</strong>的铺设：当知识不再是教士与贵族的禁脔，技术才能扩散、契约才能透明、
+      民众才能成为“会思考的主体”。印刷，是魔王最持久的“武器”。
+    </p>
+    <div class="kp">
+      <div class="kp__head"><span class="tag t-tech">科技</span><span class="tag t-phil">思想</span><h3 class="kp__name" style="margin:0">古腾堡革命的余波</h3></div>
+      <p class="kp__body">
+        约1440年<strong>古腾堡</strong>金属活字使书籍成本暴跌；随后<strong>宗教改革</strong>（路德九十五条论纲借印刷两周传遍欧陆）、
+        <strong>科学革命</strong>（学术期刊与同行评议）、<strong>启蒙运动</strong>（百科全书派）相继发生。
+        印刷把<strong>信息复制成本</strong>拉到接近零，可类比为前现代的“网络效应”。魔王办学，正是把这一杠杆握在手中。
+        <a class="xref" href="references.html#print">→ 印刷术</a>
+      </p>
+    </div>
+
+    <!-- 四、农奴解放 -->
+    <h2 class="fol-head" id="serf"><span class="ord">IV</span>农奴解放运动：“抓不住自己命运的人，是虫”</h2>
+    <p>
+      “<strong>抓不住自己命运的人，是虫。</strong>”——女仆长昔日一句无心之言，被<strong>女仆姐</strong>奉为圭臬。
+      她走出府邸，把这股<strong>自我觉醒</strong>带向农奴阶层，掀起解放运动。这不是恩赐的“解放诏书”，
+      而是<strong>自下而上</strong>的觉醒：当农奴开始<strong>识字、议价、质疑身分</strong>，等级制便从根基上动摇。
+    </p>
+    <div class="pullquote">
+      “抓不住自己命运的人，是虫。而我想做人。”
+      <cite>—— 女仆姐的觉醒 · 对照“天赋人权”与农奴制的终结</cite>
+    </div>
+    <div class="ledger">
+      <div class="ledger__title"><span class="dot"></span>三方对照 · Ⅳ 农奴解放 / 身份与人权</div>
+      <div class="ledger__grid">
+        <div class="ledger__cell is-fiction">
+          <div class="ledger__label">小说情节</div>
+          <h4>女仆姐的解放之旅</h4>
+          <p>女仆姐为追寻“争端之源”离开府邸，她的觉醒成为农奴解放运动的火种；途中遇奏乐子弟，思索如何止争。</p>
+        </div>
+        <div class="ledger__cell is-theory">
+          <div class="ledger__label">学术原著 / 理论</div>
+          <h4>自然权利与解放</h4>
+          <p>洛克《政府论》(1689) 的<strong>天赋人权（生命·自由·财产）</strong>；卢梭《社会契约论》(1762) “人生而自由”；马克思论<strong>阶级与解放</strong>。</p>
+          <a class="ref" href="references.html#rights">→ 参考：自然权利</a>
+        </div>
+        <div class="ledger__cell is-history">
+          <div class="ledger__label">真实历史事件</div>
+          <h4>农奴制的终结</h4>
+          <p>黑死病后西欧<strong>农奴制因劳动力稀缺而瓦解</strong>；俄国<strong>1861年农奴改革</strong>；1789年<strong>法国大革命</strong>废除封建特权。“解放”从来不只是法令，更是经济条件成熟后的觉醒。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 五、小结 -->
+    <h2 class="fol-head" id="summary"><span class="ord">V</span>本卷小结</h2>
+    <p>
+      第4卷回答“己所能为”：不是挥剑，而是<strong>掐断上游供应链、组织公共卫生、普及识字、唤醒人的尊严</strong>。
+      魔王以经济理性拆解火器的命脉，又以教育与疫病应对夯实社会的底座；女仆姐则以个体的觉醒，
+      证明<strong>真正的变革始于“人”的觉醒</strong>。一卷之内，“物”的战争（资源）与“人”的解放（权利）并轨推进，
+      把读者推向终卷的终极之问：<strong>当旧世界坍塌，山丘的彼方是什么？</strong>
+    </p>
+
+    <nav class="folio-nav">
+      <a href="vol-03-holy-key-and-firearms.html"><span class="nav-dir">← 第3卷</span><span class="nav-title">圣键远征军</span></a>
+      <a class="next" href="vol-05-beyond-the-hill.html"><span class="nav-dir">第5卷 →</span><span class="nav-title">在那山丘的彼方</span></a>
+    </nav>
+  </main>
+</div>
+
+<footer class="foot">
+  <div class="foot__inner">
+    <p><b>第4卷 己所能为</b> · 魔王勇者政治经济学手册</p>
+    <p>原作：橙乃ままれ『まおゆう魔王勇者 4』（Enterbrain, 2011）。本页为非官方学习整理。</p>
+  </div>
+</footer>
+
+<button class="to-top" aria-label="返回页顶" title="返回页顶">↑</button>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, theme: 'neutral', themeVariables: { fontFamily: 'Noto Serif SC, serif', fontSize: '14px' } });
+</script>
+<script>
+(function(){
+  function ready(fn){ if(document.readyState!=='loading')fn(); else document.addEventListener('DOMContentLoaded',fn); }
+  ready(function(){
+    var crimson='#7d1024', gold='#b0892d', blue='#34506b', ink='#4a3a24';
+    var el=document.getElementById('plague-chart');
+    if(el&&window.echarts){
+      echarts.init(el).setOption({
+        grid:{left:56,right:30,top:30,bottom:34},
+        tooltip:{trigger:'axis'},
+        legend:{data:['人口水平','工资水平'],top:4,textStyle:{fontFamily:'Noto Serif SC,serif',color:ink}},
+        xAxis:{type:'category',name:'时间→',data:['疫前','疫中','疫后初期','恢复期'],axisLine:{lineStyle:{color:'#cdb786'}}},
+        yAxis:[{type:'value',name:'指数(疫前=100)',splitLine:{lineStyle:{color:'#ecdfc1'}}}],
+        series:[
+          {name:'人口水平',type:'line',smooth:true,data:[100,62,58,70],itemStyle:{color:crimson},lineStyle:{width:3},areaStyle:{color:'rgba(125,16,36,.10)'}},
+          {name:'工资水平',type:'line',smooth:true,data:[100,135,165,150],itemStyle:{color:gold},lineStyle:{width:3}}
+        ]
+      });
+    }
+    window.addEventListener('resize',function(){document.querySelectorAll('.chart').forEach(function(e){var i=echarts.getInstanceByDom(e);if(i)i.resize();});});
+  });
+})();
+</script>
+<script src="_shared/script.js"></script>
+</body>
+</html>

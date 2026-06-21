@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>卷六 · 勃艮第的忧郁 — 萌菌物语微生物知识全鉴</title>
+  <link rel="stylesheet" href="_shared/style.css">
+</head>
+<body>
+
+  <header class="specimen-bar">
+    <div class="container-wide">
+      <div class="specimen-tag"><span class="specimen-id">SPEC-MOY-06</span><span>Sample · 勃艮第 · 法国</span></div>
+      <a href="index.html" class="work-title">
+        <span class="title-jp">萌菌</span>
+        <span class="title-sub">MOYASHIMON<small>微生物知识全鉴</small></span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-label="目录">☰ 目录</button>
+      <nav class="specimen-nav">
+        <a href="index.html">标本首页</a>
+        <a href="vol-01-introduction.html">卷一</a>
+        <a href="vol-02-spring-festival.html">卷二</a>
+        <a href="vol-03-wine-and-surströmming.html">卷三</a>
+        <a href="vol-04-ufo-vs-juzemi.html">卷四</a>
+        <a href="vol-05-harvest-and-france.html">卷五</a>
+        <a href="vol-06-burgundy.html" class="active">卷六</a>
+        <a href="vol-07-shoyu-miso.html">卷七</a>
+        <a href="vol-08-octoberfest.html">卷八</a>
+        <a href="vol-09-self-sufficiency.html">卷九</a>
+        <a href="vol-10-europe-tour.html">卷十</a>
+        <a href="vol-11-beauty-contest.html">卷十一</a>
+        <a href="vol-12-sake-revival.html">卷十二</a>
+        <a href="vol-13-graduation.html">卷十三</a>
+        <a href="glossary.html">术语表</a>
+        <a href="characters.html">人物志</a>
+        <a href="references.html">参考文献</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="vol-meta-strip">
+      <div class="container-wide">
+        <div class="vol-jp">卷六 · 勃艮第的忧郁</div>
+        <div class="vol-meta-list">
+          <span><strong>VOL.</strong> 06</span>
+          <span><strong>连载</strong> 2008</span>
+          <span><strong>单行本</strong> 2008.09</span>
+          <span><strong>知识点</strong> 10 个</span>
+          <span><strong>菌种</strong> 11 种</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-wide">
+      <section class="vol-prologue">
+        <h2>勃艮第的忧郁</h2>
+        <div class="prologue-jp">「ブルゴーニュのワインは微生物と人間と時間の共同作業である」</div>
+        <div class="prologue-cn">「勃艮第的葡萄酒，是微生物、人类与时间的共同作品。」</div>
+        <p>
+          全卷聚焦法国<strong>勃艮第（ブルゴーニュ / Burgundy / Bourgogne）</strong>——红酒的圣地。
+          泽木与萤前往勃艮第，会见<strong>玛丽（マリー / Marie）</strong>这位酒庄继承人，
+          见证了一场<strong>酒香酵母（Brettanomyces）污染危机</strong>。
+          本卷深入<strong>苹果酸-乳酸发酵</strong>（MLF）、<strong>酒香酵母的双面性</strong>、
+          <strong>橡木桶陈酿</strong>的微生物生态。
+        </p>
+      </section>
+
+      <article class="specimen-entry" id="spec-mlf" data-disc="微生物学">
+        <div class="specimen-entry-header">
+          <span class="entry-id">S-06-01</span>
+          <h2>苹果酸-乳酸发酵（MLF）的化学</h2>
+          <span class="entry-jp">マロラクティック発酵（MLF）の化学</span>
+        </div>
+        <div class="specimen-meta">
+          <div class="meta-cell"><span class="meta-key">学科</span><span class="meta-val">微生物学</span></div>
+          <div class="meta-cell"><span class="meta-key">出处</span><span class="meta-val">第 6 卷第 1–3 章</span></div>
+          <div class="meta-cell"><span class="meta-key">菌种</span><span class="meta-val">
+            <em>Oenococcus oeni</em>（酒球菌）
+          </span></div>
+        </div>
+        <div class="specimen-body">
+          <p>
+            泽木看见勃艮第酒庄的酒窖里，除了 S. cerevisiae 外，
+            另一种菌<strong>酒球菌</strong>在酒液中接力工作——把「尖刻」变成「柔和」。
+          </p>
+
+          <div class="tri-comp">
+            <div class="col-head" data-col="fiction">虚构 · MANGA</div>
+            <div class="col-head" data-col="science">微生物学 · SCIENCE</div>
+            <div class="col-head" data-col="culture">发酵文化 · CULTURE</div>
+
+            <div class="col-cell" data-col="fiction">
+              玛丽（マリー）向泽木解释：「这瓶酒圆润不涩，是因为<strong>MLF</strong>——
+              苹果酸是二元酸（尖刻），乳酸是一元酸（柔和），
+              一个碳、两个氧被<strong>酒球菌</strong>剥掉了」。
+            </div>
+            <div class="col-cell" data-col="science">
+              <strong>MLF 反应</strong>：
+              L-Malic acid（C₄H₆O₅）→ L-Lactic acid（C₃H₆O₃）+ CO₂
+              催化酶：<strong>苹果酸-乳酸酶</strong>（MLE，<em>mleA</em>基因）。
+              <span class="highlight-species"><em>Oenococcus oeni</em><em>（酒球菌）</em></span>
+              是 MLF 的核心菌种：革兰氏阳性、异型发酵乳酸菌，
+              耐低 pH（3.0–3.5）、耐 SO₂、能在 14% v/v 乙醇下生长。
+            </div>
+            <div class="col-cell" data-col="culture">
+              <strong>MLF</strong> 在<strong>红葡萄酒</strong>中是<strong>必要工艺</strong>；
+              在<strong>白葡萄酒</strong>中视风格而定（如霞多丽常做、清酒不需）。
+              「<strong>生物酸化</strong>（biological acidification）」一词源自 MLF，
+              1960 年代由<strong>Peynaud</strong>和<strong>Domerq</strong>明确化。
+              现代酒庄通过<strong>接种</strong>纯种酒球菌或<strong>诱导</strong>野生菌完成 MLF。
+            </div>
+          </div>
+
+          <div class="microbe-card">
+            <div class="microbe-name">
+              <span>酒球菌</span>
+              <span class="latin">Oenococcus oeni</span>
+            </div>
+            <div class="microbe-meta">
+              CLASS · Bacilli · FAMILY · Leuconostocaceae · TYPE · 异型发酵乳酸菌
+            </div>
+            <div class="microbe-desc">
+              异型发酵（6-磷酸葡萄糖酸途径）产生<strong>乳酸+CO₂+乙醇/乙酸</strong>。
+              葡萄酒 MLF 期间，除苹果酸外还会代谢<strong>柠檬酸</strong>产生<strong>双乙酰</strong>（diacetyl）——
+              这是黄油香的来源（Oaked Chardonnay 的标志）。
+              现代<strong>MLF 失败</strong>常见原因：</br>① 乙醇过高；</br>② SO₂ 过量；</br>③ pH 过低（&lt; 3.0）；
+              </br>④ 营养缺乏；</br>⑤ 噬菌体侵染。
+            </div>
+          </div>
+
+          <div class="cross-refs">
+            <a href="vol-03-wine-and-surströmming.html#spec-wine" class="cross-ref">→ 3-1 葡萄酒发酵与葡萄皮野生酵母</a>
+            <a href="vol-05-harvest-and-france.html#spec-pinot-noir" class="cross-ref">→ 5-6 黑皮诺葡萄与它的微生物</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="specimen-entry" id="spec-brett" data-disc="微生物学">
+        <div class="specimen-entry-header">
+          <span class="entry-id">S-06-02</span>
+          <h2>酒香酵母 Brettanomyces 的双面性</h2>
+          <span class="entry-jp">ブレッタノマイセスの二面性</span>
+        </div>
+        <div class="specimen-meta">
+          <div class="meta-cell"><span class="meta-key">学科</span><span class="meta-val">微生物学 / 发酵学</span></div>
+          <div class="meta-cell"><span class="meta-key">出处</span><span class="meta-val">第 6 卷第 4–7 章</span></div>
+          <div class="meta-cell"><span class="meta-key">菌种</span><span class="meta-val">
+            <em>Brettanomyces bruxellensis</em>（布鲁塞尔酒香酵母）
+          </span></div>
+        </div>
+        <div class="specimen-body">
+          <p>
+            玛丽（マリー）的酒庄遭遇危机——陈酿中的酒出现「<strong>马厩味</strong>」。
+            泽木发现这是<strong>酒香酵母</strong>过量繁殖造成的。
+          </p>
+
+          <div class="tri-comp">
+            <div class="col-head" data-col="fiction">虚构 · MANGA</div>
+            <div class="col-head" data-col="science">微生物学 · SCIENCE</div>
+            <div class="col-head" data-col="culture">发酵文化 · CULTURE</div>
+
+            <div class="col-cell" data-col="fiction">
+              泽木的诊断：「橡木桶里有太多 <em>Brettanomyces</em>——
+              它们把橡木单宁分解成<strong>挥发性酚</strong>（4-EP、4-EG），
+              产生<strong>马厩味</strong>、<strong>创可贴味</strong>、<strong>烟熏味</strong>」。
+            </div>
+            <div class="col-cell" data-col="science">
+              <span class="highlight-species"><em>Brettanomyces bruxellensis</em><em>（布鲁塞尔酒香酵母）</em></span>
+              是酒窖的<strong>「野性常客」</strong>，能在低 pH、高乙醇、低糖的<strong>不利环境中</strong>生长。
+              关键代谢产物：
+              </br>① <strong>4-乙基苯酚</strong>（4-EP）——「马厩味」「创可贴味」；
+              </br>② <strong>4-乙基愈创木酚</strong>（4-EG）——「烟熏」「丁香」；
+              </br>③ <strong>异戊酸</strong>——「汗味」。
+              <strong>双面性</strong>：低浓度（&lt; 400 μg/L）增添复杂风味；
+              高浓度（&gt; 600 μg/L）破坏酒的整体品质。
+            </div>
+            <div class="col-cell" data-col="culture">
+              <strong>Brettanomyces</strong> 的发现可追溯至<strong>1904 年</strong>比利时布鲁塞尔啤酒厂。
+              在<strong>比利时酸啤</strong>（Lambic、Gueuze）中是<strong>必需菌</strong>；
+              在<strong>现代红酒</strong>中曾是<strong>污染菌</strong>。
+              21 世纪起，部分<strong>自然酒</strong>（vin nature）运动重新拥抱 Brett，
+              认为「Brett 是酒窖的灵魂」。这是工艺与美学的争议。
+            </div>
+          </div>
+
+          <div class="cross-refs">
+            <a href="vol-06-burgundy.html#spec-mlf" class="cross-ref">→ 6-1 MLF 的化学</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="specimen-entry" id="spec-acetobacter-wine" data-disc="微生物学">
+        <div class="specimen-entry-header">
+          <span class="entry-id">S-06-03</span>
+          <h2>红酒中的醋酸菌污染</h2>
+          <span class="entry-jp">ワインにおける酢酸菌汚染</span>
+        </div>
+        <div class="specimen-meta">
+          <div class="meta-cell"><span class="meta-key">学科</span><span class="meta-val">微生物学</span></div>
+          <div class="meta-cell"><span class="meta-key">出处</span><span class="meta-val">第 6 卷第 8 章</span></div>
+          <div class="meta-cell"><span class="meta-key">菌种</span><span class="meta-val">
+            <em>Acetobacter aceti</em>, <em>A. pasteurianus</em>
+          </span></div>
+        </div>
+        <div class="specimen-body">
+          <p>
+            橡木桶中除了 Brett，还有<strong>醋酸菌</strong>——
+            它们把酒精变成醋酸，让酒变酸。
+          </p>
+
+          <div class="tri-comp">
+            <div class="col-head" data-col="fiction">虚构 · MANGA</div>
+            <div class="col-head" data-col="science">微生物学 · SCIENCE</div>
+            <div class="col-head" data-col="culture">发酵文化 · CULTURE</div>
+
+            <div class="col-cell" data-col="fiction">
+              泽木说：「这桶酒表面有<strong>菌膜</strong>——是<strong>醋酸菌</strong>形成的。
+              它们漂浮在酒液表面，把酒精变成醋酸，需要立即处理」。
+            </div>
+            <div class="col-cell" data-col="science">
+              <strong>酒醋酸病</strong>（piqûre acétique）：<em>Acetobacter</em> 在<strong>酒液面</strong>形成
+              <strong>菌膜</strong>（<em>pellicle</em>）或<strong>醋酸</strong>（vinegar）漂浮。
+              预防措施：</br>① <strong>添桶</strong>（ouillage，保持桶满）；
+              </br>② <strong>SO₂ 使用</strong>（20–40 mg/L）；
+              </br>③ 避免氧气；
+              </br>④ <strong>离心</strong>或<strong>过滤</strong>。
+              红酒挥发性酸度（VA）应 &lt; 1.4 g/L（醋酸）。
+            </div>
+            <div class="col-cell" data-col="culture">
+              <strong>Balsamic Vinegar</strong>（意大利摩德纳的传统香醋）：
+              极端利用醋酸菌的发酵——煮沸葡萄汁→装入 5 种木桶（橡木、樱桃木、
+              桑木、栗木、梣木）→陈酿 12–25 年。
+              与红酒污染是<strong>同菌种</strong>的<strong>完全相反</strong>应用——
+              这是微生物学的「双面性」极致体现。
+            </div>
+          </div>
+
+          <div class="cross-refs">
+            <a href="vol-01-introduction.html#spec-acetobacter" class="cross-ref">→ 1-5 醋酸菌总论</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="specimen-entry" id="spec-oak-barrel" data-disc="发酵学">
+        <div class="specimen-entry-header">
+          <span class="entry-id">S-06-04</span>
+          <h2>橡木桶陈酿的微生物生态</h2>
+          <span class="entry-jp">オーク樽熟成の微生物生態</span>
+        </div>
+        <div class="specimen-meta">
+          <div class="meta-cell"><span class="meta-key">学科</span><span class="meta-val">发酵学</span></div>
+          <div class="meta-cell"><span class="meta-key">出处</span><span class="meta-val">第 6 卷第 9 章</span></div>
+          <div class="meta-cell"><span class="meta-key">菌种</span><span class="meta-val">
+            <em>Brettanomyces</em>, <em>Acetobacter</em>,
+            <em>Oenococcus oeni</em>（陈酿期持续）
+          </span></div>
+        </div>
+        <div class="specimen-body">
+          <p>
+            橡木桶不只是一个容器——它是<strong>微生态反应器</strong>。
+            木材的孔隙、残留菌群、单宁缓慢释放共同决定酒的风味。
+          </p>
+
+          <div class="tri-comp">
+            <div class="col-head" data-col="fiction">虚构 · MANGA</div>
+            <div class="col-head" data-col="science">微生物学 · SCIENCE</div>
+            <div class="col-head" data-col="culture">发酵文化 · CULTURE</div>
+
+            <div class="col-cell" data-col="fiction">
+              玛丽（マリー）带泽木参观酒窖：「每个橡木桶都是<strong>活的</strong>——
+              木材的纤维结构像海绵，藏有<strong>菌的小栖息地</strong>。
+              好的桶让酒<strong>缓慢呼吸</strong>，坏的桶让酒变酸」。
+            </div>
+            <div class="col-cell" data-col="science">
+              <strong>橡木桶</strong>（225 L 标准桶，Bordeaux barrique）：
+              木材<strong>单宁</strong>（ellagitannin）缓慢释放——影响酒的结构；
+              <strong>氧气</strong>通过木材孔隙缓慢渗入（约 1 mg/L/月）——促进缓慢氧化；
+              残留菌群——每次装酒的<strong>酒脚</strong>（lees）含酵母+乳酸菌+Brett 残留。
+              <strong>新旧桶</strong>：
+              </br>① 新桶：单宁强、香气浓（香草、椰子、烟熏）；
+              </br>② 5 年桶：单宁适中；
+              </br>③ 老桶：仅提供微量氧气+菌群环境。
+            </div>
+            <div class="col-cell" data-col="culture">
+              <strong>法国橡木</strong>（<em>Quercus robur</em>）vs <strong>美国橡木</strong>（<em>Quercus alba</em>）：
+              法橡单宁细密、含香草醛较高；
+              美橡单宁粗犷、含<strong>乳内酯</strong>（lactone）较高（椰子香）。
+              现代<strong>不锈钢桶+橡木片</strong>替代传统橡木桶，
+              降低 60% 成本，但风味差异显著——这是工艺与成本的权衡。
+            </div>
+          </div>
+
+          <div class="cross-refs">
+            <a href="vol-06-burgundy.html#spec-brett" class="cross-ref">→ 6-2 酒香酵母</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="specimen-entry" id="spec-french-phylloxera" data-disc="历史学">
+        <div class="specimen-entry-header">
+          <span class="entry-id">S-06-05</span>
+          <h2>葡萄根瘤蚜危机与法国葡萄酒史</h2>
+          <span class="entry-jp">フィロキセラとフランスワイン史</span>
+        </div>
+        <div class="specimen-meta">
+          <div class="meta-cell"><span class="meta-key">学科</span><span class="meta-val">历史学 / 微生物学</span></div>
+          <div class="meta-cell"><span class="meta-key">出处</span><span class="meta-val">第 6 卷第 10–11 章</span></div>
+          <div class="meta-cell"><span class="meta-key">菌种</span><span class="meta-val">
+            <em>Daktulosphaira vitifoliae</em>（葡萄根瘤蚜，<strong>非微生物而是昆虫</strong>，但与微生物生态有关）
+          </span></div>
+          <div class="meta-cell"><span class="meta-key">时期</span><span class="meta-val">19 世纪后半</span></div>
+        </div>
+        <div class="specimen-body">
+          <p>
+            玛丽提到家族历史：<strong>19 世纪</strong>葡萄根瘤蚜几乎毁灭法国葡萄酒产业。
+            揭示微生物学与<strong>植物病理学</strong>的双重重要性。
+          </p>
+
+          <div class="tri-comp">
+            <div class="col-head" data-col="fiction">虚构 · MANGA</div>
+            <div class="col-head" data-col="science">微生物学 · SCIENCE</div>
+            <div class="col-head" data-col="culture">发酵文化 · CULTURE</div>
+
+            <div class="col-cell" data-col="fiction">
+              树教授：「葡萄根瘤蚜不是菌，是<strong>昆虫</strong>——
+              但 1863 年从美洲传入欧洲，几乎毁掉了法国 40% 的葡萄园。
+              最终通过<strong>美洲砧木嫁接</strong>拯救」。
+            </div>
+            <div class="col-cell" data-col="science">
+              <strong>葡萄根瘤蚜</strong>（Daktulosphaira vitifoliae）：
+              1863 年从美国东部传入法国，1867–1880 年代席卷欧洲葡萄园。
+              法国葡萄园损失 40%（约 250 万公顷）。
+              解决方案：<strong>嫁接</strong>——欧洲葡萄（<em>Vitis vinifera</em>）嫁接在
+              <strong>美洲抗蚜砧木</strong>（<em>V. riparia</em>、<em>V. rupestris</em>、<em>V. berlandieri</em>）。
+              这一技术延续至今，<strong>全球 85% 的葡萄园</strong>使用嫁接苗。
+            </div>
+            <div class="col-cell" data-col="culture">
+              葡萄根瘤蚜危机推动了<strong>植物病理学</strong>、<strong>昆虫学</strong>的发展。
+              <strong>Jules Émile Planchon</strong>（法国植物学家，1868 年识别病因）。
+              法国葡萄酒产量恢复用了约 30 年。
+              现代葡萄园面临新的威胁：<strong>Esca 病</strong>（真菌复合感染）、
+              <strong>Flavescence dorée</strong>（植原体感染）。
+            </div>
+          </div>
+
+          <div class="cross-refs">
+            <a href="vol-10-europe-tour.html#spec-pasteur" class="cross-ref">→ 10-1 巴斯德与微生物学革命</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="specimen-entry" id="spec-champagne" data-disc="发酵学">
+        <div class="specimen-entry-header">
+          <span class="entry-id">S-06-06</span>
+          <h2>香槟的二次发酵与「转瓶」</h2>
+          <span class="entry-jp">シャンパンの二次発酵と動瓶</span>
+        </div>
+        <div class="specimen-meta">
+          <div class="meta-cell"><span class="meta-key">学科</span><span class="meta-val">发酵学 / 食品学</span></div>
+          <div class="meta-cell"><span class="meta-key">出处</span><span class="meta-val">第 6 卷第 12 章</span></div>
+          <div class="meta-cell"><span class="meta-key">菌种</span><span class="meta-val">
+            <em>Saccharomyces cerevisiae</em>（瓶内二次发酵）
+          </span></div>
+        </div>
+        <div class="specimen-body">
+          <p>
+            玛丽带泽木参观<strong>香槟区</strong>（Champagne，勃艮第以北）——
+            揭示<strong>瓶内二次发酵</strong>的微生物学魅力。
+          </p>
+
+          <div class="tri-comp">
+            <div class="col-head" data-col="fiction">虚构 · MANGA</div>
+            <div class="col-head" data-col="science">微生物学 · SCIENCE</div>
+            <div class="col-head" data-col="culture">发酵文化 · CULTURE</div>
+
+            <div class="col-cell" data-col="fiction">
+              泽木看见<strong>香槟瓶</strong>中的酵母：「它们在瓶内继续工作——
+              把<strong>糖</strong>变成<strong>酒精+CO₂</strong>，CO₂ 在密封瓶中溶解，
+              形成<strong>气泡</strong>」。
+            </div>
+            <div class="col-cell" data-col="science">
+              <strong>香槟法</strong>（Méthode Champenoise）：
+              </br>① 第一次发酵：基酒（vin de base）——干型静止酒；
+              </br>② <strong>添糖添酵母</strong>（Liqueur de Tirage，糖 + S. cerevisiae）；
+              </br>③ 瓶内<strong>二次发酵</strong>（15–30°C，数月）；
+              </br>④ <strong>转瓶</strong>（Remuage）——沉淀集中到瓶口；
+              </br>⑤ <strong>除渣</strong>（Dégorgement）——冷冻瓶口喷出沉淀；
+              </br>⑥ <strong>补液</strong>（Liqueur d'Expédition）——决定 Brut / Sec / Demi-Sec。
+            </div>
+            <div class="col-cell" data-col="culture">
+              香槟历史：<strong>唐·培里侬</strong>（Dom Pérignon，1638–1715），
+              法国<strong>本笃会修道院（Benedictine）</strong>修士，被誉为「<strong>香槟之父</strong>」。
+              现代香槟仅产自<strong>香槟区</strong>约 3.4 万公顷葡萄园——受 AOC 严格保护。
+              全球起泡酒市场（2020）约 230 亿瓶，香槟占其中 7%（最贵）。
+            </div>
+          </div>
+
+          <div class="cross-refs">
+            <a href="vol-06-burgundy.html#spec-mlf" class="cross-ref">→ 6-1 MLF</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="specimen-entry" id="spec-pasteur-grape" data-disc="历史学">
+        <div class="specimen-entry-header">
+          <span class="entry-id">S-06-07</span>
+          <h2>巴斯德与葡萄酒的微生物学</h2>
+          <span class="entry-jp">パスツールとワイン微生物学</span>
+        </div>
+        <div class="specimen-meta">
+          <div class="meta-cell"><span class="meta-key">学科</span><span class="meta-val">历史学</span></div>
+          <div class="meta-cell"><span class="meta-key">出处</span><span class="meta-val">第 6 卷第 13 章</span></div>
+        </div>
+        <div class="specimen-body">
+          <p>
+            玛丽提到<strong>巴斯德</strong>与法国葡萄酒的渊源——巴斯德不仅发明巴氏消毒，
+            还是法国葡萄酒产业的「<strong>微生物学守护者</strong>」。
+          </p>
+
+          <div class="tri-comp">
+            <div class="col-head" data-col="fiction">虚构 · MANGA</div>
+            <div class="col-head" data-col="science">微生物学 · SCIENCE</div>
+            <div class="col-head" data-col="culture">发酵文化 · CULTURE</div>
+
+            <div class="col-cell" data-col="fiction">
+              树教授：「<strong>巴斯德</strong>（Pasteur）是法国葡萄酒的救星——
+              1864 年法国葡萄酒大面积酸败，他证明是<strong>野生菌</strong>污染，
+              发明<strong>巴氏消毒法</strong>（61.7°C / 30 min）拯救了产业」。
+            </div>
+            <div class="col-cell" data-col="science">
+              <strong>1863–1864 年</strong>，巴斯德应法国皇帝<strong>拿破仑三世</strong>请求，
+              研究阿尔布瓦（Aube）的葡萄酒酸败问题。
+              发现<em>Mycoderma aceti</em>（今 <em>Acetobacter</em>）将酒精变成醋酸。
+              发明<strong>巴氏消毒法</strong>（Pasteurization）：低温短时杀菌，保留风味。
+              这是<strong>微生物学第一次直接拯救产业</strong>的案例。
+            </div>
+            <div class="col-cell" data-col="culture">
+              巴斯德是法国<strong>国家科学英雄</strong>。
+              <strong>巴斯德研究所</strong>（1887 年创立）至今是世界顶级微生物学研究机构。
+              日本<strong>北里柴三郎</strong>（1853–1931）留学德国，师承<strong>科赫（コッホ / Koch）</strong>，
+              与<strong>贝林（ベーリング）</strong>共同开发破伤风血清疗法，
+              是日本微生物学开山鼻祖。
+              1908 年<strong>野口英世</strong>（1876–1928）研究梅毒螺旋体，黄热病研究中殉职。
+            </div>
+          </div>
+
+          <div class="specimen-quote">
+            「葡萄酒は、人類最古の発酵飲料の一つ。
+            その微生物学の謎を解くことは、生命そのものの謎を解くことだ。」
+            <div class="quote-cn">「葡萄酒是人类最古老的发酵饮料之一。解开其中的微生物学之谜，就是解开生命本身的谜。」</div>
+            <cite>—— 巴斯德（Louis Pasteur） · 1864</cite>
+          </div>
+
+          <div class="cross-refs">
+            <a href="vol-10-europe-tour.html#spec-pasteur" class="cross-ref">→ 10-1 巴斯德研究所参访</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="specimen-entry" id="spec-malo" data-disc="微生物学">
+        <div class="specimen-entry-header">
+          <span class="entry-id">S-06-08</span>
+          <h2>乳酸菌代谢与生物胺</h2>
+          <span class="entry-jp">乳酸菌代謝とバイオジェニックアミン</span>
+        </div>
+        <div class="specimen-meta">
+          <div class="meta-cell"><span class="meta-key">学科</span><span class="meta-val">微生物学</span></div>
+          <div class="meta-cell"><span class="meta-key">出处</span><span class="meta-val">第 6 卷第 14 章</span></div>
+          <div class="meta-cell"><span class="meta-key">菌种</span><span class="meta-val">
+            <em>Oenococcus oeni</em>, <em>Lactobacillus plantarum</em>
+          </span></div>
+        </div>
+        <div class="specimen-body">
+          <p>
+            长谷川在勃艮第酒庄发现一个<strong>生物胺</strong>（biogenic amine）问题——
+            乳酸菌对氨基酸的<strong>脱羧作用</strong>产生组胺、酪胺等。
+          </p>
+
+          <div class="tri-comp">
+            <div class="col-head" data-col="fiction">虚构 · MANGA</div>
+            <div class="col-head" data-col="science">微生物学 · SCIENCE</div>
+            <div class="col-head" data-col="culture">发酵文化 · CULTURE</div>
+
+            <div class="col-cell" data-col="fiction">
+              长谷川的警告：「某些乳酸菌能<strong>脱羧</strong>氨基酸，产生<strong>组胺</strong>。
+              这是红酒引起<strong>头痛</strong>的原因之一——俗称'红酒偏头痛'」。
+            </div>
+            <div class="col-cell" data-col="science">
+              <strong>生物胺</strong>（biogenic amines）：
+              </br>① <strong>组胺</strong>（histamine，组氨酸脱羧）——血管扩张、头痛；
+              </br>② <strong>酪胺</strong>（tyramine，酪氨酸脱羧）——血压升高；
+              </br>③ <strong>苯乙胺</strong>（phenylethylamine）——情绪波动；
+              </br>④ <strong>腐胺</strong>（putrescine）——腐臭。
+              来源菌：<em>Lactobacillus</em>、<em>Oenococcus</em>、<em>Pediococcus</em> 的脱羧酶活性。
+            </div>
+            <div class="col-cell" data-col="culture">
+              <strong>红酒偏头痛</strong>（Red Wine Headache）机制复杂——
+              除组胺外，还有：
+              </br>① <strong>亚硫酸盐</strong>（SO₂，触发偏头痛）；
+              </br>② <strong>单宁</strong>（影响血清素）；
+              </br>③ <strong>酪胺</strong>（血管收缩）；
+              </br>④ <strong>酒精</strong>（脱水 + 扩张血管）。
+              2010 年代起，<strong>低组胺红酒</strong>（low-histamine wine）兴起，
+              通过选择 MLF 菌株（<em>O. oeni</em> Hsp⁻ 不产组胺）实现。
+            </div>
+          </div>
+
+          <div class="cross-refs">
+            <a href="vol-07-shoyu-miso.html" class="cross-ref">→ 卷七：酱油与味噌中的微生物代谢</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="specimen-entry" id="spec-vintage" data-disc="发酵学">
+        <div class="specimen-entry-header">
+          <span class="entry-id">S-06-09</span>
+          <h2>年份差异与「微生物气候」</h2>
+          <span class="entry-jp">ヴィンテージと微生物気候</span>
+        </div>
+        <div class="specimen-meta">
+          <div class="meta-cell"><span class="meta-key">学科</span><span class="meta-val">发酵学 / 气候学</span></div>
+          <div class="meta-cell"><span class="meta-key">出处</span><span class="meta-val">第 6 卷第 15 章</span></div>
+        </div>
+        <div class="specimen-body">
+          <p>
+            玛丽解释为何<strong>2003 年</strong>的勃艮第红酒特别优秀——那年夏季酷热，
+            葡萄皮上的菌群独特，MLF 完美。这就是「<strong>年份</strong>」的科学。
+          </p>
+
+          <div class="tri-comp">
+            <div class="col-head" data-col="fiction">虚构 · MANGA</div>
+            <div class="col-head" data-col="science">微生物学 · SCIENCE</div>
+            <div class="col-head" data-col="culture">发酵文化 · CULTURE</div>
+
+            <div class="col-cell" data-col="fiction">
+              玛丽说：「<strong>2003 年</strong>的热浪让葡萄皮上只有耐热菌存活——
+              MLF 完成后，酒特别圆润、甘美。这就是<strong>年份</strong>的意义」。
+            </div>
+            <div class="col-cell" data-col="science">
+              <strong>2003 年</strong>欧洲热浪（8 月温度创纪录）的影响：
+              </br>① 葡萄皮<strong>微生态</strong>：耐热菌（<em>Hanseniaspora</em>）富集；
+              </br>② 糖酸比：糖度极高（&gt; 14% v/v 潜在酒精）、酸度低；
+              </br>③ <strong>MLF</strong>：酒球菌活动受抑制，缓慢完成——产生更复杂的代谢产物。
+              著名<strong>2003 年份</strong>：波尔多、勃艮第、香槟都有优质酒款。
+            </div>
+            <div class="col-cell" data-col="culture">
+              <strong>年份</strong>（vintage / millésime）文化是红酒收藏的核心：
+              </br>① <strong>波尔多 1982、1990、2000、2005、2009、2010、2015、2016、2018、2019、2020</strong>是「<strong>世纪年份</strong>」；
+              </br>② <strong>勃艮第</strong>强调<strong>地块</strong>（climat）多于年份；
+              </br>③ <strong>气候变化</strong>（climate change）正改变年份模式——葡萄园向北迁移（如英国起泡酒兴起）。
+            </div>
+          </div>
+
+          <div class="cross-refs">
+            <a href="vol-09-self-sufficiency.html#spec-climate" class="cross-ref">→ 9-5 气候变化与微生物生态</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="specimen-entry" id="spec-french-microbiome" data-disc="微生物学">
+        <div class="specimen-entry-header">
+          <span class="entry-id">S-06-10</span>
+          <h2>法国传统奶酪微生物多样性</h2>
+          <span class="entry-jp">フランス伝統チーズの微生物多様性</span>
+        </div>
+        <div class="specimen-meta">
+          <div class="meta-cell"><span class="meta-key">学科</span><span class="meta-val">微生物学</span></div>
+          <div class="meta-cell"><span class="meta-key">出处</span><span class="meta-val">第 6 卷第 16 章</span></div>
+          <div class="meta-cell"><span class="meta-key">菌种</span><span class="meta-val">
+            多种乳酸菌+多种青霉+丙酸菌
+          </span></div>
+        </div>
+        <div class="specimen-body">
+          <p>
+            长谷川带回了<strong>十几种法国传统奶酪</strong>的样本——
+            泽木发现每个奶酪都有独特的<strong>微生态指纹</strong>。
+          </p>
+
+          <div class="tri-comp">
+            <div class="col-head" data-col="fiction">虚构 · MANGA</div>
+            <div class="col-head" data-col="science">微生物学 · SCIENCE</div>
+            <div class="col-head" data-col="culture">发酵文化 · CULTURE</div>
+
+            <div class="col-cell" data-col="fiction">
+              泽木说：「每个法国奶酪都是<strong>微生态的活历史</strong>——
+              几百年来，同一块土地上的同一种菌群在守护着风味」。
+            </div>
+            <div class="col-cell" data-col="science">
+              现代<strong>宏基因组</strong>研究揭示法国传统奶酪的菌群多样性：
+              <strong>Comté</strong>：~200 种菌、~100 种酵母共存；
+              <strong>Reblochon</strong>：含<em>P. roqueforti</em> 变种；
+              <strong>Époisses</strong>：表面用<em>Marc de Bourgogne</em>（葡萄渣）清洗，
+              引入<em>Brettanomyces</em>——造就独特风味。
+              「<strong>terroir</strong>」不只是葡萄园概念，也是<strong>奶酪发酵的微生物学概念</strong>。
+            </div>
+            <div class="col-cell" data-col="culture">
+              法国 <strong>AOP 奶酪</strong>约 50 种，2015 年统计全球奶酪种类约 2000 种。
+              <strong>玛丽·阿雷尔（Marie Harel，1791 年）</strong>传说中的<strong>卡芒贝尔</strong>发明者。
+              现代<strong>生乳奶酪（raw milk cheese）</strong>运动，提倡保留微生物多样性，
+              与<strong>巴氏消毒奶酪</strong>（pasteurized）的争议延续至今。
+            </div>
+          </div>
+
+          <div class="cross-refs">
+            <a href="vol-05-harvest-and-france.html#spec-french-cheese" class="cross-ref">→ 5-3 法国奶酪与青霉</a>
+            <a href="vol-10-europe-tour.html#spec-cheese" class="cross-ref">→ 10-3 欧洲奶酪青霉专题</a>
+          </div>
+        </div>
+      </article>
+
+      <nav class="vol-nav" aria-label="卷次导航">
+        <a href="vol-05-harvest-and-france.html" class="nav-prev">
+          <span class="nav-arrow">◀ VOL. 05</span>
+          <span class="nav-title">卷五 · 收获节与法国</span>
+        </a>
+        <span class="nav-spacer"></span>
+        <a href="vol-07-shoyu-miso.html" class="nav-next">
+          <span class="nav-arrow">VOL. 07 ▶</span>
+          <span class="nav-title">卷七 · 酱油与味噌仕込</span>
+        </a>
+      </nav>
+    </div>
+
+    <aside class="specimen-toc">
+      <div class="container-wide">
+        <div class="specimen-toc-label">SPECIMEN CATALOG · 标本目录</div>
+        <ul class="specimen-toc-list">
+          <li><a href="vol-01-introduction.html">卷一 · 看得见菌的少年</a></li>
+          <li><a href="vol-02-spring-festival.html">卷二 · 春祭独立事件</a></li>
+          <li><a href="vol-03-wine-and-surströmming.html">卷三 · 葡萄酒与瑞典发酵鲱鱼</a></li>
+          <li><a href="vol-04-ufo-vs-juzemi.html">卷四 · UFO 研 vs 树研究室</a></li>
+          <li><a href="vol-05-harvest-and-france.html">卷五 · 收获节与法国</a></li>
+          <li><a href="vol-06-burgundy.html" class="current">卷六 · 勃艮第的忧郁</a></li>
+          <li><a href="vol-07-shoyu-miso.html">卷七 · 酱油与味噌仕込</a></li>
+          <li><a href="vol-08-octoberfest.html">卷八 · 十月啤酒节</a></li>
+          <li><a href="vol-09-self-sufficiency.html">卷九 · 粮食自给率</a></li>
+          <li><a href="vol-10-europe-tour.html">卷十 · 欧洲微生物纪行</a></li>
+          <li><a href="vol-11-beauty-contest.html">卷十一 · Miss 农大选美</a></li>
+          <li><a href="vol-12-sake-revival.html">卷十二 · 本格日本酒酿造</a></li>
+          <li><a href="vol-13-graduation.html">卷十三 · 最终卷 · 毕业</a></li>
+          <li><a href="glossary.html">术语表</a></li>
+          <li><a href="characters.html">人物志</a></li>
+          <li><a href="references.html">参考文献</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <button class="back-to-top" aria-label="返回顶部">▲</button>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container-wide">
+      <span class="footer-line">MOYASHIMON · 微生物知识全鉴 · 卷六 · 勃艮第的忧郁</span>
+      <span class="footer-line">原作：石川雅之《もやしもん》© 講談社 · 非官方整理 · 仅供学习交流</span>
+      <div class="footer-meta"><span>VOL. 06 / 13</span><span>10 ENTRIES</span><span>11 SPECIES</span></div>
+    </div>
+  </footer>
+
+  <script src="_shared/script.js"></script>
+</body>
+</html>

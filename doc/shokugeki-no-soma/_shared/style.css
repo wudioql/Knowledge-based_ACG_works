@@ -1,0 +1,1250 @@
+/* ============================================
+   《食戟之灵》料理内容图文文档 — 共享样式表
+   ============================================ */
+
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Work+Sans:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* --- CSS Variables --- */
+:root {
+  --bg: #FFF8F0;
+  --bg2: #FFF0E0;
+  --ink: #2C3E50;
+  --muted: #7F8C8D;
+  --rule: #E0D5C8;
+  --accent: #C0392B;
+  --accent2: #F39C12;
+  --header-height: 84px;
+
+  /* Cuisine tag colors */
+  --tag-jp: #D32F2F;
+  --tag-fr: #1565C0;
+  --tag-it: #2E7D32;
+  --tag-cn: #FF8F00;
+  --tag-other: #6A1B9A;
+  --tag-molecular: #00838F;
+
+  /* Battle Section Colors */
+  --battle-creative: #F39C12;
+  --battle-authority: #6A1B9A;
+  --battle-gold: #FFD700;
+
+  /* Typography */
+  --font-heading: 'Lora', 'Georgia', serif;
+  --font-body: 'Work Sans', 'Helvetica Neue', sans-serif;
+  --font-mono: 'Courier New', monospace;
+
+  /* Spacing */
+  --max-width: 1080px;
+  --content-width: 860px;
+  --section-gap: 3rem;
+  --card-radius: 8px;
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background-color: var(--bg);
+  /* 添加轻微的纸质纹理 SVG 背景 */
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  color: var(--accent2);
+  text-decoration: underline;
+}
+
+/* --- Utility --- */
+.container {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+/* --- Site Header / Navigation --- */
+.site-header {
+  background: var(--ink);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.site-logo {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.site-logo:hover {
+  color: var(--accent2);
+  text-decoration: none;
+}
+.site-logo .logo-icon {
+  font-size: 1.5rem;
+}
+
+.site-nav {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.site-nav a {
+  color: rgba(255,255,255,0.8);
+  font-size: 0.8rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.site-nav a:hover,
+.site-nav a.active {
+  color: #fff;
+  background: var(--accent);
+  text-decoration: none;
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+/* --- Hero Section --- */
+.hero {
+  background: linear-gradient(-45deg, #C0392B, #E74C3C, #F39C12, #C0392B);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  color: #fff;
+  padding: 4rem 0;
+  text-align: center;
+}
+.hero h1 {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.hero .subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.6;
+}
+.hero .stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.hero .stat {
+  text-align: center;
+}
+.hero .stat-number {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent2);
+}
+.hero .stat-label {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* --- Section Headings --- */
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 3px solid var(--accent);
+  position: relative;
+}
+/* 升级版装饰元素：渐变色条 + 偏移感 */
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(to right, var(--accent2), var(--accent));
+  border-radius: 2px;
+}
+.section-title .title-en {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--muted);
+  font-family: var(--font-body);
+  margin-top: 0.25rem;
+}
+
+/* --- Arc Overview --- */
+.arc-overview {
+  background: var(--bg2);
+  border-radius: var(--card-radius);
+  padding: 2rem;
+  margin-bottom: var(--section-gap);
+  border-left: 4px solid var(--accent);
+}
+.arc-overview h2 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+.arc-overview p {
+  margin-bottom: 0.75rem;
+  line-height: 1.8;
+}
+.arc-meta {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+.arc-meta-item {
+  font-size: 0.9rem;
+}
+.arc-meta-item strong {
+  color: var(--accent);
+}
+
+/* --- Arc Navigation Cards (Index Page) --- */
+.arc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.arc-card {
+  background: #fff;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+  text-decoration: none;
+  color: var(--ink);
+  display: block;
+}
+.arc-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.arc-card-banner {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.3);
+}
+.arc-card:nth-child(1) .arc-card-banner { background: linear-gradient(135deg, #C0392B, #E74C3C); }
+.arc-card:nth-child(2) .arc-card-banner { background: linear-gradient(135deg, #1565C0, #42A5F5); }
+.arc-card:nth-child(3) .arc-card-banner { background: linear-gradient(135deg, #F39C12, #F1C40F); }
+.arc-card:nth-child(4) .arc-card-banner { background: linear-gradient(135deg, #D32F2F, #FF5722); }
+.arc-card:nth-child(5) .arc-card-banner { background: linear-gradient(135deg, #2E7D32, #66BB6A); }
+.arc-card:nth-child(6) .arc-card-banner { background: linear-gradient(135deg, #6A1B9A, #AB47BC); }
+.arc-card:nth-child(7) .arc-card-banner { background: linear-gradient(135deg, #00838F, #26C6DA); }
+.arc-card:nth-child(8) .arc-card-banner { background: linear-gradient(135deg, #37474F, #78909C); }
+.arc-card:nth-child(9) .arc-card-banner { background: linear-gradient(135deg, #1A237E, #3F51B5); }
+.arc-card:nth-child(10) .arc-card-banner { background: linear-gradient(135deg, #4E342E, #8D6E63); }
+
+.arc-card-body {
+  padding: 1.25rem;
+}
+.arc-card-body h3 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+.arc-card-body .arc-card-desc {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+.arc-card-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* --- Cuisine / Technique Tags --- */
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  color: #fff;
+  white-space: nowrap;
+}
+.tag-jp { background: var(--tag-jp); }
+.tag-fr { background: var(--tag-fr); }
+.tag-it { background: var(--tag-it); }
+.tag-cn { background: var(--tag-cn); }
+.tag-other { background: var(--tag-other); }
+.tag-molecular { background: var(--tag-molecular); }
+
+/* Flavor Tags */
+.tag-flavor {
+  background: #f0f0f0;
+  color: #666;
+  border: 1px solid var(--rule);
+}
+.tag-flavor-crispy { background: #FFF3E0; color: #E65100; border-color: #FFE0B2; } /* 酥脆 - 橙色系 */
+.tag-flavor-rich { background: #F3E5F5; color: #7B1FA2; border-color: #E1BEE7; }   /* 浓郁 - 紫色系 */
+.tag-flavor-sweet-sour { background: #E8F5E9; color: #2E7D32; border-color: #C8E6C9; } /* 酸甜 - 绿色系 */
+.tag-flavor-spicy { background: #FFEBEE; color: #C62828; border-color: #FFCDD2; }     /* 辛辣 - 红色系 */
+.tag-flavor-fresh { background: #E3F2FD; color: #1565C0; border-color: #BBDEFB; }     /* 清新 - 蓝色系 */
+
+.tag-outline {
+  background: transparent;
+  border: 1px solid var(--rule);
+  color: var(--muted);
+}
+
+/* --- Filter Bar --- */
+.filter-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #fff;
+  border-radius: var(--card-radius);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  position: sticky;
+  top: var(--header-height);
+  z-index: 50;
+}
+.filter-bar .filter-label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--muted);
+  align-self: center;
+  margin-right: 0.5rem;
+}
+.filter-btn {
+  font-size: 0.8rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--rule);
+  border-radius: 20px;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: var(--font-body);
+}
+.filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* --- Dish Card --- */
+.dish-card {
+  background: #fff;
+  border-radius: var(--card-radius);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 2rem;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+.dish-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+.dish-header {
+  padding: 1.5rem 1.5rem 0.75rem;
+  border-bottom: 1px solid var(--rule);
+}
+.dish-header h2 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+}
+.dish-name-original {
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-style: italic;
+}
+.dish-name-en {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* Dish Meta Grid */
+.dish-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: var(--bg2);
+  font-size: 0.85rem;
+}
+.meta-item {
+  display: flex;
+  gap: 0.4rem;
+}
+.meta-label {
+  color: var(--muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.meta-value {
+  color: var(--ink);
+}
+
+/* Dish Image */
+.dish-image {
+  padding: 1.5rem;
+  text-align: center;
+}
+.dish-image img {
+  max-height: 400px;
+  object-fit: contain;
+  margin: 0 auto;
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+}
+.dish-image .image-source {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+
+/* Dish Content Sections */
+.dish-content {
+  padding: 0 1.5rem 1.5rem;
+}
+.dish-content h3 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 1.5rem 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--accent2);
+}
+.dish-content h3:first-child {
+  margin-top: 0;
+}
+.dish-content p {
+  margin-bottom: 0.75rem;
+  line-height: 1.8;
+}
+.dish-content ul,
+.dish-content ol {
+  margin: 0.5rem 0 1rem 1.5rem;
+}
+.dish-content li {
+  margin-bottom: 0.4rem;
+  line-height: 1.7;
+}
+
+/* Recipe Section */
+.recipe-ingredients {
+  background: var(--bg2);
+  border-radius: var(--card-radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+.recipe-ingredients h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+}
+.recipe-ingredients ul {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+.recipe-ingredients li {
+  padding: 0.25rem 0;
+  border-bottom: 1px dashed var(--rule);
+  font-size: 0.9rem;
+}
+.recipe-ingredients li:last-child {
+  border-bottom: none;
+}
+
+/* Custom Checkbox Styles */
+.ingredient-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  user-select: none;
+}
+.ingredient-item input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--rule);
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.ingredient-item input[type="checkbox"]:checked {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+.ingredient-item input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.ingredient-item input[type="checkbox"]:checked + span {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.ingredient-item:hover {
+  color: var(--accent);
+}
+
+
+.recipe-steps {
+  margin: 1rem 0;
+}
+.recipe-steps h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+.recipe-steps ol {
+  counter-reset: step;
+  list-style: none;
+  margin-left: 0;
+}
+.recipe-steps li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.75rem 0 0.75rem 2.5rem;
+  border-left: 2px solid var(--rule);
+  margin-left: 1rem;
+}
+.recipe-steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: -0.85rem;
+  top: 0.65rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.recipe-steps li:last-child {
+  border-left-color: transparent;
+}
+
+.recipe-tips {
+  background: #FFF3E0;
+  border-left: 4px solid var(--accent2);
+  border-radius: 0 var(--card-radius) var(--card-radius) 0;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+}
+.recipe-tips h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent2);
+  margin-bottom: 0.5rem;
+}
+
+/* Story Section */
+.dish-story {
+  background: var(--bg);
+  border-radius: var(--card-radius);
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  border: 1px solid var(--rule);
+}
+.dish-story h3 {
+  border-bottom-color: var(--accent) !important;
+}
+
+/* Dish Stats */
+.dish-stats {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+  background: var(--bg2);
+  border-radius: var(--card-radius);
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+.dish-stats .stat-item {
+  text-align: center;
+}
+.dish-stats .stat-value {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.dish-stats .stat-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* Collapsible Sections */
+.collapsible-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  padding: 0.75rem 1.5rem;
+  background: var(--bg2);
+  border: none;
+  border-top: 1px solid var(--rule);
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.collapsible-toggle:hover {
+  background: var(--rule);
+  padding-left: 1.75rem;
+}
+.collapsible-toggle::after {
+  content: '▼';
+  font-size: 0.7rem;
+  margin-left: auto;
+  transition: transform 0.2s;
+}
+.collapsible-toggle.open::after {
+  transform: rotate(180deg);
+}
+.collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.collapsible-content.open {
+  max-height: 5000px;
+}
+
+/* --- Battle Section --- */
+.battle-section {
+  margin: 3rem 0;
+  position: relative;
+}
+.battle-header {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(-45deg, #C0392B, #E74C3C, #F39C12, #C0392B);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  color: #fff;
+  border-radius: var(--card-radius) var(--card-radius) 0 0;
+  box-shadow: 0 4px 12px rgba(192, 57, 43, 0.3);
+}
+.battle-header h3 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.battle-header p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+.battle-body {
+  background: #fff;
+  border-radius: 0 0 var(--card-radius) var(--card-radius);
+  padding: 2.5rem 1.5rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  border: 1px solid var(--rule);
+  border-top: none;
+}
+
+.battle-vs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+.battle-chef {
+  text-align: center;
+  flex: 1;
+  min-width: 200px;
+  padding: 1.5rem;
+  border-radius: var(--card-radius);
+  transition: all 0.3s ease;
+}
+/* Creative Side (Soma) */
+.battle-chef--creative {
+  background: rgba(243, 156, 18, 0.05);
+  border: 2px solid transparent;
+}
+.battle-chef--creative:hover {
+  border-color: var(--battle-creative);
+  background: rgba(243, 156, 18, 0.1);
+  transform: scale(1.02);
+}
+.battle-chef--creative .chef-name {
+  color: var(--battle-creative);
+}
+/* Authority Side (Enemy) */
+.battle-chef--authority {
+  background: rgba(106, 27, 154, 0.05);
+  border: 2px solid transparent;
+}
+.battle-chef--authority:hover {
+  border-color: var(--battle-authority);
+  background: rgba(106, 27, 154, 0.1);
+  transform: scale(1.02);
+}
+.battle-chef--authority .chef-name {
+  color: var(--battle-authority);
+}
+
+.battle-chef .chef-name {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.battle-chef .chef-dish {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+.battle-vs-text {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--accent);
+  position: relative;
+  z-index: 1;
+  padding: 0.5rem 1rem;
+}
+.battle-vs-text::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(192, 57, 43, 0.2) 0%, transparent 70%);
+  z-index: -1;
+  animation: vs-pulse 2s infinite ease-in-out;
+}
+
+@keyframes vs-pulse {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+  50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+}
+
+.battle-result {
+  text-align: center;
+  padding: 1.5rem;
+  background: var(--bg2);
+  border-radius: var(--card-radius);
+  margin-top: 2rem;
+  font-weight: 600;
+  border: 1px solid var(--rule);
+}
+.battle-result .winner {
+  color: var(--accent);
+  font-size: 1.3rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  animation: winner-glow 2s infinite alternate;
+}
+
+@keyframes winner-glow {
+  from { text-shadow: 0 0 5px rgba(192, 57, 43, 0.2); }
+  to { text-shadow: 0 0 15px rgba(192, 57, 43, 0.6), 0 0 20px var(--battle-gold); }
+}
+
+/* --- Chapter Navigation (Arc Pages) --- */
+.chapter-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+  border-top: 2px solid var(--rule);
+  margin-top: 3rem;
+}
+.chapter-nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.chapter-nav .nav-prev::before { content: '← '; }
+.chapter-nav .nav-next::after { content: ' →'; }
+
+/* --- Side TOC (Arc Pages) --- */
+.side-toc {
+  position: fixed;
+  top: var(--header-height);
+  right: 1rem;
+  width: 200px;
+  max-height: calc(100vh - var(--header-height) - 2rem);
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--card-radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 1rem;
+  font-size: 0.78rem;
+  z-index: 60;
+  transition: all 0.3s ease;
+}
+.side-toc h4 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.side-toc ul {
+  list-style: none;
+  margin: 0;
+}
+.side-toc li {
+  margin-bottom: 0.25rem;
+}
+.side-toc a {
+  color: var(--muted);
+  display: block;
+  padding: 0.2rem 0;
+  transition: color 0.2s;
+  line-height: 1.4;
+}
+.side-toc a:hover,
+.side-toc a.active {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* --- Scroll Reveal Animations --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 优化锚点跳转位置，预留 (顶栏 + 筛选栏) 高度 + 2rem 呼吸间距 */
+.dish-card, 
+.battle-section, 
+.arc-overview, 
+.section-title {
+  scroll-margin-top: calc(var(--total-offset) + 2rem);
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 40px;
+  height: 40px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+.back-to-top:hover {
+  background: var(--accent2);
+  transform: translateY(-2px);
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* --- Footer --- */
+.site-footer {
+  background: var(--ink);
+  color: rgba(255,255,255,0.7);
+  padding: 2rem 0;
+  margin-top: 4rem;
+  font-size: 0.85rem;
+}
+.site-footer .container {
+  text-align: center;
+}
+.site-footer a {
+  color: var(--accent2);
+}
+.site-footer .copyright {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+}
+
+/* --- Cuisine Index Section --- */
+.cuisine-index {
+  margin: 2rem 0;
+}
+.cuisine-index h2 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+.cuisine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.cuisine-card {
+  background: #fff;
+  border-radius: var(--card-radius);
+  padding: 1.25rem;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  transition: transform 0.2s;
+}
+.cuisine-card:hover {
+  transform: translateY(-2px);
+}
+.cuisine-card .cuisine-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+.cuisine-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.cuisine-card .cuisine-count {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* --- Simple Dish List (for BLUE preliminaries) --- */
+.dish-list-simple {
+  list-style: none;
+  margin: 1rem 0;
+}
+.dish-list-simple li {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.9rem;
+}
+.dish-list-simple li:last-child {
+  border-bottom: none;
+}
+.dish-list-simple .dish-list-name {
+  font-weight: 600;
+}
+.dish-list-simple .dish-list-chef {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* --- Responsive --- */
+/* --- Mobile TOC Trigger --- */
+.toc-trigger {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  width: 48px;
+  height: 48px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.toc-trigger:hover {
+  background: var(--accent2);
+  transform: scale(1.1);
+}
+
+/* Mobile TOC State */
+.side-toc.mobile-open {
+  top: 0;
+  right: 0;
+  width: 100%;
+  max-width: 300px;
+  height: 100vh;
+  max-height: 100vh;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 0;
+  border: none;
+  box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+  z-index: 110;
+  padding: 2rem 1.5rem;
+  transform: translateX(0);
+}
+
+.side-toc.mobile-hidden {
+  transform: translateX(100%);
+}
+
+@media (max-width: 1024px) {
+  .side-toc {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100vh;
+    max-height: 100vh;
+    z-index: 110;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    border-radius: 0;
+    background: #fff;
+  }
+  .side-toc.mobile-open {
+    transform: translateX(0);
+  }
+}
+
+@media (min-width: 1025px) {
+  .toc-trigger {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--ink);
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  .site-nav.open {
+    display: flex;
+  }
+  .site-nav a {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  .nav-toggle {
+    display: block;
+  }
+  .site-header .container {
+    position: relative;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  .hero .stats {
+    gap: 1rem;
+  }
+
+  .arc-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dish-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .battle-vs {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .battle-vs-text {
+    font-size: 1.2rem;
+  }
+
+  .filter-bar {
+    position: sticky;
+    top: var(--header-height);
+  }
+
+  .chapter-nav {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 15px;
+  }
+  .hero {
+    padding: 2.5rem 0;
+  }
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+  .dish-header {
+    padding: 1rem 1rem 0.5rem;
+  }
+  .dish-content {
+    padding: 0 1rem 1rem;
+  }
+  .dish-image {
+    padding: 1rem;
+  }
+}
+
+/* --- Print --- */
+@media print {
+  .site-header,
+  .side-toc,
+  .back-to-top,
+  .filter-bar,
+  .collapsible-toggle {
+    display: none !important;
+  }
+  .collapsible-content {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  .dish-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid var(--rule);
+  }
+  body {
+    background: #fff;
+  }
+}

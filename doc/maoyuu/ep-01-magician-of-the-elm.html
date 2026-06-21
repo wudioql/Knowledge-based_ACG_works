@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>外传① 榆之国的女魔法使 | 魔王勇者政治经济学手册</title>
+<link rel="stylesheet" href="_shared/style.css">
+</head>
+<body>
+
+<header class="brand">
+  <div class="brand__inner">
+    <div class="brand__mark"><a href="index.html">魔王勇者<span class="pipe">·</span>緋色綸旨</a></div>
+    <span class="brand__sub">Side · EP1 · Magician of the Elm</span>
+  </div>
+</header>
+<div class="progress" aria-hidden="true"></div>
+
+<div class="layout">
+  <button class="rail-toggle" aria-expanded="false">本卷目录 <span>▾</span></button>
+  <aside class="rail">
+    <div class="rail__cap">外传 · 第1卷</div>
+    <div class="rail__sec">本卷脉络</div>
+    <ul class="rail__list">
+      <li><a href="#overview"><span class="num">·</span>概要与主线</a></li>
+      <li><a href="#library"><span class="num">一</span>图书馆与知识保存</a></li>
+      <li><a href="#manuscript"><span class="num">二</span>抄本与知识传承</a></li>
+      <li><a href="#witch"><span class="num">三</span>巫术审判与异端</a></li>
+      <li><a href="#summary"><span class="num">四</span>本卷小结</a></li>
+    </ul>
+    <div class="rail__nav" data-nav-mount data-active="ep-01"></div>
+  </aside>
+
+  <main class="folio">
+    <section class="spread" id="overview">
+      <div class="spread__eyebrow">外传 · Episode 1 · 2011.10.31 刊（外传最先刊行）</div>
+      <div class="spread__vol">外传 第1卷（原作 Episode 1）</div>
+      <h1 class="spread__title">榆之国的女魔法使</h1>
+      <div class="spread__jp">『まおゆう魔王勇者 エピソード1 楡の国の女魔法使い』</div>
+      <div class="spread__meta">
+        <span><b>视角人物：</b>女魔法使（勇者旧队成员）</span>
+        <span><b>知识主线：</b>知识保存 · 抄本传承 · 巫术审判</span>
+        <span><b>舞台：</b>榆之国／魔界图书馆</span>
+      </div>
+    </section>
+
+    <div class="dropcap">
+      <p class="lead">
+        女魔法使的旅程，是一部关于<strong>“知识如何被保存、如何被传递、又如何被恐惧”</strong>的故事。
+        她出身于<strong>图书馆族</strong>——那个守护古籍、传承学问的氏族，与魔王同源。在榆之国，她追寻散佚的智慧，
+        也直面一个悖论：掌握知识者，往往被无知者视为<strong>“魔女”</strong>。本卷的底色，是知识史与迫害史的双重奏。
+      </p>
+    </div>
+
+    <!-- 一、图书馆 -->
+    <h2 class="fol-head" id="library"><span class="ord">I</span>图书馆：知识的避难所</h2>
+    <p>
+      魔王之所以博学，因为她来自<strong>图书馆族</strong>——一个把<strong>保存知识</strong>视为使命的氏族。
+      在前印刷时代，知识极其脆弱：一场战火、一次焚毁，便可能令整代智慧化为乌有。图书馆的存在，
+      使文明得以<strong>对抗遗忘</strong>。女魔法使对知识的追寻，呼应着人类历史上那些以收藏与传承为志业的伟大图书馆。
+    </p>
+    <div class="viz">
+      <pre class="mermaid">
+graph LR
+  A["古典知识"] -->|战乱散佚| B["?? 抄本残片"]
+  B -->|收集·抄写| L["图书馆 / 智慧宫"]
+  L -->|翻译·注疏| T["传承至后世"]
+  L -.被焚毁的风险.-> X["知识断层"]
+  style L fill:#7d1024,color:#f4ebd6,stroke:#b0892d
+  style X fill:#5c0b1a,color:#fff
+  style T fill:#3a6b54,color:#fff
+      </pre>
+      <p class="viz__cap"><b>图1·知识的脆弱与保存</b>：前印刷时代，知识依赖抄本与图书馆对抗战乱与遗忘；一旦图书馆被毁，便形成文明断层。</p>
+    </div>
+
+    <div class="ledger">
+      <div class="ledger__title"><span class="dot"></span>三方对照 · Ⅰ 图书馆 / 知识保存</div>
+      <div class="ledger__grid">
+        <div class="ledger__cell is-fiction">
+          <div class="ledger__label">小说情节</div>
+          <h4>图书馆族的使命</h4>
+          <p>女魔法使与魔王同属图书馆族，以守护与传承古籍为志业；她对知识的追寻，象征一个文明对抗遗忘的努力。</p>
+        </div>
+        <div class="ledger__cell is-theory">
+          <div class="ledger__label">学术原著 / 理论</div>
+          <h4>知识的公共品属性</h4>
+          <p>知识是<strong>非排他、非耗损</strong>的公共品（与魔王“越分享越多”之论同源）；博尔丁、罗默的内生增长理论强调<strong>知识积累</strong>为增长引擎。</p>
+          <a class="ref" href="references.html#library">→ 参考：知识保存</a>
+        </div>
+        <div class="ledger__cell is-history">
+          <div class="ledger__label">真实历史事件</div>
+          <h4>亚历山大图书馆与智慧宫</h4>
+          <p><strong>亚历山大图书馆</strong>集古典学问之大成而终毁于战火；巴格达<strong>“智慧之家”（Bayt al-Hikma）</strong>翻译保存希腊典籍；中世纪<strong>修道院抄写室</strong>维系西欧的拉丁文献——皆为“图书馆族”的现实原型。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 二、抄本传承 -->
+    <h2 class="fol-head" id="manuscript"><span class="ord">II</span>抄本与知识的传承链</h2>
+    <p>
+      在活字普及前，知识的传递全靠<strong>人力抄写</strong>。一名抄写员、一支鹅毛笔、一卷羊皮纸，
+      把一份典籍从一代传到下一代。这条<strong>抄本传承链</strong>既缓慢又昂贵，却也成就了古典学问的延续；
+      尤其是伊斯兰世界对希腊典籍的<strong>翻译运动</strong>，为后来欧洲的“重新发现”埋下伏笔。女魔法使的旅途，
+      正是这条链上一个执着的环节。
+    </p>
+    <div class="kp">
+      <div class="kp__head"><span class="tag t-hist">历史</span><span class="tag t-tech">科技</span><h3 class="kp__name" style="margin:0">翻译运动与抄本传承</h3></div>
+      <p class="kp__body">
+        8–10世纪巴格达的<strong>“百年翻译运动”</strong>把大量希腊、波斯、印度典籍译为阿拉伯语，保存了本将在西欧散佚的古典学问；
+        12世纪<strong>“翻译家”们</strong>在托莱多等地将之由阿拉伯语回译为拉丁语，点燃欧洲学术复兴。
+        这条“希腊→阿拉伯→拉丁”的传承链，正类比图书馆族在魔界保存知识、再传回人间的努力。
+        <a class="xref" href="references.html#translation">→ 翻译运动</a>
+      </p>
+    </div>
+
+    <!-- 三、巫术审判 -->
+    <h2 class="fol-head" id="witch"><span class="ord">III</span>巫术审判与异端：知识者的阴影</h2>
+    <p>
+      女魔法使要面对的，不只是知识散佚，还有<strong>对“异端”的恐惧与迫害</strong>。当知识超出大众的理解，
+      当女性掌握了不该“属于”她的学问，社会的反应往往是<strong>污名与火刑</strong>。历史上的猎巫运动，正是这种
+      <strong>“无知对知识的反噬”</strong>的极端形态——它提醒我们：魔王推广活字与教育，不仅是技术问题，
+      更是与<strong>蒙昧与偏见</strong>的长期抗争。
+    </p>
+    <div class="viz">
+      <svg viewBox="0 0 600 150" role="img" aria-label="书卷与火焰的意象：知识在火焰中受威胁，象征巫术审判对知识者的迫害。" style="width:100%;height:auto;max-height:10rem;">
+        <rect x="120" y="50" width="150" height="70" rx="3" fill="#ecdfc1" stroke="#b0892d"/>
+        <line x1="135" y1="68" x2="255" y2="68" stroke="#7c6a4d"/><line x1="135" y1="82" x2="255" y2="82" stroke="#7c6a4d"/><line x1="135" y1="96" x2="255" y2="96" stroke="#7c6a4d"/><line x1="135" y1="110" x2="230" y2="110" stroke="#7c6a4d"/>
+        <text x="195" y="40" text-anchor="middle" font-family="ZCOOL XiaoWei,serif" font-size="15" fill="#7d1024">知识（抄本）</text>
+        <path d="M340 110 Q360 70 380 110 Q400 60 420 110 Q440 70 460 110 Z" fill="#7d1024" opacity=".85"/>
+        <path d="M350 112 Q370 85 390 112 Q410 80 430 112 Q445 92 455 112 Z" fill="#cdaa45"/>
+        <text x="400" y="40" text-anchor="middle" font-family="ZCOOL XiaoWei,serif" font-size="15" fill="#5c0b1a">火／偏见</text>
+        <line x1="270" y1="85" x2="335" y2="85" stroke="#b0892d" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <text x="302" y="78" text-anchor="middle" font-family="Noto Serif SC,serif" font-size="11" fill="#4a3a24">威胁</text>
+        <text x="300" y="138" text-anchor="middle" font-family="Noto Serif SC,serif" font-size="11" fill="#7c6a4d">知识者常被无知与恐惧视为“魔女”</text>
+      </svg>
+      <p class="viz__cap"><b>图2·知识与火</b>：掌握超乎常识之学问者，往往被恐惧化为“巫”——这是女魔法使的处境，也是猎巫运动的精神底色。</p>
+    </div>
+    <div class="ledger">
+      <div class="ledger__title"><span class="dot"></span>三方对照 · Ⅲ 巫术审判 / 异端与迫害</div>
+      <div class="ledger__grid">
+        <div class="ledger__cell is-fiction">
+          <div class="ledger__label">小说情节</div>
+          <h4>被视作“魔女”的知识者</h4>
+          <p>女魔法使因掌握超常学问而身陷被疑惧、被审判的处境；她的旅程也映照知识者与蒙昧社会的张力。</p>
+        </div>
+        <div class="ledger__cell is-theory">
+          <div class="ledger__label">学术原著 / 理论</div>
+          <h4>污名化与知识权力</h4>
+          <p>福柯论<strong>知识／权力</strong>；戈夫曼的<strong>污名理论</strong>；社会心理学对<strong>群体恐惧与替罪羊</strong>机制的研究（如鲍格林）。</p>
+          <a class="ref" href="references.html#witch">→ 参考：猎巫运动</a>
+        </div>
+        <div class="ledger__cell is-history">
+          <div class="ledger__label">真实历史事件</div>
+          <h4>猎巫运动与异端裁判所</h4>
+          <p>15–17世纪欧洲<strong>猎巫运动</strong>（1486年《女巫之锤》为理论手册）；<strong>异端裁判所</strong>迫害“异端”科学家与思想者（如布鲁诺）。女魔法使之困，正是这段阴影的回响。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 四、小结 -->
+    <h2 class="fol-head" id="summary"><span class="ord">IV</span>本卷小结</h2>
+    <p>
+      外传①从“知识”的角度补完了主线的另一面：魔王之所以能改变世界，因为她身后有一个<strong>保存、传承、追寻知识</strong>的传统——
+      图书馆族。而女魔法使的遭遇又提醒我们：知识的命运从来两极——<strong>一面是被崇敬、被传承，一面是被恐惧、被焚毁</strong>。
+      正因如此，魔王推广印刷与教育，才不是锦上添花，而是与遗忘、与蒙昧争夺文明未来的关键战役。
+    </p>
+
+    <nav class="folio-nav">
+      <a href="vol-05-beyond-the-hill.html"><span class="nav-dir">← 第5卷</span><span class="nav-title">在那山丘的彼方</span></a>
+      <a class="next" href="ep-02-archer-of-the-desert.html"><span class="nav-dir">外传② →</span><span class="nav-title">沙丘之国的弓使</span></a>
+    </nav>
+  </main>
+</div>
+
+<footer class="foot">
+  <div class="foot__inner">
+    <p><b>外传① 榆之国的女魔法使</b> · 魔王勇者政治经济学手册</p>
+    <p>原作：橙乃ままれ『まおゆう魔王勇者 エピソード1』（Enterbrain, 2011）。本页为非官方学习整理。</p>
+  </div>
+</footer>
+
+<button class="to-top" aria-label="返回页顶" title="返回页顶">↑</button>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, theme: 'neutral', themeVariables: { fontFamily: 'Noto Serif SC, serif', fontSize: '14px' } });
+</script>
+<script src="_shared/script.js"></script>
+</body>
+</html>

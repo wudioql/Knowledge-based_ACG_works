@@ -1,0 +1,1697 @@
+/* ============================================
+   《萌菌物语》微生物知识全鉴 — 共享样式表
+   设计主题：「培地ノート / Culture Medium Notebook」
+   设计理念：实验室笔记本 × 漫画分镜 × 琼脂皿
+   ============================================ */
+
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* --- CSS Variables (设计令牌) --- */
+:root {
+  /* 主背景：明亮培养基绿白，加入更轻快的菌落卡通感 */
+  --paper:       #F7FBF2;
+  --paper-2:     #E6F4D8;
+  --paper-edge:  #BFDDB6;
+
+  /* 主文色：深叶绿，压住卡通色但不显沉重 */
+  --ink:         #243B31;
+  --ink-soft:    #496052;
+  --muted:       #748877;
+
+  /* 强调色：菌落绿 + 卡通霉菌紫 + 孢子蜜橙 */
+  --agar:        #58A978;     /* 主色：菌落绿 */
+  --agar-deep:   #2F7A5E;     /* 深绿：导航与主标题 */
+  --mold:        #8B70B2;     /* 卡通霉菌紫 */
+  --mold-deep:   #67508E;     /* 深紫 */
+  --spore:       #F0B76F;     /* 孢子蜜橙：按钮和高亮 */
+
+  /* 学科领域色（与已有作品不重复的微生物分类色谱） */
+  --d-micro:     #3D7068;     /* 微生物学：琼脂绿 */
+  --d-agr:       #A65D32;     /* 农学：土壤赭 */
+  --d-ferm:      #6B4F7C;     /* 发酵学：霉菌紫 */
+  --d-food:      #B8794C;     /* 食品学：味噌褐 */
+  --d-hist:      #4F5D70;     /* 历史学：冷蓝灰 */
+  --d-bio:       #5C8D6A;     /* 生物学：叶绿 */
+  --d-med:       #A65D7C;     /* 医学：痢疾红 */
+
+  --rule:        #B6D7A8;
+  --rule-soft:   #D8E9CF;
+
+  /* 字体：中文优先，避免日文字体替换简体中文字形；外部字体不可用时回退到系统中文字体 */
+  --font-heading: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', 'SimSun', '宋体', serif;
+  --font-body:    'Noto Sans SC', 'Source Han Sans SC', 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'Heiti SC', sans-serif;
+  --font-mono:    'JetBrains Mono', 'SFMono-Regular', Consolas, 'Noto Sans Mono CJK SC', 'Microsoft YaHei Mono', monospace;
+  --font-jp:      'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', 'Noto Sans JP', 'Noto Sans SC', sans-serif;
+
+  /* 尺寸 */
+  --max-width:     1320px;
+  --content-width: 1140px;
+  --gutter:        1.5rem;
+  --section-gap:   2.75rem;
+
+  /* 形状：圆角琼脂皿 vs 方角培养皿 */
+  --radius-petri: 50%;            /* 完全圆形：琼脂皿 */
+  --radius-colony: 14px;          /* 中等：菌落边缘 */
+  --radius-card:  6px;            /* 卡片：培养皿方角 */
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--ink);
+  background: var(--paper);
+  /* 菌落卡通感背景：淡绿色记录纸 + 柔和菌落圆点 */
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(88, 169, 120, 0.11) 0 6px, transparent 7px),
+    radial-gradient(circle at 86% 28%, rgba(139, 112, 178, 0.09) 0 5px, transparent 6px),
+    radial-gradient(circle at 70% 76%, rgba(240, 183, 111, 0.11) 0 7px, transparent 8px),
+    linear-gradient(to bottom, transparent 0, transparent calc(100% - 1px), rgba(88, 169, 120, 0.05) 100%),
+    linear-gradient(to right, rgba(88, 169, 120, 0.04) 0, transparent 8%);
+  background-size: 360px 360px, 440px 440px, 560px 560px, 100% 2.4rem, 100% 100%;
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--agar-deep); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--mold); text-decoration: underline; text-decoration-color: var(--mold); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-heading);
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  color: var(--agar-deep);
+}
+h1 { font-weight: 900; }
+h2 { font-weight: 700; }
+h3, h4, h5 { font-weight: 500; }
+
+/* --- 容器 --- */
+.container { max-width: var(--content-width); margin: 0 auto; padding: 0 var(--gutter); }
+.container-wide { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--gutter); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
+/* ===================================================
+   【顶部标本标签栏】— 完全不同于 header→hero→main→footer
+   =================================================== */
+.specimen-bar {
+  background: var(--agar-deep);
+  color: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 3px double var(--spore);
+}
+.specimen-bar .container-wide {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 0.65rem;
+  padding-bottom: 0.65rem;
+}
+.specimen-tag {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--spore);
+  text-transform: uppercase;
+}
+.specimen-tag .specimen-id {
+  background: var(--paper);
+  color: var(--agar-deep);
+  padding: 0.15rem 0.5rem;
+  font-weight: 700;
+  border-radius: 3px;
+}
+
+/* 作品大标题 — 必须视觉醒目 */
+.work-title {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  color: var(--paper);
+}
+.work-title:hover { color: var(--spore); text-decoration: none; }
+.work-title .title-jp {
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: var(--paper);
+  line-height: 1;
+}
+.work-title .title-jp:hover { color: var(--spore); }
+.work-title .title-sub {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  color: var(--spore);
+  text-transform: uppercase;
+  border-left: 1px solid rgba(201, 167, 122, 0.5);
+  padding-left: 0.85rem;
+}
+.work-title .title-sub small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--paper);
+  letter-spacing: 0.06em;
+  margin-top: 0.25rem;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.specimen-nav {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.specimen-nav a {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--paper);
+  padding: 0.35rem 0.65rem;
+  border: 1px solid rgba(201, 167, 122, 0.3);
+  border-radius: 3px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+.specimen-nav a:hover { background: var(--paper); color: var(--agar-deep); text-decoration: none; }
+.specimen-nav a.active { background: var(--spore); color: var(--agar-deep); border-color: var(--spore); font-weight: 700; }
+.specimen-bar .nav-toggle {
+  display: none;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--paper);
+  background: transparent;
+  border: 1px solid rgba(201, 167, 122, 0.45);
+  border-radius: 3px;
+  padding: 0.35rem 0.65rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+.specimen-bar .nav-toggle:hover {
+  background: var(--paper);
+  color: var(--agar-deep);
+}
+
+@media (max-width: 1023px) {
+  .work-title .title-jp { font-size: 1.9rem; }
+}
+@media (max-width: 767px) {
+  .specimen-bar .container-wide { padding: 0.5rem var(--gutter); }
+  .work-title .title-jp { font-size: 1.55rem; }
+  .work-title .title-sub { display: none; }
+  .specimen-nav { width: 100%; flex-direction: column; align-items: stretch; display: none; }
+  .specimen-nav.open { display: flex; }
+  .specimen-bar .nav-toggle { display: inline-flex; align-self: flex-end; }
+  .specimen-tag { font-size: 0.65rem; }
+}
+
+/* ===================================================
+   【底部面包屑 TOC】— 与现有 TOC 完全不同的位置
+   =================================================== */
+.specimen-toc {
+  background: var(--paper-2);
+  border-top: 2px solid var(--agar);
+  border-bottom: 1px solid var(--rule);
+  margin-top: 3rem;
+  padding: 1.5rem 0;
+}
+.specimen-toc .container-wide { display: flex; align-items: flex-start; gap: 1.5rem; flex-wrap: wrap; }
+.specimen-toc-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--agar-deep);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+  padding-top: 0.5rem;
+  border-right: 2px solid var(--agar);
+  padding-right: 1rem;
+}
+.specimen-toc-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  flex: 1;
+  list-style: none;
+}
+.specimen-toc-list a {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 0.4rem 0.7rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.specimen-toc-list a:hover { background: var(--agar); color: var(--paper); text-decoration: none; border-color: var(--agar); }
+.specimen-toc-list a.current {
+  background: var(--agar-deep);
+  color: var(--paper);
+  border-color: var(--agar-deep);
+  font-weight: 700;
+}
+
+@media (max-width: 767px) {
+  .specimen-toc .container-wide { flex-direction: column; gap: 0.75rem; }
+  .specimen-toc-label { border-right: none; border-bottom: 2px solid var(--agar); padding-right: 0; padding-bottom: 0.4rem; }
+}
+
+/* ===================================================
+   【首页 Hero】— 琼脂皿形状的圆形主视觉（完全区别于矩形 hero）
+   =================================================== */
+.petri-hero {
+  padding: 3rem 0 2rem;
+  text-align: center;
+  position: relative;
+}
+.petri-hero .label-row {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: var(--agar-deep);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.petri-hero h1 {
+  font-size: clamp(2rem, 1.4rem + 2.5vw, 3.6rem);
+  margin-bottom: 0.5rem;
+  color: var(--agar-deep);
+  letter-spacing: 0.05em;
+}
+.petri-hero .hero-sub-jp {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+.petri-hero .hero-sub-en {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.25em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+}
+
+/* 圆形 hero：培地皿 */
+.petri-dish {
+  width: 280px;
+  height: 280px;
+  margin: 0 auto 2.5rem;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 28% 24%, rgba(255,255,255,0.62) 0%, transparent 32%),
+    radial-gradient(circle at 68% 36%, rgba(240, 183, 111, 0.42) 0 7px, transparent 8px),
+    radial-gradient(circle at 36% 70%, rgba(139, 112, 178, 0.34) 0 6px, transparent 7px),
+    radial-gradient(circle at 58% 66%, rgba(255,255,255,0.26) 0 5px, transparent 6px),
+    radial-gradient(circle at 50% 50%, #8FD29A 0%, var(--agar) 48%, var(--agar-deep) 100%);
+  position: relative;
+  box-shadow:
+    inset 0 0 24px rgba(47, 122, 94, 0.25),
+    inset 0 0 55px rgba(255,255,255,0.18),
+    0 10px 28px rgba(47, 122, 94, 0.32),
+    0 0 0 12px var(--paper),
+    0 0 0 15px rgba(88, 169, 120, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: var(--paper);
+  text-align: center;
+  padding: 2rem;
+}
+.petri-dish::before {
+  content: '';
+  position: absolute;
+  top: 12%;
+  left: 18%;
+  width: 30%;
+  height: 20%;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.35) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.petri-dish .dish-text-jp {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  margin-bottom: 0.4rem;
+}
+.petri-dish .dish-text-en {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.petri-dish .dish-species {
+  position: absolute;
+  bottom: 30px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+/* Hero 数据带：菌落小圆点 */
+.colony-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.colony-stat {
+  text-align: center;
+  position: relative;
+  padding-left: 1.5rem;
+}
+.colony-stat::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--agar);
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
+}
+.colony-stat:nth-child(2)::before { background: var(--mold); }
+.colony-stat:nth-child(3)::before { background: var(--spore); }
+.colony-stat:nth-child(4)::before { background: var(--agar-deep); }
+.colony-stat .stat-num {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--agar-deep);
+  line-height: 1;
+}
+.colony-stat .stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 0.4rem;
+}
+
+@media (max-width: 767px) {
+  .petri-dish { width: 220px; height: 220px; padding: 1.5rem; }
+  .petri-dish .dish-text-jp { font-size: 1.55rem; }
+  .colony-stats { gap: 1rem; }
+}
+
+/* ===================================================
+   【卷次面板网格】— 漫画分镜式不对称网格（区别于已有卡片网格）
+   =================================================== */
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: minmax(120px, auto);
+  gap: 1.25rem;
+  margin: 2rem 0;
+}
+.panel-card {
+  background: var(--paper);
+  border: 2px solid var(--rule);
+  border-radius: 16px 10px 18px 12px;
+  position: relative;
+  padding: 1.5rem;
+  overflow: hidden;
+  transition: transform 0.32s cubic-bezier(.2, 1.45, .35, 1), box-shadow 0.28s, border-color 0.25s, background 0.25s;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 4px 4px 0 var(--paper-2);
+}
+.panel-card::before {
+  content: '';
+  position: absolute;
+  top: 0.65rem;
+  right: 0.75rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.85) 0 18%, var(--spore) 22% 68%, rgba(240,183,111,0.25) 70%);
+  opacity: 0.55;
+  pointer-events: none;
+  transition: transform 0.28s cubic-bezier(.2, 1.45, .35, 1), opacity 0.25s;
+}
+.panel-card:hover {
+  transform: translate(-3px, -4px) rotate(-0.35deg) scale(1.012);
+  box-shadow: 8px 8px 0 #D8EACD, 0 10px 22px rgba(47, 122, 94, 0.16);
+  border-color: var(--agar);
+  background: #FBFDF7;
+  text-decoration: none;
+}
+.panel-card:hover::before {
+  transform: scale(1.35) rotate(12deg);
+  opacity: 0.9;
+}
+.panel-card .panel-num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.panel-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--agar-deep);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+.panel-card .panel-jp {
+  font-family: var(--font-jp);
+  font-size: 0.92rem;
+  color: var(--mold);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+.panel-card .panel-desc {
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  flex: 1;
+}
+.panel-card .panel-tags {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+/* 不对称尺寸 — 漫画分镜风格 */
+/* 第1卷：大面板 (4x3) */
+.panel-card.size-xl { grid-column: span 6; grid-row: span 3; }
+.panel-card.size-xl h3 { font-size: 1.7rem; }
+.panel-card.size-xl .panel-jp { font-size: 1.15rem; }
+
+/* 中等 (4x2) */
+.panel-card.size-l { grid-column: span 6; grid-row: span 2; }
+.panel-card.size-l h3 { font-size: 1.4rem; }
+
+/* 普通 (3x2) */
+.panel-card.size-m { grid-column: span 4; grid-row: span 2; }
+
+/* 小 (3x1) */
+.panel-card.size-s { grid-column: span 4; grid-row: span 1; padding: 1rem; }
+.panel-card.size-s h3 { font-size: 1.1rem; }
+
+/* 迷你 (2x1) */
+.panel-card.size-xs { grid-column: span 3; grid-row: span 1; padding: 0.85rem 1rem; }
+.panel-card.size-xs h3 { font-size: 1rem; }
+
+@media (max-width: 1023px) {
+  .panel-card.size-xl,
+  .panel-card.size-l,
+  .panel-card.size-m,
+  .panel-card.size-s,
+  .panel-card.size-xs {
+    grid-column: span 6;
+  }
+  .panel-card.size-xl { grid-row: span 2; }
+}
+@media (max-width: 767px) {
+  .panel-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+  .panel-card.size-xl,
+  .panel-card.size-l,
+  .panel-card.size-m,
+  .panel-card.size-s,
+  .panel-card.size-xs {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  .panel-card { box-shadow: 3px 3px 0 var(--paper-2); }
+  .panel-card:hover { transform: none; box-shadow: 3px 3px 0 var(--paper-2); }
+}
+
+/* ===================================================
+   【学科标签】— 培养基配方风格（独特）
+   =================================================== */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: rgba(230, 244, 216, 0.72);
+  color: var(--ink-soft);
+  border: 1px solid rgba(88, 169, 120, 0.22);
+  box-shadow: inset 0 -1px 0 rgba(255,255,255,0.55);
+}
+.tag::before {
+  content: '';
+  width: 0.62rem;
+  height: 0.62rem;
+  flex: 0 0 0.62rem;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255,255,255,0.92) 0 18%, currentColor 22% 68%, rgba(255,255,255,0.24) 70%);
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.45), 0 1px 3px rgba(36,59,49,0.18);
+  opacity: 0.95;
+}
+.tag.tag-micro { border-left-color: var(--d-micro); color: var(--d-micro); }
+.tag.tag-agr   { border-left-color: var(--d-agr);   color: var(--d-agr); }
+.tag.tag-ferm  { border-left-color: var(--d-ferm);  color: var(--d-ferm); }
+.tag.tag-food  { border-left-color: var(--d-food);  color: var(--d-food); }
+.tag.tag-hist  { border-left-color: var(--d-hist);  color: var(--d-hist); }
+.tag.tag-bio   { border-left-color: var(--d-bio);   color: var(--d-bio); }
+.tag.tag-med   { border-left-color: var(--d-med);   color: var(--d-med); }
+
+/* ===================================================
+   【分卷内容页：知识点卡】— 三栏对照表（虚拟↔科学↔文化）
+   =================================================== */
+.vol-meta-strip {
+  background: var(--paper-2);
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: var(--section-gap);
+}
+.vol-meta-strip .container-wide {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.vol-meta-strip .vol-jp {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--agar-deep);
+  margin-right: auto;
+}
+.vol-meta-strip .vol-meta-list {
+  display: flex;
+  gap: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  flex-wrap: wrap;
+}
+.vol-meta-strip .vol-meta-list strong {
+  color: var(--agar-deep);
+  font-weight: 700;
+  margin-right: 0.3rem;
+}
+
+@media (max-width: 767px) {
+  .vol-meta-strip .vol-jp { font-size: 1.4rem; width: 100%; margin-bottom: 0.5rem; }
+}
+
+/* 卷次导言块 */
+.vol-prologue {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  padding: 1.5rem 1.75rem;
+  margin-bottom: var(--section-gap);
+  border-left: 6px solid var(--agar);
+  position: relative;
+}
+.vol-prologue::before {
+  content: '「';
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  color: var(--agar);
+  opacity: 0.3;
+  line-height: 1;
+}
+.vol-prologue h2 {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  color: var(--agar-deep);
+}
+.vol-prologue .prologue-jp {
+  font-family: var(--font-jp);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--mold);
+  line-height: 1.5;
+  margin-bottom: 0.08rem;
+}
+.vol-prologue .prologue-cn {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin-bottom: 0.95rem;
+}
+.vol-prologue p {
+  color: var(--ink-soft);
+  line-height: 1.85;
+}
+
+/* 知识点卡：specimen entry */
+.specimen-entry {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  margin-bottom: 2.5rem;
+  position: relative;
+  padding: 0;
+}
+.specimen-entry::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: var(--agar);
+}
+.specimen-entry[data-disc="微生物学"]::before { background: var(--d-micro); }
+.specimen-entry[data-disc="农学"]::before     { background: var(--d-agr); }
+.specimen-entry[data-disc="发酵学"]::before   { background: var(--d-ferm); }
+.specimen-entry[data-disc="食品学"]::before   { background: var(--d-food); }
+.specimen-entry[data-disc="历史学"]::before   { background: var(--d-hist); }
+.specimen-entry[data-disc="生物学"]::before   { background: var(--d-bio); }
+.specimen-entry[data-disc="医学"]::before     { background: var(--d-med); }
+
+.specimen-entry-header {
+  padding: 1.5rem 1.75rem 0.75rem;
+  border-bottom: 1px dashed var(--rule);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 1rem;
+}
+.specimen-entry-header .entry-id {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--agar-deep);
+  background: var(--paper-2);
+  padding: 0.25rem 0.6rem;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+}
+.specimen-entry-header h2 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--agar-deep);
+  margin: 0;
+  flex: 1;
+  min-width: 200px;
+}
+.specimen-entry-header .entry-jp {
+  font-family: var(--font-jp);
+  font-size: 0.95rem;
+  color: var(--mold);
+  font-weight: 600;
+}
+
+.specimen-meta {
+  padding: 0.75rem 1.75rem;
+  background: var(--paper-2);
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--rule);
+}
+.specimen-meta .meta-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.specimen-meta .meta-cell .meta-key {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+.specimen-meta .meta-cell .meta-val {
+  color: var(--agar-deep);
+  font-weight: 500;
+}
+
+.specimen-body {
+  padding: 1.5rem 1.75rem 1.75rem;
+}
+
+/* 三栏对照表 */
+.tri-comp {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr 1.15fr;
+  gap: 0;
+  margin: 1.5rem 0;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--paper-2);
+}
+.tri-comp-head, .tri-comp-row {
+  display: contents;
+}
+.tri-comp > .col-head {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--paper);
+  padding: 0.8rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid var(--rule);
+}
+.tri-comp > .col-head[data-col="fiction"]   { background: var(--agar-deep); }
+.tri-comp > .col-head[data-col="science"]   { background: var(--mold-deep); }
+.tri-comp > .col-head[data-col="culture"]   { background: var(--agar); }
+
+.tri-comp > .col-cell {
+  padding: 1rem 1.1rem;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+.tri-comp > .col-cell:nth-last-child(-n+3) { border-bottom: none; }
+.tri-comp > .col-cell[data-col="fiction"] { background: #EFF8E9; }
+.tri-comp > .col-cell[data-col="science"] { background: #F2EEFA; }
+.tri-comp > .col-cell[data-col="culture"] { background: #EAF7EF; }
+.tri-comp > .col-cell strong { color: var(--agar-deep); }
+
+@media (max-width: 1023px) {
+  .tri-comp {
+    grid-template-columns: 1fr 1fr;
+  }
+  .tri-comp > .col-head[data-col="culture"],
+  .tri-comp > .col-cell[data-col="culture"] {
+    grid-column: 1 / -1;
+    border-top: 2px solid var(--agar);
+  }
+}
+@media (max-width: 767px) {
+  .tri-comp {
+    grid-template-columns: 1fr;
+  }
+  .tri-comp > .col-head,
+  .tri-comp > .col-cell {
+    grid-column: 1;
+  }
+}
+
+/* 标本卡翻转（移动端替代三栏） */
+@media (max-width: 767px) {
+  .has-mobile-tabs .tri-comp { display: none; }
+  .mobile-tabs { display: block !important; }
+}
+.mobile-tabs { display: none; }
+
+.mobile-tabs {
+  margin: 1.5rem 0;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--paper-2);
+}
+.mobile-tabs input { display: none; }
+.mobile-tabs .tab-labels {
+  display: flex;
+  border-bottom: 2px solid var(--agar);
+  background: var(--paper);
+}
+.mobile-tabs .tab-labels label {
+  flex: 1;
+  padding: 0.7rem 0.5rem;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  border-right: 1px solid var(--rule);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.mobile-tabs .tab-labels label:last-child { border-right: none; }
+.mobile-tabs input[id$="-fiction"]:checked ~ .tab-labels label[for$="-fiction"] { background: var(--agar-deep); color: var(--paper); }
+.mobile-tabs input[id$="-science"]:checked ~ .tab-labels label[for$="-science"] { background: var(--mold-deep); color: var(--paper); }
+.mobile-tabs input[id$="-culture"]:checked ~ .tab-labels label[for$="-culture"] { background: var(--agar); color: var(--paper); }
+.mobile-tabs .tab-content { display: none; padding: 1.25rem; line-height: 1.8; color: var(--ink-soft); }
+.mobile-tabs input[id$="-fiction"]:checked ~ .tab-content[data-tab="fiction"] { display: block; background: #EFF8E9; }
+.mobile-tabs input[id$="-science"]:checked ~ .tab-content[data-tab="science"] { display: block; background: #F2EEFA; }
+.mobile-tabs input[id$="-culture"]:checked ~ .tab-content[data-tab="culture"] { display: block; background: #EAF7EF; }
+.mobile-tabs .mobile-tab-segment + .mobile-tab-segment {
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px dashed var(--rule);
+}
+
+/* 标本卡内的菌种信息卡 */
+.microbe-card {
+  background: var(--paper-2);
+  border: 1px dashed var(--agar);
+  border-radius: var(--radius-card);
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+}
+.microbe-card .microbe-name {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--agar-deep);
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+.microbe-card .microbe-name .latin {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: var(--mold);
+}
+.microbe-card .microbe-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.microbe-card .microbe-desc {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+
+/* 标本卡内的引用块 */
+.specimen-quote {
+  background: var(--paper-2);
+  border-left: 4px solid var(--mold);
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  position: relative;
+}
+.specimen-quote::before {
+  content: '"';
+  position: absolute;
+  top: -10px;
+  left: 8px;
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--mold);
+  line-height: 1;
+}
+.specimen-quote cite {
+  display: block;
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+  text-align: right;
+}
+.specimen-quote .quote-cn {
+  margin-top: 0.35rem;
+  color: var(--ink-soft);
+}
+.quote-cn-inline {
+  color: var(--ink-soft);
+}
+
+/* 交叉引用 */
+.cross-refs {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--rule);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.cross-ref {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 0.3rem 0.65rem;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  color: var(--agar-deep);
+  text-decoration: none;
+}
+.cross-ref:hover { background: var(--agar); color: var(--paper); border-color: var(--agar); text-decoration: none; }
+
+/* ===================================================
+   【微生物图谱浏览器】— 侧栏分类导航（区别于筛选）
+   =================================================== */
+.atlas-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+.atlas-sidebar {
+  position: sticky;
+  top: 120px;
+  align-self: flex-start;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-card);
+  padding: 1.25rem;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+}
+.atlas-sidebar h3 {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--agar-deep);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--agar);
+  margin-bottom: 0.75rem;
+}
+.atlas-group {
+  margin-bottom: 1rem;
+}
+.atlas-group-name {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.4rem;
+  padding: 0.2rem 0.4rem;
+  background: var(--paper);
+  border-radius: 2px;
+}
+.atlas-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.atlas-list a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.3rem 0.4rem;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  border-radius: 2px;
+  text-decoration: none;
+}
+.atlas-list a:hover { background: var(--paper); color: var(--agar-deep); }
+.atlas-list a .atlas-latin { font-style: italic; font-size: 0.78rem; color: var(--muted); }
+
+.atlas-content {
+  min-width: 0;
+}
+
+@media (max-width: 1023px) {
+  .atlas-layout { grid-template-columns: 1fr; }
+  .atlas-sidebar { position: static; max-height: none; }
+}
+
+/* ===================================================
+   【分卷导航】— 上一页/下一页
+   =================================================== */
+.vol-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1rem;
+  margin: 3rem 0 1rem;
+  padding-top: 2rem;
+  border-top: 2px double var(--agar);
+}
+.vol-nav a {
+  flex: 1;
+  padding: 1rem 1.25rem;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  text-decoration: none;
+  color: var(--ink-soft);
+  border-radius: var(--radius-card);
+  transition: all 0.2s;
+}
+.vol-nav a:hover { background: var(--agar); color: var(--paper); border-color: var(--agar); text-decoration: none; }
+.vol-nav .nav-arrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.3rem;
+}
+.vol-nav a:hover .nav-arrow { color: var(--paper); opacity: 0.7; }
+.vol-nav .nav-title {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--agar-deep);
+}
+.vol-nav a:hover .nav-title { color: var(--paper); }
+.vol-nav .nav-prev { text-align: left; }
+.vol-nav .nav-next { text-align: right; }
+.vol-nav .nav-spacer { flex: 0.5; }
+
+@media (max-width: 767px) {
+  .vol-nav { flex-direction: column; }
+  .vol-nav .nav-spacer { display: none; }
+}
+
+/* ===================================================
+   【术语表 / 参考文献 / 人物】 通用页
+   =================================================== */
+.glossary-entry {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.95fr) minmax(0, 2fr);
+  gap: 1.5rem;
+  align-items: start;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.glossary-entry .g-name-stack {
+  display: grid;
+  grid-template-rows: auto auto minmax(1.35em, auto);
+  row-gap: 0.28rem;
+  min-width: 0;
+}
+.glossary-entry .g-term {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--agar-deep);
+  line-height: 1.35;
+}
+.glossary-entry .g-original {
+  font-family: var(--font-jp);
+  font-weight: 600;
+  color: var(--mold);
+  line-height: 1.45;
+}
+.glossary-entry .g-latin {
+  min-height: 1.35em;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--mold);
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+.glossary-entry .g-latin:empty::before {
+  content: '\00a0';
+}
+.glossary-entry .g-desc {
+  min-width: 0;
+  color: var(--ink-soft);
+  line-height: 1.8;
+}
+@media (max-width: 767px) {
+  .glossary-entry {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+.character-card {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-card);
+  padding: 1.25rem;
+  position: relative;
+  transition: transform 0.28s cubic-bezier(.2, 1.35, .35, 1), box-shadow 0.25s, border-color 0.25s;
+}
+.character-card:hover { transform: translate(-2px, -3px) rotate(-0.25deg) scale(1.006); box-shadow: 6px 6px 0 #D8EACD; border-color: var(--agar); }
+.character-card .ch-role {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--agar-deep);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.4rem;
+}
+.character-card .ch-name {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--agar-deep);
+  margin-bottom: 0.3rem;
+}
+.character-card .ch-name-jp {
+  font-family: var(--font-jp);
+  font-size: 0.92rem;
+  color: var(--mold);
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+.character-card .ch-desc {
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  line-height: 1.75;
+}
+
+/* 参考文献列表 */
+.ref-entry {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 1.35rem;
+}
+.ref-entry .ref-num {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--agar-deep);
+  font-size: 1.05rem;
+  line-height: 1.2;
+  text-align: right;
+}
+.ref-entry .ref-cite {
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  padding-left: 1.75rem;
+}
+.ref-entry .ref-cite em {
+  color: var(--mold);
+  font-style: italic;
+}
+@media (max-width: 767px) {
+  .ref-entry {
+    grid-template-columns: 1fr;
+    gap: 0.02rem;
+  }
+  .ref-entry .ref-num {
+    font-size: 0.92rem;
+    text-align: left;
+    line-height: 1.05;
+  }
+  .ref-entry .ref-cite {
+    padding-left: 0;
+  }
+}
+
+/* ===================================================
+   【返回顶部】 — 圆形培养皿按钮
+   =================================================== */
+.back-to-top {
+  position: fixed;
+  bottom: 5rem;
+  right: 1.5rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--agar-deep);
+  color: var(--paper);
+  border: 3px solid var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  z-index: 80;
+  opacity: 0;
+  transform: scale(0.6);
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s, background 0.2s;
+  box-shadow: 0 3px 12px rgba(42, 85, 76, 0.4);
+}
+.back-to-top.visible { opacity: 1; transform: scale(1); pointer-events: auto; }
+.back-to-top:hover { background: var(--mold); }
+
+@media (max-width: 767px) {
+  .back-to-top { width: 48px; height: 48px; bottom: 4.5rem; right: 1rem; font-size: 1rem; }
+}
+
+/* ===================================================
+   【页脚】
+   =================================================== */
+.site-footer {
+  background: var(--agar-deep);
+  color: var(--paper);
+  padding: 2rem 0;
+  margin-top: 3rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+.site-footer .footer-line {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.site-footer a { color: var(--spore); }
+.site-footer a:hover { color: var(--paper); }
+.site-footer .footer-meta {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(201, 167, 122, 0.3);
+}
+
+/* ===================================================
+   【首页特色区】
+   =================================================== */
+.feature-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin: 2.5rem 0;
+}
+.feature-cell {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--agar);
+  padding: 1.25rem 1.5rem;
+  border-radius: 0 0 var(--radius-card) var(--radius-card);
+}
+.feature-cell:nth-child(2) { border-top-color: var(--mold); }
+.feature-cell:nth-child(3) { border-top-color: var(--spore); }
+.feature-cell h3 {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--agar-deep);
+  margin-bottom: 0.4rem;
+}
+.feature-cell .feature-jp {
+  font-family: var(--font-jp);
+  font-size: 0.88rem;
+  color: var(--mold);
+  margin-bottom: 0.6rem;
+}
+.feature-cell p {
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  line-height: 1.75;
+}
+
+/* ===================================================
+   【辅助元素】
+   =================================================== */
+.section-heading {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--agar-deep);
+  text-align: left;
+  margin: 3rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--agar);
+  position: relative;
+}
+.section-heading::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 80px;
+  height: 2px;
+  background: var(--mold);
+}
+.section-heading .h-num {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-right: 0.5rem;
+  letter-spacing: 0.15em;
+}
+
+ul.spec-list {
+  list-style: none;
+  margin: 1rem 0;
+}
+ul.spec-list li {
+  padding: 0.4rem 0 0.4rem 1.5rem;
+  position: relative;
+  color: var(--ink-soft);
+  line-height: 1.75;
+}
+ul.spec-list li::before {
+  content: '◉';
+  position: absolute;
+  left: 0;
+  top: 0.4rem;
+  color: var(--agar);
+  font-size: 0.85rem;
+}
+
+/* 知识领域图例 */
+.legend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+.legend-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  padding: 0.4rem 0.6rem;
+  background: var(--paper-2);
+  border-radius: 3px;
+}
+.legend-cell .swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+/* 高亮关键菌种 / 物质 */
+.highlight-species {
+  background: var(--paper-2);
+  border: 1px dashed var(--spore);
+  padding: 0.05rem 0.4rem;
+  border-radius: 3px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--agar-deep);
+}
+.highlight-species em {
+  font-style: italic;
+  color: var(--mold);
+  font-weight: 400;
+  font-size: 0.92rem;
+  margin-left: 0.3rem;
+}
+
+
+/* ===================================================
+   【收尾视觉统一】引文 / 术语表 / 移动端导航
+   =================================================== */
+/* 卷首双语引文：日文与中文视为同一组，组内紧凑、组外留白 */
+.vol-prologue .prologue-jp,
+.vol-prologue .prologue-cn {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+.vol-prologue .prologue-jp {
+  color: var(--mold);
+  font-style: italic;
+  margin-bottom: 0.1rem;
+}
+.vol-prologue .prologue-cn {
+  color: var(--ink-soft);
+  font-style: normal;
+  margin-bottom: 1rem;
+}
+.vol-prologue .prologue-jp {
+  font-family: var(--font-jp);
+}
+
+/* 标本卡内双语引文：原文与译文紧邻，来源信息独立 */
+.specimen-quote {
+  border-left-color: var(--mold);
+  padding: 1rem 1.25rem 1rem 1.35rem;
+}
+.specimen-quote .quote-cn {
+  display: block;
+  margin-top: 0.25rem;
+  padding-top: 0.25rem;
+  border-top: 1px dashed rgba(107, 79, 124, 0.22);
+  color: var(--ink-soft);
+  font-style: normal;
+}
+.specimen-quote cite {
+  margin-top: 0.65rem;
+}
+.quote-cn-inline {
+  display: inline-block;
+  color: var(--ink-soft);
+  font-style: normal;
+}
+
+/* 术语表：大框架两列；左侧为「中日名并列 + 拉丁学名」 */
+.glossary-entry {
+  grid-template-columns: minmax(21rem, 1.05fr) minmax(0, 1.95fr);
+  gap: 1.35rem;
+  padding: 1.15rem 0;
+}
+.glossary-entry .g-name-stack {
+  display: grid;
+  grid-template-columns: minmax(8.5rem, 0.92fr) minmax(10rem, 1.08fr);
+  grid-template-rows: auto minmax(1.35em, auto);
+  column-gap: 0.9rem;
+  row-gap: 0.3rem;
+  align-items: start;
+  padding: 0.15rem 0.85rem 0.15rem 0;
+}
+.glossary-entry .g-term {
+  grid-column: 1;
+  grid-row: 1;
+  font-size: 1.08rem;
+  letter-spacing: 0.02em;
+  min-width: 0;
+}
+.glossary-entry .g-original {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  justify-self: stretch;
+  text-align: left;
+  padding-left: 0.9rem;
+  border-left: 1px solid rgba(107, 79, 124, 0.22);
+  color: var(--mold);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  min-width: 0;
+}
+.glossary-entry .g-latin {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  min-height: 1.35em;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.glossary-entry .g-desc {
+  border-left: 1px dashed rgba(61, 112, 104, 0.25);
+  padding-left: 1.15rem;
+}
+
+/* 较窄屏术语表：说明文字下移，避免左右两栏挤压 */
+@media (max-width: 900px) {
+  .glossary-entry {
+    grid-template-columns: 1fr;
+  }
+  .glossary-entry .g-desc {
+    border-left: none;
+    padding-left: 0;
+  }
+}
+
+/* 移动端顶部导航：按钮与展开菜单视觉一致 */
+@media (max-width: 767px) {
+  .specimen-bar .container-wide {
+    align-items: center;
+    gap: 0.55rem 0.75rem;
+  }
+  .specimen-tag {
+    width: 100%;
+    order: 1;
+  }
+  .work-title {
+    order: 2;
+  }
+  .specimen-bar .nav-toggle {
+    order: 3;
+    margin-left: auto;
+    min-height: 2.15rem;
+    border-color: rgba(201, 167, 122, 0.65);
+    background: rgba(247, 251, 242, 0.10);
+  }
+  .specimen-bar .nav-toggle[aria-expanded="true"] {
+    background: var(--spore);
+    color: var(--agar-deep);
+    border-color: var(--spore);
+  }
+  .specimen-nav {
+    order: 4;
+    margin-top: 0.35rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(201, 167, 122, 0.35);
+    gap: 0.45rem;
+  }
+  .specimen-nav.open {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .specimen-nav a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.35rem;
+    padding: 0.45rem 0.55rem;
+    text-align: center;
+    background: rgba(247, 251, 242, 0.09);
+    border-color: rgba(201, 167, 122, 0.36);
+    white-space: normal;
+  }
+  .specimen-nav a.active {
+    background: var(--spore);
+    color: var(--agar-deep);
+  }
+  .glossary-entry {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+    padding: 1rem 0;
+  }
+  .glossary-entry .g-name-stack {
+    grid-template-columns: minmax(7.5rem, 0.9fr) minmax(8.5rem, 1.1fr);
+    column-gap: 0.75rem;
+    padding-right: 0;
+  }
+  .glossary-entry .g-original {
+    padding-left: 0.75rem;
+  }
+  .glossary-entry .g-desc {
+    border-left: none;
+    padding-left: 0;
+  }
+}
+@media (max-width: 420px) {
+  .specimen-nav.open {
+    grid-template-columns: 1fr;
+  }
+  .glossary-entry .g-name-stack {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto minmax(1.35em, auto);
+  }
+  .glossary-entry .g-term,
+  .glossary-entry .g-original,
+  .glossary-entry .g-latin {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .glossary-entry .g-original {
+    padding-left: 0;
+    border-left: none;
+  }
+}
+
+/* 印刷/排版微调 */
+@media print {
+  body { background: #fff; color: #000; }
+  .specimen-bar, .specimen-toc, .vol-nav, .back-to-top { display: none; }
+}
+
+/* 中间宽度三栏对照：按“标题 → 内容”分组纵向排列，避免先排完三枚标题再排内容 */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .tri-comp {
+    display: flex;
+    flex-direction: column;
+  }
+  .tri-comp > .col-head,
+  .tri-comp > .col-cell {
+    grid-column: auto !important;
+  }
+  .tri-comp > .col-head[data-col="fiction"] { order: 1; }
+  .tri-comp > .col-cell[data-col="fiction"] { order: 2; }
+  .tri-comp > .col-head[data-col="science"] { order: 3; }
+  .tri-comp > .col-cell[data-col="science"] { order: 4; }
+  .tri-comp > .col-head[data-col="culture"] { order: 5; border-top: none; }
+  .tri-comp > .col-cell[data-col="culture"] { order: 6; border-top: none; }
+  .tri-comp > .col-head {
+    border-bottom: 1px solid var(--rule);
+  }
+  .tri-comp > .col-cell {
+    border-bottom: 1px solid var(--rule);
+  }
+  .tri-comp > .col-cell[data-col="culture"]:last-child {
+    border-bottom: none;
+  }
+}
+
+/* 最窄屏三栏 tab：保留原三栏的颜色识别 */
+.mobile-tabs .tab-labels label[for$="-fiction"] {
+  background: #EFF8E9;
+  color: var(--agar-deep);
+}
+.mobile-tabs .tab-labels label[for$="-science"] {
+  background: #F2EEFA;
+  color: var(--mold-deep);
+}
+.mobile-tabs .tab-labels label[for$="-culture"] {
+  background: #EAF7EF;
+  color: var(--agar-deep);
+}
+.mobile-tabs input[id$="-fiction"]:checked ~ .tab-labels label[for$="-fiction"] {
+  background: var(--agar-deep);
+  color: var(--paper);
+  box-shadow: inset 0 -4px 0 var(--spore);
+}
+.mobile-tabs input[id$="-science"]:checked ~ .tab-labels label[for$="-science"] {
+  background: var(--mold-deep);
+  color: var(--paper);
+  box-shadow: inset 0 -4px 0 var(--spore);
+}
+.mobile-tabs input[id$="-culture"]:checked ~ .tab-labels label[for$="-culture"] {
+  background: var(--agar);
+  color: var(--paper);
+  box-shadow: inset 0 -4px 0 var(--spore);
+}
