@@ -96,11 +96,57 @@
     });
   }
 
+  /* —— 6. 飞行日志：滚动生长动画 (Intersection Observer) —— */
+  function initLogReveal() {
+    if (!('IntersectionObserver' in window)) return;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll(".pl-log").forEach(function (log) {
+      observer.observe(log);
+    });
+  }
+
+  /* —— 7. 页面大纲伸缩 (HUD Outline) —— */
+  function initOutlineToggle() {
+    var outline = document.querySelector(".pl-outline");
+    var trigger = document.querySelector(".pl-outline-trigger");
+    if (!outline || !trigger) return;
+
+    trigger.addEventListener("click", function (e) {
+      e.stopPropagation();
+      outline.classList.toggle("is-expanded");
+    });
+
+    // 点击大纲链接后自动收起
+    outline.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        if (window.innerWidth < 1440) {
+          outline.classList.remove("is-expanded");
+        }
+      });
+    });
+
+    // 点击页面其他区域收起
+    document.addEventListener("click", function (e) {
+      if (!outline.contains(e.target)) {
+        outline.classList.remove("is-expanded");
+      }
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     initNavDrawer();
     initCompareTabs();
     initBackToTop();
     initActiveNav();
     initChartResize();
+    initLogReveal();
+    initOutlineToggle();
   });
 })();

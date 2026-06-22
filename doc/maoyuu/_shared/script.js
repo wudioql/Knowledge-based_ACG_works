@@ -79,7 +79,13 @@
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
     rail.addEventListener('click', function (e) {
-      if (e.target.closest('a') && window.innerWidth <= 992) rail.classList.remove('open');
+      var a = e.target.closest('a');
+      if (!a || window.innerWidth > 992) return;
+      // 页内 # 锚点由 initSmoothAnchor 负责：先收起抽屉、等待布局稳定，再计算滚动位置。
+      // 若这里立即收起，目标 offset 会在折叠动画后上移，导致窄屏跳转“翻过头”。
+      if ((a.getAttribute('href') || '').charAt(0) === '#') return;
+      rail.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
     });
   }
 
@@ -117,6 +123,28 @@
   function initSmoothAnchor() {
     var rail = document.querySelector('.rail');
     if (!rail) return;
+    var btn = document.querySelector('.rail-toggle');
+
+    function isNarrow() {
+      return window.matchMedia ? window.matchMedia('(max-width: 62rem)').matches : window.innerWidth <= 992;
+    }
+    function stickyOffset() {
+      var brand = document.querySelector('.brand');
+      var offset = brand ? brand.offsetHeight : 0;
+      // 窄屏时 .rail-dock / .rail-toggle 会粘在顶栏下方，也需要计入遮挡高度。
+      if (isNarrow() && btn && getComputedStyle(btn).display !== 'none') offset += btn.offsetHeight;
+      return offset + 12; // 额外留一点羊皮纸呼吸空间
+    }
+    function jumpTo(el, id) {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          var top = el.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - stickyOffset();
+          window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+          history.replaceState(null, '', '#' + id);
+        });
+      });
+    }
+
     rail.addEventListener('click', function (e) {
       var a = e.target.closest('a[href^="#"]');
       if (!a) return;
@@ -124,9 +152,15 @@
       var el = document.getElementById(id);
       if (!el) return;
       e.preventDefault();
-      var top = el.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - 70;
-      window.scrollTo({ top: top, behavior: 'smooth' });
-      history.replaceState(null, '', '#' + id);
+
+      if (isNarrow() && rail.classList.contains('open')) {
+        rail.classList.remove('open');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+        // 等待抽屉 max-height 折叠动画结束后再测量 target，否则会多滚过一个抽屉高度。
+        window.setTimeout(function () { jumpTo(el, id); }, 280);
+      } else {
+        jumpTo(el, id);
+      }
     });
   }
 

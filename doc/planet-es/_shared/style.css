@@ -62,13 +62,16 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
+  /* —— 优化：大小复合网格背景 —— */
   background:
-    linear-gradient(transparent 0, transparent calc(100% - 1px), var(--pl-grid) 100%),
-    linear-gradient(90deg, transparent 0, transparent calc(100% - 1px), var(--pl-grid) 100%),
+    linear-gradient(var(--pl-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--pl-grid) 1px, transparent 1px),
+    linear-gradient(rgba(18, 70, 102, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 70, 102, 0.05) 1px, transparent 1px),
     radial-gradient(1100px 700px at 88% -8%, rgba(12, 132, 160, 0.10), transparent 60%),
     radial-gradient(900px 600px at -5% 8%, rgba(194, 98, 10, 0.06), transparent 55%),
     var(--pl-deep);
-  background-size: 46px 46px, 46px 46px, auto, auto, auto;
+  background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px, auto, auto, auto;
   color: var(--pl-text);
   font-family: var(--pl-body);
   line-height: 1.78;
@@ -92,7 +95,10 @@ a:hover { text-decoration: underline; }
   align-self: flex-start;
   height: 100vh;
   overflow-y: auto;
-  background: var(--pl-rail-bg);
+  /* —— 优化：毛玻璃效果 —— */
+  background: rgba(40, 58, 102, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-right: 1px solid transparent;
   /* 右缘 limb 辉光线：深空与大气交界处 */
   border-image: var(--pl-limb-v) 1;
@@ -188,13 +194,18 @@ a:hover { text-decoration: underline; }
   position: sticky;
   top: 0;
   z-index: 60;
-  background: rgba(40, 58, 102, 0.96);
-  backdrop-filter: blur(8px);
+  background: rgba(40, 58, 102, 0.98);
+  backdrop-filter: blur(10px);
   border-bottom: 2px solid transparent;
   border-image: var(--pl-limb) 1;
-  padding: 0.7rem 1rem;
-  margin: -2.2rem -1rem 1.4rem;
+  padding: 0.75rem 1.2rem;
+  /* —— 关键修复：使用 calc 抵消父容器的动态 padding，实现全宽 —— */
+  margin-left: calc(-1 * clamp(1rem, 3vw, 3rem));
+  margin-right: calc(-1 * clamp(1rem, 3vw, 3rem));
+  margin-top: -2.2rem;
+  margin-bottom: 1.5rem;
   color: var(--pl-rail-text);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 .pl-topbar .pl-brand-cn { color: var(--pl-rail-text); }
 .pl-topbar .pl-brand-greek { color: #ffb955; }
@@ -245,6 +256,82 @@ a:hover { text-decoration: underline; }
 }
 .pl-panel h2, .pl-panel h3 { font-family: var(--pl-display); }
 
+/* —— 容器护角对准框 (HUD Reticles) —— */
+.pl-panel, .pl-chart, .pl-col, .pl-vol-card, .pl-char {
+  position: relative;
+  /* 基础内阴影，增加一点深度 */
+  box-shadow: inset 0 0 15px rgba(18, 70, 102, 0.02), var(--pl-shadow-sm);
+  /* —— 优化：延长总过渡时间至 0.8s，增加载入感 —— */
+  transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* —— 悬停时：高能电浆辉光模式 (Plasma Glow) —— */
+.pl-panel:hover, .pl-chart:hover, .pl-col:hover, .pl-vol-card:hover, .pl-char:hover {
+  /* 使用带有呼吸感的浅色底，模拟高能屏幕 */
+  background: linear-gradient(135deg, #f0f9ff 0%, #fff7ed 100%); 
+  border-color: var(--pl-cyan);
+  /* 复合光晕：主青色光 + 边缘微量橘色光 */
+  box-shadow: 0 0 35px rgba(12, 132, 160, 0.28),
+              0 0 10px rgba(194, 98, 10, 0.15),
+              inset 0 0 25px rgba(12, 132, 160, 0.08),
+              var(--pl-shadow);
+  transform: translateY(-3px); /* 略微加大浮起距离 */
+}
+
+/* 悬停时关键词同步高亮 */
+.pl-panel:hover .pl-kw, .pl-vol-card:hover .pl-kw {
+  text-shadow: 0 0 12px rgba(194, 98, 10, 0.4);
+  color: #e08a2c;
+}
+
+.pl-panel::before, .pl-panel::after,
+.pl-chart::before, .pl-chart::after,
+.pl-col::before, .pl-col::after,
+.pl-vol-card::before, .pl-vol-card::after,
+.pl-char::before, .pl-char::after {
+  content: "";
+  position: absolute;
+  width: 14px; /* 略微加大角标尺寸 */
+  height: 14px;
+  pointer-events: none;
+  opacity: 0.4;
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  animation: pl-bracket-pulse 4s infinite ease-in-out;
+  z-index: 10;
+}
+
+/* 左上角护角 */
+.pl-panel::before, .pl-chart::before, .pl-col::before, .pl-vol-card::before, .pl-char::before {
+  top: -8px; left: -8px;
+  border-top: 2px solid var(--pl-cyan);
+  border-left: 2px solid var(--pl-cyan);
+}
+
+/* 右下角护角 */
+.pl-panel::after, .pl-chart::after, .pl-col::after, .pl-vol-card::after, .pl-char::after {
+  bottom: -8px; right: -8px;
+  border-bottom: 2px solid var(--pl-amber);
+  border-right: 2px solid var(--pl-amber);
+}
+
+/* —— 悬停时：角标捕捉动画 (Snap-in) —— */
+.pl-panel:hover::before, .pl-chart:hover::before, .pl-col:hover::before, .pl-vol-card:hover::before, .pl-char:hover::before {
+  opacity: 1;
+  top: -2px; left: -2px;
+  animation: none;
+}
+.pl-panel:hover::after, .pl-chart:hover::after, .pl-col:hover::after, .pl-vol-card:hover::after, .pl-char:hover::after {
+  opacity: 1;
+  bottom: -2px; right: -2px;
+  animation: none;
+}
+
+/* 角标呼吸关键帧 */
+@keyframes pl-bracket-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
 .pl-section-title {
   font-family: var(--pl-display);
   font-weight: 700;
@@ -253,6 +340,30 @@ a:hover { text-decoration: underline; }
   display: flex; align-items: center; gap: 0.7rem;
   letter-spacing: 0.02em;
 }
+/* —— 自动化元数据标签 —— */
+.pl-section-title::after, .pl-pagehead h1::after {
+  /* —— 优化：默认使用占位符，避免误导 —— */
+  content: "REF_ID: 0x----"; 
+  font-family: var(--pl-display);
+  font-size: 8px;
+  color: var(--pl-dim);
+  letter-spacing: 1px;
+  border-left: 1px solid var(--pl-line);
+  padding-left: 0.8rem;
+  margin-left: auto;
+  opacity: 0.5;
+}
+
+/* 当标签定义了 data-id 时，显示真实 ID 并提亮 */
+.pl-section-title[data-id]::after, .pl-pagehead h1[data-id]::after {
+  content: "REF_ID: 0x" attr(data-id);
+  opacity: 0.8;
+  color: var(--pl-cyan);
+}
+
+/* 主标题标签位置微调 */
+.pl-pagehead h1 { display: flex; align-items: baseline; justify-content: space-between; }
+.pl-pagehead h1::after { font-weight: normal; margin-bottom: 0.5rem; }
 .pl-section-title .pl-tag-code {
   font-size: 0.72rem;
   color: var(--pl-deep);
@@ -270,8 +381,28 @@ a:hover { text-decoration: underline; }
   left: 9px; top: 6px; bottom: 6px;
   width: 2px;
   background: var(--pl-limb-v);
+  /* 2.2 初始缩放设为 0 */
+  transform: scaleY(0);
+  transform-origin: top;
+  /* —— 优化：调慢生长动画速度 —— */
+  transition: transform 2.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.pl-episode { position: relative; margin-bottom: 2.6rem; }
+.pl-log.is-visible::before {
+  transform: scaleY(1);
+}
+.pl-episode { 
+  position: relative; 
+  margin-bottom: 2.6rem; 
+  /* —— 优化：只有在移动端/平板（有吸顶栏）时才需要跳转偏移 —— */
+  scroll-margin-top: 80px; 
+}
+
+/* 宽屏 PC 模式：移除跳转偏移，因为顶栏已隐藏 */
+@media (min-width: 1024px) {
+  .pl-episode {
+    scroll-margin-top: 0;
+  }
+}
 .pl-episode::before {
   content: "";
   position: absolute;
@@ -377,13 +508,32 @@ table.pl-table tr:nth-child(even) td { background: rgba(18,70,102,0.045); }
   background: var(--pl-panel);
   border: 1px solid var(--pl-line);
   border-radius: var(--pl-radius);
-  padding: 1rem;
+  padding: 1.5rem;
   margin: 1.4rem 0;
   box-shadow: var(--pl-shadow-sm);
+  position: relative;
+  /* —— 优化：确保内容（包括 Mermaid）居中 —— */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.pl-chart-cap { font-size: 0.8rem; color: var(--pl-dim); margin-top: 0.5rem; text-align: center; }
-.pl-echart { width: 100%; height: 360px; }
-.mermaid { background: transparent !important; text-align: center; }
+/* —— 3.3 数据引线装饰 —— */
+.pl-chart-cap { font-size: 0.8rem; color: var(--pl-dim); margin-top: 1rem; text-align: center; font-family: var(--pl-display); width: 100%; }
+
+.pl-echart { width: 100%; height: 380px; min-height: 300px; }
+
+/* Mermaid 样式覆盖 */
+.mermaid { 
+  background: transparent !important; 
+  text-align: center; 
+  width: 100%; 
+  display: flex; 
+  justify-content: center; 
+}
+.mermaid svg {
+  filter: drop-shadow(0 0 2px rgba(12, 132, 160, 0.2));
+  max-width: 100%;
+}
 
 /* 折叠（移动端图表） */
 .pl-collapse > summary {
@@ -443,19 +593,29 @@ table.pl-table tr:nth-child(even) td { background: rgba(18,70,102,0.045); }
   border-radius: 16px;
   overflow: hidden;
   padding: clamp(2rem, 1rem + 5vw, 4rem);
+  /* —— 4.1 多层视差星空 & 4.3 扫描线叠加 —— */
   background:
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 2px), /* 扫描线 */
+    radial-gradient(1px 1px at 25% 35%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 60% 20%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 10% 80%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(2px 2px at 90% 10%, rgba(255,255,255,0.3), transparent),
     radial-gradient(900px 420px at 86% -10%, rgba(26, 160, 188, 0.30), transparent 60%),
     radial-gradient(680px 360px at 6% 110%, rgba(224, 138, 44, 0.18), transparent 60%),
-    radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.5), transparent),
-    radial-gradient(2px 2px at 70% 22%, rgba(255,255,255,0.35), transparent),
-    radial-gradient(1.5px 1.5px at 44% 64%, rgba(255,255,255,0.4), transparent),
-    radial-gradient(1.5px 1.5px at 88% 54%, rgba(255,255,255,0.3), transparent),
     linear-gradient(155deg, #0a1230 0%, #0f1c44 55%, #143058 100%);
+  background-attachment: scroll, fixed, fixed, fixed, fixed, scroll, scroll, scroll;
   box-shadow: inset 0 0 80px rgba(8, 14, 36, 0.5);
   color: #e8eef9;
   margin-bottom: 2.2rem;
+  animation: pl-stars-drift 60s linear infinite;
 }
-/* 大气边缘辉光带：模拟从轨道看地球那条 limb 弧线 */
+
+@keyframes pl-stars-drift {
+  0% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
+  100% { background-position: 0 0, 40px 60px, -30px 50px, 20px -40px, -50px -20px, 0 0, 0 0, 0 0, 0 0, 0 0; }
+}
+
+/* —— 4.2 地球边缘辉光呼吸效果 —— */
 .pl-hero::after {
   content: "";
   position: absolute;
@@ -463,6 +623,12 @@ table.pl-table tr:nth-child(even) td { background: rgba(18,70,102,0.045); }
   height: 6px;
   background: var(--pl-limb);
   box-shadow: 0 0 22px rgba(26, 160, 188, 0.55);
+  animation: pl-glow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes pl-glow-pulse {
+  0%, 100% { opacity: 0.8; box-shadow: 0 0 15px rgba(26, 160, 188, 0.4); }
+  50% { opacity: 1; box-shadow: 0 0 30px rgba(26, 160, 188, 0.7); }
 }
 .pl-hero h1 {
   font-family: var(--pl-display);
@@ -504,9 +670,47 @@ table.pl-table tr:nth-child(even) td { background: rgba(18,70,102,0.045); }
   box-shadow: var(--pl-shadow-sm);
   position: relative;
   overflow: hidden;
-  transition: transform 0.18s ease, border-color 0.18s ease;
+  transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.3s ease;
 }
-.pl-vol-card:hover { transform: translateY(-4px); border-color: var(--pl-amber); text-decoration: none; }
+.pl-vol-card:hover { 
+  transform: translateY(-4px); 
+  border-color: var(--pl-amber); 
+  text-decoration: none;
+  background-color: var(--pl-panel-2);
+}
+
+/* —— 2.1 扫描效果：水平亮线 —— */
+.pl-vol-card::before {
+  content: "";
+  position: absolute;
+  top: -2px; left: 0; width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--pl-amber), transparent);
+  box-shadow: 0 0 8px var(--pl-amber);
+  opacity: 0;
+  z-index: 5;
+}
+.pl-vol-card:hover::before {
+  animation: pl-scan 1.2s linear infinite;
+}
+@keyframes pl-scan {
+  0% { top: -2%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 102%; opacity: 0; }
+}
+
+/* —— 2.3 按钮闪烁反馈 —— */
+.pl-nav a, .pl-aux-card, .pl-pager a, .pl-menu-toggle {
+  transition: opacity 0.1s ease;
+}
+.pl-nav a:active, .pl-aux-card:active, .pl-pager a:active, .pl-menu-toggle:active {
+  animation: pl-flicker 0.15s ease;
+}
+@keyframes pl-flicker {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; transform: scale(0.98); }
+  100% { opacity: 1; }
+}
 .pl-vol-card .pl-vol-code {
   font-family: var(--pl-display); font-weight: 900; font-size: 2.2rem;
   color: var(--pl-amber-soft); position: absolute; top: 0.4rem; right: 0.8rem;
@@ -555,8 +759,13 @@ table.pl-table tr:nth-child(even) td { background: rgba(18,70,102,0.045); }
     box-shadow: 8px 0 32px rgba(18,50,90,0.22);
   }
   .pl-shell.is-nav-open .pl-rail { transform: translateX(0); }
-  .pl-topbar { display: flex; }
-  .pl-main { padding-top: 1rem; }
+  .pl-topbar { 
+    display: flex; 
+    /* 移动端下保持边距对齐逻辑 */
+    margin-left: calc(-1 * clamp(1rem, 3vw, 3rem));
+    margin-right: calc(-1 * clamp(1rem, 3vw, 3rem));
+    margin-top: -1rem; 
+  }
   .pl-nav-scrim {
     display: none; position: fixed; inset: 0; z-index: 70;
     background: rgba(0,0,0,0.5);
@@ -566,37 +775,239 @@ table.pl-table tr:nth-child(even) td { background: rgba(18,70,102,0.045); }
   .pl-col--sci { grid-column: 1 / -1; }
 }
 
+/* —— 5.2 自定义滚动条 (Webkit) —— */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: rgba(18, 70, 102, 0.05); }
+::-webkit-scrollbar-thumb { 
+  background: var(--pl-line); 
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--pl-cyan); }
+
 /* 手机：<768px —— 单栏；三方对照改标签页切换 */
 @media (max-width: 767px) {
   .pl-echart { height: 280px; }
   .pl-compare-tabs {
     display: flex; gap: 0.4rem; margin-bottom: 0.7rem;
+    background: rgba(18, 70, 102, 0.05);
+    padding: 0.3rem;
+    border-radius: 10px;
   }
   .pl-compare-tabs button {
     flex: 1 1 0;
     font-family: var(--pl-display);
-    font-size: 0.74rem;
+    font-size: 0.72rem;
     letter-spacing: 0.04em;
-    padding: 0.45rem 0.3rem;
+    padding: 0.55rem 0.3rem;
     border-radius: 7px;
-    border: 1px solid var(--pl-line);
-    background: var(--pl-panel);
+    border: 1px solid transparent;
+    background: transparent;
     color: var(--pl-muted);
     cursor: pointer;
+    transition: all 0.2s ease;
   }
-  .pl-compare-tabs button[aria-selected="true"] { color: var(--pl-deep); background: var(--pl-amber); border-color: var(--pl-amber); }
-  .pl-compare-tabs button[data-target="manga"][aria-selected="true"] { background: var(--pl-cyan); border-color: var(--pl-cyan); }
-  .pl-compare-tabs button[data-target="sci"][aria-selected="true"] { background: var(--pl-green); border-color: var(--pl-green); }
+  /* —— 5.1 标签页重绘：激活态效果 —— */
+  .pl-compare-tabs button[aria-selected="true"] { 
+    color: #fff; 
+    background: var(--pl-amber); 
+    box-shadow: 0 4px 12px rgba(194, 98, 10, 0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+  .pl-compare-tabs button[data-target="manga"][aria-selected="true"] { 
+    background: var(--pl-cyan); 
+    box-shadow: 0 4px 12px rgba(12, 132, 160, 0.3);
+  }
+  .pl-compare-tabs button[data-target="sci"][aria-selected="true"] { 
+    background: var(--pl-green); 
+    box-shadow: 0 4px 12px rgba(52, 70, 156, 0.3);
+  }
   .pl-cols { grid-template-columns: 1fr; }
   .pl-cols.is-tabbed .pl-col { display: none; }
-  .pl-cols.is-tabbed .pl-col.is-shown { display: block; }
+  .pl-cols.is-tabbed .pl-col.is-shown { display: block; animation: pl-pane-in 0.3s ease-out; }
+  
+  @keyframes pl-pane-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   .pl-col--sci { grid-column: auto; }
   .pl-pager { flex-direction: column; }
   .pl-section-title { font-size: 1.15rem; }
   table.pl-table { display: block; overflow-x: auto; white-space: nowrap; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  * { scroll-behavior: auto !important; }
-  .pl-vol-card, .pl-rail { transition: none; }
+/* —— 5.3 打印/PDF 样式优化 —— */
+@media print {
+  .pl-rail, .pl-topbar, .pl-totop, .pl-nav-scrim, .pl-pager { display: none !important; }
+  body { background: #fff !important; color: #000 !important; }
+  .pl-main { padding: 0 !important; }
+  .pl-panel, .pl-col, .pl-vol-card { 
+    break-inside: avoid; 
+    border: 1px solid #ddd !important;
+    background: #fff !important;
+    box-shadow: none !important;
+  }
+  .pl-hero { 
+    background: #14203a !important; 
+    color: #fff !important; 
+    -webkit-print-color-adjust: exact;
+  }
+  .pl-section-title::after { display: none; }
+}
+
+/* —— 页面内部大纲 (HUD Outline) —— */
+.pl-outline {
+  position: fixed;
+  right: 0;
+  top: 15vh;
+  /* —— 优化：自适应宽度 —— */
+  width: auto;
+  min-width: 180px;
+  max-width: 280px;
+  height: auto;
+  max-height: 160px; 
+  /* —— 优化：更深邃、更具质感的 HUD 背景 —— */
+  background: rgba(14, 26, 60, 0.98); 
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(26, 160, 188, 0.4);
+  border-right: none;
+  border-radius: 12px 0 0 12px;
+  padding: 1.2rem 1.2rem 1.2rem 42px;
+  z-index: 90;
+  overflow: hidden; 
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.2s ease;
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.5), inset 1px 1px 0 rgba(255,255,255,0.05);
+  transform: translateX(calc(100% - 32px));
+}
+
+.pl-outline.is-expanded {
+  transform: translateX(0);
+  /* —— 关键修复：高度随内容自适应，最高 80vh —— */
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* 侧边触发条 */
+.pl-outline-trigger {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pl-amber);
+  color: #fff;
+  border-radius: 12px 0 0 12px;
+  transition: background 0.2s;
+  z-index: 2;
+}
+.pl-outline-trigger:hover { background: #e08a2c; }
+.pl-outline-trigger::before {
+  content: "LOG NAVIGATION";
+  font-family: var(--pl-display);
+  font-size: 10px;
+  white-space: nowrap;
+  transform: rotate(-90deg);
+  letter-spacing: 2.5px;
+}
+
+/* 宽屏下默认展开且还原尺寸 */
+@media (min-width: 1440px) {
+  .pl-outline {
+    right: 2rem;
+    top: 12vh;
+    transform: none;
+    max-height: 80vh;
+    background: rgba(18, 70, 102, 0.04);
+    backdrop-filter: none;
+    border: none;
+    border-left: 1px dashed var(--pl-line);
+    border-radius: 0;
+    box-shadow: none;
+    width: 180px;
+    padding: 1rem;
+    overflow-y: auto;
+  }
+  .pl-outline-trigger { display: none; }
+  .pl-container { margin-right: 200px; }
+  .pl-outline-title { color: var(--pl-cyan) !important; text-shadow: none !important; }
+  .pl-outline a { color: var(--pl-muted) !important; }
+  .pl-outline a .pl-outline-num { color: var(--pl-cyan) !important; }
+}
+
+/* 手机端自适应优化 */
+@media (max-width: 767px) {
+  .pl-outline {
+    top: 15vh;
+    min-width: 160px;
+    max-width: 220px;
+    max-height: 48px; 
+    transform: translateX(calc(100% - 20px));
+    padding-left: 42px;
+    z-index: 100;
+  }
+  .pl-outline.is-expanded {
+    max-height: 65vh; 
+    transform: translateX(0);
+  }
+  .pl-outline-trigger { 
+    width: 20px; 
+    border-radius: 10px 0 0 10px;
+  }
+  .pl-outline-trigger::before { 
+    content: "⋮"; 
+    transform: none; 
+    font-size: 16px; 
+  }
+}
+
+@keyframes pl-tab-pulse {
+  0%, 100% { box-shadow: -2px 0 8px rgba(194, 98, 10, 0.3); opacity: 0.7; }
+  50% { box-shadow: -4px 0 12px rgba(194, 98, 10, 0.5); opacity: 0.9; }
+}
+
+.pl-outline-title {
+  font-family: var(--pl-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: #54d2ec; 
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: flex-start; /* 改为 flex-start 以适应多行 */
+  gap: 0.5rem;
+  padding-left: 10px;
+  text-shadow: 0 0 8px rgba(84, 210, 236, 0.4);
+  line-height: 1.4; /* 增加行高，防止重叠 */
+}
+.pl-outline-title::before { content: ""; width: 4px; height: 4px; background: var(--pl-amber); border-radius: 50%; }
+
+.pl-outline ul { list-style: none; padding: 0 0 0 10px; margin: 0; }
+.pl-outline li { margin-bottom: 0.6rem; }
+.pl-outline a {
+  display: block;
+  font-family: var(--pl-display), var(--pl-body);
+  font-size: 0.78rem;
+  /* —— 优化：链接文字改为高对比度浅色 —— */
+  color: #cdd8ef; 
+  transition: all 0.2s;
+  line-height: 1.3;
+  padding-left: 0.5rem;
+  border-left: 2px solid transparent;
+}
+.pl-outline a:hover {
+  color: #ffb955;
+  text-decoration: none;
+  border-left-color: var(--pl-amber);
+  padding-left: 0.8rem;
+}
+.pl-outline a .pl-outline-num {
+  display: block;
+  font-size: 0.65rem;
+  /* —— 优化：编号颜色提亮 —— */
+  color: #54d2ec; 
+  margin-bottom: 0.1rem;
 }
