@@ -21,30 +21,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Inject home button into all work HTML pages
-        run: |
-          # Inject home-button.css link and home-button.js script into all HTML files
-          # under doc/ (but NOT the project root index.html).
-          # The relative path depth is computed per-file.
-          find doc -name "*.html" | while read f; do
-            # Compute relative prefix to reach project root from this file's directory
-            # e.g. doc/maoyuu-politicalecon/index.html  -> ../../
-            # e.g. doc/maoyuu-politicalecon/vol-01.html -> ../../
-            dir=$(dirname "$f")
-            depth=$(echo "$dir" | tr '/' '\n' | grep -c .)
-            prefix=""
-            for i in $(seq 1 $depth); do
-              prefix="${prefix}../"
-            done
+      - name: Inject shared home button into handbook pages
+        run: python scripts/project_tools.py inject-home-buttons
 
-            css_path="${prefix}_shared/home-button.css"
-            js_path="${prefix}_shared/home-button.js"
-
-            # Insert CSS link before </head>
-            sed -i "s|</head>|  <link rel=\"stylesheet\" href=\"$css_path\">\n</head>|" "$f"
-            # Insert JS script before </body>
-            sed -i "s|</body>|  <script src=\"$js_path\"></script>\n</body>|" "$f"
-          done
+      - name: Verify project
+        run: python scripts/project_tools.py verify
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

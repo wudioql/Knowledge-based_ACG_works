@@ -1,452 +1,416 @@
-# ARCHITECTURE.md — 项目架构文档
+# 项目架构文档
 
-> 本文档面向开发者与项目维护者，系统性说明 **ACG 知识手册库** 的整体架构、模块职责、关键函数、依赖关系与运行方式。
-> 若你只想浏览内容，请直接访问 [项目主页](https://wudioql.github.io/Knowledge-based_ACG_works/) 或阅读 [README.md](./README.md)。
-> 贡献与开发规范见 [CONTRIBUTING.md](./CONTRIBUTING.md)。
-
-> ⚠️ **部署状态说明**：本文档描述的是 `acg-knowledge-handbook` 分支。该分支**尚未部署**——线上站点（`wudioql.github.io/Knowledge-based_ACG_works/`）由 `main` 分支构建，结构与本文档不同（main 用 `content/` 目录）。因此本文档中的 `doc/` 结构与 [§9](#9-现状与改进方向) 所述现状，均为本分支代码层的状态，部署本分支后才会生效。
+> 面向维护者与贡献者，说明当前仓库如何组织首页、数据源、统一脚本与部署流程。
 
 ---
 
-## 目录
+## 1. 架构目标
 
-1. [架构总览](#1-架构总览)
-2. [技术选型与设计原则](#2-技术选型与设计原则)
-3. [目录结构](#3-目录结构)
-4. [主要模块职责](#4-主要模块职责)
-5. [构建与部署流程](#5-构建与部署流程)
-6. [关键类与函数说明](#6-关键类与函数说明)
-7. [依赖关系](#7-依赖关系)
-8. [项目运行方式](#8-项目运行方式)
-9. [现状与改进方向](#9-现状与改进方向)
+当前架构只围绕五个目标设计：
+
+1. **首页可维护**：首页由数据生成，而不是手工长期维护
+2. **接入成本低**：新增手册时尽量只需放目录并登记最少信息
+3. **手册独立**：不强行统一各手册内部结构
+4. **项目级能力集中**：校验、统计、注入、部署统一放在项目级层面处理
+5. **容错优先**：缺失字段优先通过兜底逻辑容错，而不是直接阻断接入
 
 ---
 
-## 1. 架构总览
+## 2. 结构总览
 
-本项目是一个**纯静态多页站点**（MPA），无前端框架、无构建工具、无后端。运行时架构分为两个清晰的层次：
-
-```mermaid
-graph TD
-    subgraph 根["项目根（落地页层）"]
-        IDX["index.html<br/>项目主页"]
-        SHARED["_shared/<br/>项目级共享资源"]
-    end
-    subgraph doc["doc/（作品内容层）"]
-        W1["maoyuu/"]
-        W2["shokugeki_no_soma/"]
-        WN["...未来作品"]
-    end
-    CI[".github/workflows/deploy.yml<br/>CI/CD"]
-
-    IDX --> SHARED
-    W1 -->|"每个作品自带 _shared/"| SHARED1["doc/maoyuu/_shared/"]
-    W2 -->|"每个作品自带 _shared/"| SHARED2["doc/shokugeki_no_soma/_shared/"]
-    CI -->|"全站注入 home-button<br/>（排除根 index.html）"| doc
-    SHARED -->|"返回主页按钮样式/脚本"| doc
-    CI -->|"部署"| PAGES["GitHub Pages"]
-```
-
-> 项目文档（`README.md` / `ARCHITECTURE.md` / `CONTRIBUTING.md`）作为根目录静态 Markdown，不参与运行时渲染，因此未画入上图。
-
-### 请求与渲染流程
-
-```mermaid
-sequenceDiagram
-    participant U as 用户浏览器
-    participant P as GitHub Pages
-    participant G as Google Fonts / CDN
-    U->>P: 请求 /doc/maoyuu/vol-01-*.html
-    P-->>U: 返回 HTML（CI 已注入 home-button 引用 + data-home-href）
-    U->>P: 请求 doc/maoyuu/_shared/style.css、script.js
-    U->>P: 请求 ../../_shared/home-button.css、home-button.js
-    U->>G: 请求在线字体（Google Fonts）
-    U->>U: script.js 初始化交互 / home-button.js 读取 data-home-href 注入按钮
-```
-
-**核心特点：**
-
-- **零运行时依赖、无需本地构建工具链**：源码即可直接浏览。唯一的构建动作是 CI 在部署期注入返回主页按钮（见 [§5](#5-构建与部署流程)），故本地直接打开作品页时该按钮不会出现（不影响内容阅读）。
-- **两层运行架构**：落地页层（根 `index.html`）与作品内容层（`doc/`）各司其职；项目文档（`README` / `ARCHITECTURE` / `CONTRIBUTING`）作为根目录静态 Markdown，不参与运行时。
-- **双共享层**：项目级 `_shared/`（返回主页按钮等跨作品通用功能）+ 作品级 `doc/<work>/_shared/`（作品专属样式与脚本）。
-- **全站自动注入**：返回主页按钮由 CI 在部署阶段自动注入到**项目主页以外的所有 HTML**，不限目录、无需作品侧操心。
-- **作品标题栏（非自动注入）**：每部作品的内容页（**作品首页本身不强制**）左上角需设有醒目的「大标题」，点击回到**该作品**的 `index.html`——与右下角指向**项目**根 `index.html` 的全局按钮职责分离。该栏由各作品维护者手写在每页 HTML 中，**不由 CI 注入**，便于跨作品差异化与本地预览即生效（详见 [§4.3](#43-作品大标题栏per-work非自动注入)、[§5](#5-构建与部署流程)）。
-
----
-
-## 2. 技术选型与设计原则
-
-| 维度 | 选型 | 理由 |
-|------|------|------|
-| 渲染模型 | 原生 HTML 多页（MPA） | 每个章节独立成页，利于 SEO、分享、增量更新 |
-| 样式 | CSS3 + CSS 自定义属性 + Media Queries | 无预处理器，保存即生效，十年后仍可维护；**推荐三档响应式断点**（≥ 1024 / 768–1023 / < 768，可视作品微调），具体布局形态按内容类型自定（详见 [CONTRIBUTING §6.4](./CONTRIBUTING.md#64-响应式设计要求)） |
-| 脚本 | Vanilla JavaScript（IIFE） | 无框架、无运行时依赖，避免供应链与升级负担 |
-| 字体 | Google Fonts 在线 `@import` | 不引入本地字体文件，仓库零体积负担，每作独立选型 |
-| 可视化 | ECharts / Mermaid / SVG.js（均在线 CDN） | 数据图、关系图、矢量图各司其职，按需引入 |
-| 依赖管理 | 无（npm / 打包器 / 框架） | 零运行时依赖；所有第三方 JS 均运行时 CDN 引入 |
-| 构建 | CI 轻量注入（无本地构建工具链） | 唯一构建动作：部署期注入返回主页按钮（见 [§5](#5-构建与部署流程)） |
-| 部署 | GitHub Actions → GitHub Pages | 推送即部署，构建期完成 home-button 注入 |
-
-**四条设计原则：**
-
-1. **零依赖优先**：能用原生实现的绝不引入库；可视化库仅在确实提升信息表达时引入。
-2. **一作一貌**：每部作品的视觉与结构相互独立，**禁止复制骨架换皮**（详见 CONTRIBUTING）。
-3. **共享最小化**：项目级共享只放真正跨作品通用且无需作品自定义的功能（目前仅「返回主页按钮」）。
-4. **内容可拆**：按章节/卷/篇章拆分文件，控制单文件体量。
-
----
-
-## 3. 目录结构
-
-```
+```text
 .
-├── index.html                       # 项目主页（落地页，CI 不向其注入按钮）
-├── .nojekyll                        # 禁用 Jekyll 处理（GitHub Pages 配置）
-├── .gitignore
-├── README.md                        # 项目概览（面向所有人）
-├── ARCHITECTURE.md                  # 架构文档（本文档）
-├── CONTRIBUTING.md                  # 贡献与开发规范
-├── _shared/                         # 【项目级共享层】跨作品通用资源
-│   ├── style.css                    #   主页样式表（落地页专用）
-│   ├── home-button.css              #   返回主页按钮样式
-│   └── home-button.js               #   返回主页按钮注入脚本（运行时注入 DOM）
-├── doc/                             # 【作品内容层】所有作品手册
-│   ├── maoyuu/                      #   魔王勇者（政治经济学手册）
-│   │   ├── index.html               #     作品首页
-│   │   ├── glossary.html            #     术语表
-│   │   ├── references.html          #     参考文献
-│   │   ├── vol-01-agricultural-revolution.html
-│   │   ├── ...                      #     各卷内容页（vol-01 ~ vol-08）
-│   │   └── _shared/                 #     【作品级共享层】
-│   │       ├── style.css            #       作品专属样式
-│   │       └── script.js            #       作品交互脚本
-│   └── shokugeki_no_soma/           #   食戟之灵（料理全鉴）
+├── index.html                      # 生成后的项目首页
+├── README.md
+├── ARCHITECTURE.md
+├── CONTRIBUTING.md
+├── _data/
+│   ├── homepage-data.json          # 首页通用文案 / 区块配置
+│   ├── handbooks.json              # 手册注册表
+│   └── project-metrics.json        # 自动生成的项目级统计摘要
+├── _shared/
+│   ├── homepage.css                # 首页样式
+│   ├── homepage.js                 # 首页交互
+│   ├── home-button.css             # 统一返回首页按钮样式
+│   └── home-button.js              # 统一返回首页按钮脚本
+├── doc/
+│   └── <folder>/                   # 各手册目录
 │       ├── index.html
-│       ├── arc-01-enrollment.html
-│       ├── ...                      #     各篇章内容页（arc-01 ~ arc-10)
-│       └── _shared/
-│           ├── style.css
-│           └── script.js
+│       ├── ...其他页面...
+│       └── _shared/                # 该手册自己的样式 / 脚本
+├── scripts/
+│   ├── project_tools.py            # 项目级统一工具入口
+│   └── project_tools_lib/          # 内部按职责拆分的实现模块
 └── .github/workflows/
-    └── deploy.yml                   # CI/CD：全站注入 home-button + 部署 Pages
+    └── deploy.yml                  # 校验、生成、注入、部署
 ```
-
-### 双 `_shared` 的区别（重要）
-
-| | 项目级 `_shared/`（根目录） | 作品级 `doc/<work>/_shared/` |
-|---|---|---|
-| 作用域 | 全站所有非首页页面 | 仅该作品自身 |
-| 内容 | `home-button.css/js`（返回主页按钮）、`style.css`（主页样式） | 作品专属 `style.css`、`script.js`、可选 `assets/` |
-| 谁引用 | 由 CI 注入到全站 HTML；主页 `index.html` 引用 `style.css` | 该作品所有 HTML 通过相对路径引用 |
-| 可定制性 | 全站统一，作品**不应**覆盖 | 完全独立，由该作品自行设计 |
 
 ---
 
-## 4. 主要模块职责
+## 3. 三层模型
 
-### 4.1 项目主页 `index.html`
+### 3.1 首页层
+负责：
 
-- 站点落地页，展示所有作品手册的入口卡片。
-- 包含 Hero 区（项目简介 + 统计数据：作品数 / 知识点数 / 学科领域数）与 About 区。
-- 引用 `_shared/style.css` 作为唯一样式来源；**不引入任何 JS**。
-- **不注入返回主页按钮**——它本身就是主页，CI 会显式跳过它（见 [§5](#5-构建与部署流程)）。
+- 首页展示
+- 作品索引
+- 知识地图
+- 阅读路径
+- 筛选交互
+- 项目说明
+- 自动统计展示
 
-### 4.2 项目级共享层 `_shared/`
+核心文件：
 
-| 文件 | 职责 |
-|------|------|
-| `style.css` | 主页专用样式：CSS 变量（配色、字体、间距）、Header / Hero / Works Card / Footer 等组件、学科标签配色类 |
-| `home-button.css` | 固定在右下角的圆形「返回主页」按钮样式（含 hover 标签、响应式适配） |
-| `home-button.js` | 运行时脚本：读取 CI 注入的 `data-home-href`，创建按钮 `<a>` 挂载到 `body`。含防重复渲染保护 |
+- `index.html`
+- `_data/homepage-data.json`
+- `_data/handbooks.json`
+- `_data/project-metrics.json`
+- `_shared/homepage.css`
+- `_shared/homepage.js`
 
-> 返回主页按钮的 `css/js` 由 CI 在部署阶段以 `<link>` / `<script>` 形式注入到**全站每个非主页 HTML** 的 `</head>` 与 `</body>` 之前（详见 [§5](#5-构建与部署流程)）。
+### 3.2 手册层
+负责：
 
-### 4.3 作品大标题栏（per-work，非自动注入）
+- 单个手册的实际内容页面
+- 单个手册自己的样式、脚本与结构
 
-> 这是项目里**唯一**不由 CI 注入、由各作品自己写在每页 HTML 中的跨页元素。
+核心路径：
 
-| 属性 | 取值 | 说明 |
-|------|------|------|
-| **位置** | 左上角 | 与全局右下角「返回主页」按钮的物理位置相互区分 |
-| **跳转目标** | 该作品的 `index.html`（同目录内） | **不是**项目根 `index.html`——这与右下角全局按钮职责分离 |
-| **视觉要求** | 「视觉重量足以一眼识别为品牌标识」 | 粗体、对比色、独立区域等均可；具体字号/排版由作品按「一作一貌」自定（详见 [CONTRIBUTING §2](./CONTRIBUTING.md#2-视觉身份差异化指南一作一貌)、[§4.4](./CONTRIBUTING.md#44-导航要求)） |
-| **是否在作品首页出现** | **不强制** | 首页本身即为目标页，是否保留由作者决定 |
-| **是否由 CI 注入** | **否** | 与「返回主页」按钮不同，标题栏的 HTML/CSS 由作品维护者手写——便于跨作品差异化、不耦合部署流水线，且**本地预览即可生效** |
-| **跨页一致性** | 同一作品**所有页面视觉一致** | 同 class、同字号、同 hover 行为 |
+- `doc/<folder>/`
 
-**与「返回主页」按钮的协作：**
+项目级优化默认不修改这一层。
 
-| 入口 | 位置 | 跳转目标 | 来源 |
-|------|------|----------|------|
-| 作品大标题 | 左上角 | `index.html`（同目录 = 该作品首页） | **手写在 HTML 中**（本节） |
-| 全局返回按钮 | 右下角固定 | `data-home-href`（CI 算定 → 项目根 `index.html`） | [§4.2](#42-项目级共享层-_shared) + [§5](#5-构建与部署流程) |
+### 3.3 部署层
+负责：
 
-二者并存，**目标不同**：大标题服务于「在作品内跳转」，全局按钮服务于「跨作品回到项目主页」。
+- 项目级校验
+- 首页与统计摘要生成
+- 返回首页按钮注入
+- GitHub Pages 部署
 
-> 📌 **实现位置约定**：作品大标题栏的 HTML 通常放在 `<header class="site-header">` 区块内（与导航条共存即可），CSS 写入该作品的 `doc/<work>/_shared/style.css`。class 名由作品自定（如 `.site-logo` / `.work-title` / `.brand` 等），不强制统一——但**作品内部须一致**。
+核心文件：
 
-### 4.4 作品内容层 `doc/<work-id>/`
-
-每个作品是一个**自包含子站**，结构相互独立。所有内容页（含作品首页）共享同款作品大标题栏（见 [§4.3](#43-作品大标题栏per-work非自动注入)）；作品首页是否保留该栏由作者决定。
-
-| 文件 | 职责 |
-|------|------|
-| `index.html` | 作品首页：概览、卷/篇章导航、统计、理论分类等（也会被注入返回主页按钮） |
-| `vol-XX-*.html` / `arc-XX-*.html` | 内容页：按 [内容拆分政策](./CONTRIBUTING.md#内容拆分政策) 组织，含上一页/下一页导航 |
-| `glossary.html` / `references.html` | 辅助页（可选）：术语表、参考文献 |
-| `_shared/style.css` | 作品专属样式（**完全独立编写**，配色/字体/布局自主） |
-| `_shared/script.js` | 作品交互脚本（**完全独立编写**，IIFE 封装） |
-| `_shared/assets/` | 作品资源（SVG / 图片等，可选） |
-
-### 4.5 项目文档（根目录）
-
-- `README.md`：项目概览与设计哲学（面向所有人）。
-- `ARCHITECTURE.md`：架构、模块职责、关键函数、依赖、运行方式（本文档）。
-- `CONTRIBUTING.md`：贡献流程、视觉差异化、字体 / 拆分 / 可视化等政策。
-
-> 这三者均为根目录静态 Markdown，不参与站点运行时。此外，项目在 GitHub 上设有独立的 **Wiki**（独立 git 仓库），承载方法论、教程与资源等长青内容。
-
-### 4.6 CI/CD `.github/workflows/deploy.yml`
-
-- 触发：push 到 `main` / `master`，或手动 `workflow_dispatch`。
-- 职责：Checkout → 全站遍历 HTML 注入 home-button → 上传 artifact → 部署 GitHub Pages。
+- `.github/workflows/deploy.yml`
+- `_shared/home-button.css`
+- `_shared/home-button.js`
+- `scripts/project_tools.py`
 
 ---
 
-## 5. 构建与部署流程
+## 4. 数据流
 
-本项目的「构建」极其轻量，**唯一的构建动作是注入返回主页按钮**。
+### 4.1 首页数据源
 
-```mermaid
-graph LR
-    A[push main/master] --> B[Checkout]
-    B --> C["遍历全站 *.html<br/>排除根 index.html（项目主页）"]
-    C --> D1["去掉 './' 前缀<br/>按目录深度算 prefix"]
-    D1 --> E1["</head> 前注入<br/>link: {prefix}_shared/home-button.css"]
-    E1 --> E2["</body> 前注入<br/>script: {prefix}_shared/home-button.js<br/>data-home-href='{prefix}index.html'"]
-    E2 --> F[Upload artifact]
-    F --> G[Deploy to GitHub Pages]
+#### `_data/homepage-data.json`
+负责：
+
+- 首页公共文案
+- 区块标题与说明
+- 知识领域定义
+- 筛选器定义
+- 阅读路径与方法说明
+
+#### `_data/handbooks.json`
+负责：
+
+- 当前有哪些手册被接入首页系统
+- 每个手册的最小注册信息
+- 每个手册可选的展示补充字段
+
+#### `_data/project-metrics.json`
+负责：
+
+- 自动生成的项目级统计摘要
+- 供首页展示与维护检查使用
+
+### 4.2 生成流
+
+```text
+homepage-data.json + handbooks.json + doc/<folder>/*.html
+                ↓
+        project_tools.py generate
+                ↓
+      index.html + project-metrics.json
 ```
 
-### 注入范围
+### 4.3 自动推导内容
 
-注入目标是**项目主页（根 `index.html`）以外的所有 HTML 页面**，**不限定目录**：
+当前会自动推导：
 
-- 不仅 `doc/` 下的作品页会被注入，未来任何目录下新增的页面（包括根目录下除 `index.html` 外的其他页面）都会自动得到按钮。
-- 唯一被排除的是根目录的 `index.html`（它就是按钮的跳转目标）。
-
-### 注入逻辑（`deploy.yml` 核心片段）
-
-1. `find . -name "*.html" -not -path "*/.*"` 全站扫描（跳过 `.git` 等隐藏目录）。
-2. `f="${f#./}"` 去掉 `find` 输出的 `./` 前缀（否则 `dirname` 得到的 `./doc/maoyuu` 会把那个 `.` 误算成一层目录）；`[ "$f" = "index.html" ] && continue` 跳过项目主页。
-3. 按文件**所在目录深度**算 `prefix`（回仓库根的 `../` 串）。
-4. `sed` 在 `</head>` 前注入 `<link href="{prefix}_shared/home-button.css">`。
-5. `sed` 在 `</body>` 前注入 `<script src="{prefix}_shared/home-button.js" data-home-href="{prefix}index.html">`。
-
-### 设计要点：路径由 CI 构建期算定，而非 JS 运行时推算
-
-跳转目标 `data-home-href` 在**构建期**由 bash 按真实目录深度算定，写进 `<script>` 标签的属性。这样：
-
-- 路径适配任意目录深度（`index.html` / `../index.html` / `../../index.html` / `../../../index.html` 都会出现）。
-- JS 只需**读取** `data-home-href`，无需从 `window.location` 或硬编码仓库名推算——bash 按真实目录结构计算，绝对可靠，不依赖浏览器环境。
-
-### 各深度路径对照
-
-| 文件位置 | 注入的 `data-home-href` |
-|----------|------------------------|
-| `index.html`（项目主页） | 不注入（跳过） |
-| `about.html`（根目录其他页） | `index.html` |
-| `doc/maoyuu/vol-01.html` | `../../index.html` |
-| `doc/maoyuu/index.html`（作品首页） | `../../index.html` |
-| `a/b/c/deep.html` | `../../../index.html` |
-
-> 因此，**作品/页面 HTML 源码中无需手动写入 home-button 引用**——按钮的样式、脚本、跳转路径全部由 `_shared` 与 CI 在构建期注入。源码中不包含任何 home-button 引用，保持作品文件干净。
-
-### 「作品大标题」不由 CI 注入
-
-**返回主页按钮是 CI 唯一自动注入的内容。**「作品大标题」（[§4.3](#43-作品大标题栏per-work非自动注入)）写在每部作品的 HTML 中，由作品维护者维护，**不进入 CI 流程**——这与「一作一貌」的设计原则保持一致：CI 不强制统一各作品的 HTML 结构，也不试图通过脚本生成品牌入口。
-
-实际含义：
-
-- **本地预览**：作品大标题会正常显示（因为它在 HTML 里）；只有右下角的「返回主页」按钮依赖 CI 注入，本地打开文件时不会出现。
-- **源码**：作品 HTML 中保留大标题栏的完整 HTML + CSS 引用——不要试图把它「抽出去」注入，跨作品差异化要求它在源码层即可见。
+- 手册总数
+- 页面总数
+- 领域数量
+- 内容页 / 辅助页统计
+- 各领域页面分布
+- 各媒介分布
+- 待归类手册数量
+- 使用兜底媒介的手册数量
+- 缺省展示字段的兜底文案
 
 ---
 
-## 6. 关键类与函数说明
+## 5. 统一工具脚本
 
-> 本项目无「类」，仅有函数与 CSS 自定义属性。以下按模块说明关键函数与设计令牌。
+当前项目级 Python 工具对外只保留一个统一入口：
 
-### 6.1 项目级 `_shared/home-button.js`
+- `scripts/project_tools.py`
 
-一个立即执行函数（IIFE），**职责单一**：读取 CI 注入的跳转路径，在页面右下角挂载返回主页按钮。
+但内部已经按职责拆分到：
 
-**注入产物（DOM）：**
+- `scripts/project_tools_lib/homepage.py`
+- `scripts/project_tools_lib/checks.py`
+- `scripts/project_tools_lib/buttons.py`
+- `scripts/project_tools_lib/registry.py`
+- `scripts/project_tools_lib/common.py`
 
-```html
-<a id="home-button" href="../../index.html" title="返回项目主页">
-  <span aria-hidden="true">🏠</span>
-  <span class="home-label">主页</span>
-</a>
-```
-
-默认只显示 🏠 图标；"主页"文字作为 hover 标签（`.home-label` 默认 `opacity:0`，鼠标悬停显现，样式见 `home-button.css`）。`href` 取自 `<script data-home-href>`。
-
-**逻辑：**
-
-| 步骤 | 作用 |
-|------|------|
-| `if (document.getElementById('home-button')) return;` | 防重复渲染：即使页面被注入多次，也只渲染一个按钮 |
-| `current.getAttribute('data-home-href')` | 读取 CI 构建期算定的跳转路径（任意深度均已正确）；读不到时回退 `'./index.html'`（防御兜底） |
-| 创建 `<a>` 并 `appendChild` 到 `body` | 挂载按钮 |
-
-```javascript
-if (document.getElementById('home-button')) return;        // 防重复
-var current = document.currentScript;
-var home = (current && current.getAttribute('data-home-href')) || './index.html';
-btn.href = home;
-```
-
-> **设计说明**：跳转路径完全由 CI（bash 按目录深度算定）写入 `data-home-href`，JS 仅读取、不推算。这样把路径计算放在构建期（可静态验证），而非运行时（依赖浏览器环境），使按钮行为在任何目录深度下都正确。
-
-### 6.2 项目级 `_shared/style.css`（落地页样式）
-
-**CSS 设计令牌（`:root`）：**
-
-| 令牌 | 作用 | 示例值 |
-|------|------|--------|
-| `--bg / --bg2 / --ink / --muted / --rule` | 背景 / 主文 / 次文 / 分隔线配色 | `#FAFAF5 / #1A1A2E / ...` |
-| `--accent / --accent2` | 主/次强调色 | `#8B0000 / #B8860B` |
-| `--tag-*` | 学科标签色（经济/政治/历史/哲学/料理/日式/法式/分子） | `#1565C0 / #C62828 / ...` |
-| `--font-heading / --font-body` | 标题/正文字体 | `'Lora' / 'Work Sans'` |
-| `--max-width / --content-width` | 布局宽度 | `1200px / 1080px` |
-
-**主要组件类：** `.site-header` / `.site-nav`（含移动端 `.nav-toggle` 折叠）、`.hero` / `.hero-stats`、`.works-grid` / `.work-card`（含 banner 子类如 `.maoyuu-banner`）、`.section-title`、`.site-footer`。
-
-> 返回主页按钮的样式由独立的 `home-button.css` 负责，不放在 `style.css` 中——主页（`index.html`）不出现按钮，因此 `style.css` 只管主页样式。
-
-### 6.3 作品级 `doc/<work>/_shared/script.js`
-
-各作品的交互脚本，统一以 **IIFE 封装**，在 `DOMContentLoaded` 时按 `initXxx()` 拆分调用。
-
-> ⚠️ **注意**：目前两部作品的 `script.js` 暴露**完全相同**的 6 个函数签名（见 [§9](#9-现状与改进方向)），属于同质化现象。新作品**不应照抄**此函数集，应按内容真实需求裁剪/替换。
-
-| 函数 | 职责 | 依赖的 DOM 结构 |
-|------|------|-----------------|
-| `initNavToggle()` | 移动端导航折叠（切换 `.open`，同步 `aria-expanded`） | `.nav-toggle` / `.site-nav` |
-| `initCollapsibles()` | 折叠区块的展开/收起 | `.collapsible-toggle[aria-controls]` |
-| `initFilter()` | 按标签筛选卡片（读 `data-filter`，筛选 `data-discipline`/`data-cuisine`） | `.filter-btn` / `.topic-card`·`.dish-card` |
-| `initBackToTop()` | 滚动超过阈值显示返回顶部按钮 | `.back-to-top` |
-| `initSideToc()` | 侧边目录随滚动高亮当前章节 | `.side-toc a[href^="#"]` |
-| `initSmoothScroll()` | 锚点平滑滚动 | `a[href^="#"]` |
-
-### 6.4 作品级 `doc/<work>/_shared/style.css`
-
-各作品自定义的 `:root` 设计令牌与组件类。配色/字体由作品独立设计。以魔王勇者为例：主色 `--accent: #8B0000`、`--disc-econ/-politics/-history/-tech/-philosophy` 学科色等。
-
-**响应式布局：**
-
-- **推荐三档断点**：`@media (min-width: 768px)` / `@media (min-width: 1024px)` 划分桌面/平板/手机三档。
-- 单位优先 `rem` / `%` / `clamp()`，避免硬编码像素宽度。
-- 各档下的**具体布局形态**由作品按内容类型自定（手册类可能用三栏对照；全鉴类可能用 4 列卡片网格；年表类可能用垂直时间线等——断点统一，布局形态自由）。
-- 复杂元素（多栏并列 / 大表格 / 长 TOC / 重型图表）在 `< 768px` 时须考虑折叠、合并或切换为标签页 / 汉堡菜单，避免横向滚动。
-- 详见 [CONTRIBUTING §6.4](./CONTRIBUTING.md#64-响应式设计要求)。
-
----
-
-## 7. 依赖关系
-
-### 7.1 运行时资源依赖图
-
-```mermaid
-graph LR
-    ROOT["index.html<br/>(主页)"] --> RS["_shared/style.css"]
-    RS --> GF1["Google Fonts: Lora + Work Sans"]
-
-    PAGE["任意非主页 *.html"] --> WS["doc/&lt;work&gt;/_shared/style.css"]
-    PAGE --> WJS["doc/&lt;work&gt;/_shared/script.js"]
-    PAGE --> HBC["_shared/home-button.css<br/>(CI 注入)"]
-    PAGE --> HBJ["_shared/home-button.js<br/>(CI 注入, 带 data-home-href)"]
-    WS --> GF2["Google Fonts<br/>(该作品自选)"]
-    WJS -.->|"可选"| VIS["ECharts / Mermaid / SVG.js<br/>(按需 CDN 引入)"]
-```
-
-### 7.2 依赖清单
-
-| 依赖 | 类型 | 引入方式 | 是否必须 |
-|------|------|----------|----------|
-| Google Fonts | 在线字体 | CSS `@import` | 每作品自选，必须在线引入 |
-| ECharts | 可视化（数据图） | 页面内 `<script>` CDN | 按需，使用数据可视化时 |
-| Mermaid | 可视化（关系/流程/时序图） | 页面内 `<script>` CDN | 按需 |
-| SVG.js | 可视化（矢量图编程操控） | 页面内 `<script>` CDN | 按需 |
-| GitHub Actions | CI | `.github/workflows/deploy.yml` | 部署必须 |
-
-> **零本地依赖**：无 `node_modules`、无构建产物目录。所有第三方 JS 均通过在线 CDN 引入，不在仓库内重新构建或托管本地副本（详见 CONTRIBUTING [可视化规范](./CONTRIBUTING.md#可视化规范)）。
-
----
-
-## 8. 项目运行方式
-
-### 8.1 本地预览（只读浏览）
+### 默认入口
 
 ```bash
-git clone https://github.com/wudioql/Knowledge-based_ACG_works.git
-cd Knowledge-based_ACG_works
-python3 -m http.server 8080      # 推荐
-# 浏览器访问 http://localhost:8080
+python scripts/project_tools.py
 ```
 
-> 用静态服务器而非 `file://` 直接打开，可保证相对路径与字体加载行为与线上一致。
-> 返回主页按钮由 CI 注入，本地源码中不含该引用，故本地预览时该按钮**不会出现**——这属于预期行为。
+在终端环境下会进入交互式菜单；如果没有交互式终端环境，则默认执行：
 
-### 8.2 本地完整预览（含返回主页按钮）
-
-如需在本地看到注入后的效果，可手动复刻 CI 的注入逻辑：在任一非主页 HTML 的 `</head>` 前插入 `<link href="{prefix}_shared/home-button.css">`、`</body>` 前插入 `<script src="{prefix}_shared/home-button.js" data-home-href="{prefix}index.html">`（`{prefix}` 按该文件目录深度取，如 `doc/maoyuu/x.html` 用 `../../`）。
-
-或临时将对应页面提交到一个会触发部署的分支，通过 GitHub Pages 预览。
-
-> 💡 **左上角的「作品大标题」不需要这一步**——它写在 HTML 中，本地预览即生效，无需任何注入。
-
-### 8.3 部署（线上）
-
-- **触发**：push 到 `main` / `master`，或 Actions 页手动运行。
-- **流程**：见 [§5](#5-构建与部署流程)。
-- **产物**：部署到 `https://wudioql.github.io/Knowledge-based_ACG_works/`。
-- **前置配置**：仓库 Settings → Pages → Source 设为 GitHub Actions；`.nojekyll` 已存在以禁用 Jekyll。
-- ⚠️ 注意：当前 `acg-knowledge-handbook` 分支**未合并到 main**，故线上仍为 main 的结构（`content/`）。本文档描述的 `doc/` 结构需待该分支合并部署后才上线。
-
-### 8.4 开发循环（新增/修改作品）
-
-```mermaid
-graph LR
-    A["按 CONTRIBUTING 设计差异化的<br/>视觉/字体/布局"] --> B["编写页面 + _shared"]
-    B --> C[本地静态服务器预览]
-    C --> D[提交 PR]
-    D --> E[合并到 main]
-    E --> F["CI 全站注入 home-button<br/>+ 部署 Pages"]
+```bash
+python scripts/project_tools.py verify
 ```
+
+### 子命令
+
+```bash
+python scripts/project_tools.py menu
+python scripts/project_tools.py verify
+python scripts/project_tools.py validate
+python scripts/project_tools.py generate
+python scripts/project_tools.py check-links
+python scripts/project_tools.py inject-home-buttons
+python scripts/project_tools.py strip-home-buttons
+python scripts/project_tools.py check-home-buttons
+python scripts/project_tools.py list-handbooks
+python scripts/project_tools.py add-handbook
+python scripts/project_tools.py edit-handbook
+python scripts/project_tools.py remove-handbook
+```
+
+### 职责
+
+#### `verify`
+串联执行：
+
+1. 注册表校验
+2. 首页生成
+3. 链接检查
+4. 返回首页按钮状态检查
+
+这是**本地维护与 CI 的统一入口**。
+
+#### `validate`
+负责：
+
+- 校验 `_data/handbooks.json` 结构
+- 校验 `doc/<folder>/` 是否存在
+- 校验 `doc/<folder>/index.html` 是否存在
+- 检查重复 `folder`
+- 检查 `domain` / `medium` 是否缺失或未预定义
+- 验证首页是否可成功生成
+
+#### `generate`
+负责：
+
+- 扫描 `doc/<folder>/*.html`
+- 生成首页
+- 生成统计摘要
+- 自动应用 `domain` / `medium` 兜底逻辑
+- 自动推导 `scale / structure / startHere` 默认值
+
+#### `check-links`
+负责：
+
+- 检查项目级 Markdown 文档中的本地链接
+- 检查生成后的首页本地链接
+- 检查 `doc/` 下 HTML 页面中的本地 `href / src`
+
+#### `inject-home-buttons`
+负责：
+
+- 给 `doc/**/*.html` 页面注入统一返回首页按钮依赖
+- 自动写入正确的 `data-home-href`
+- 支持幂等执行
+- 规范化旧标签
+- 注入后立即校验结果
 
 ---
 
-## 9. 现状与改进方向
+## 6. 新增手册接入模型
 
-> 本节描述 `acg-knowledge-handbook` 分支当前的实现现状与后续可改进的方向。详见 [CONTRIBUTING.md — 视觉身份差异化指南](./CONTRIBUTING.md#视觉身份差异化指南)。
+当前系统目标是：
 
-### 当前已具备的能力
+> 新增手册时，不需要手改首页 HTML，也不需要为每个手册额外接入项目级组件。
 
-| 能力 | 说明 |
-|------|------|
-| 返回主页按钮注入 | CI 全站自动注入，指向项目主页；路径由构建期算定，适配任意目录深度（见 [§5](#5-构建与部署流程)） |
-| 作品大标题栏 | 各作品在 `<header>` 中提供左上角品牌入口链接回该作品首页；当前两部作品的 `.site-logo` 实现了此功能但**字号偏小**（1.1~1.25rem），未达到「醒目大标题」的视觉重量，需按 [CONTRIBUTING §4.4](./CONTRIBUTING.md#44-导航要求) 强化 |
-| 在线字体加载 | 各 `style.css` 通过 Google Fonts `@import` 引入，`font-family` 家族名与 Google Fonts 一致（含空格，如 `'Work Sans'`） |
-| 内容拆分 | 各内容页按卷/篇章独立成文件，均在 150 KB 内（见 [§4](#4-内容拆分政策)） |
+### 最低接入要求
 
-### 待改进方向
+1. `doc/<folder>/index.html` 存在
+2. `_data/handbooks.json` 中新增一条记录
 
-| # | 方向 | 当前现状 | 改进方向 |
-|---|------|----------|----------|
-| 1 | **作品视觉差异化** | 两部作品字体同为 `Lora + Work Sans`；页面骨架同为 `site-header → hero → main → footer`；`script.js` 的 6 个函数完全同名同构 | 按 CONTRIBUTING [视觉身份差异化指南](./CONTRIBUTING.md#视觉身份差异化指南) 逐步分化；新作品必须显著区分 |
-| 2 | **知识可视化** | 两部作品尚未使用 ECharts / Mermaid / SVG.js | 按内容需要引入，参见 CONTRIBUTING [可视化规范](./CONTRIBUTING.md#可视化规范) |
-| 3 | **大文件关注** | `arc-08-regiment.html` ≈ 89 KB、`arc-09-blue.html` ≈ 73 KB | 未超 150 KB 红线；持续关注，必要时按拆分政策二次切分 |
+### 最低记录示例
 
-> 以上为内容与设计层面的演进方向，不影响当前站点功能。
+```json
+{
+  "folder": "new-work-folder",
+  "title": "新作品名"
+}
+```
+
+### 字段分层
+
+#### 必填字段
+
+- `folder`
+- `title`
+
+#### 常用推荐字段
+
+- `subtitle`
+- `domains`
+- `medium`
+- `tags`
+- `summary`
+- `startHere`
+
+#### 自动推导 / 可覆盖字段
+
+- `scale`
+- `structure`
+- `href`
+- `cta`
+
+#### 保留字段
+
+- `domainLabel`（当前首页未直接使用，一般无需填写）
+
+其中：
+
+- `domains` 推荐写成数组，适合一个作品同时对应多个知识领域
+- `medium` 也推荐写成数组，适合一个作品同时对应小说 / 漫画 / 动画 / 游戏等多种媒介
+- `href` 用于覆盖默认入口地址；不填时默认使用 `doc/<folder>/index.html`
+- `cta` 用于覆盖首页卡片底部入口文案
+
+### 自动兜底策略
+
+#### `domain / domains` 缺失或非法
+自动回落到：
+- `uncategorized / 待归类`
+
+#### `medium` 缺失或非法
+自动回落到：
+- `other / 其他`
+
+#### `scale / structure / startHere` 缺失
+根据目录下页面结构自动生成默认说明。
+
+#### `href / cta` 缺失
+分别回落到默认入口地址和默认入口文案。
+
+---
+
+## 7. 统一返回首页按钮
+
+这是当前唯一明确要求“全站统一”的跨手册组件。
+
+### 目标
+部署后所有手册页面都应拥有：
+
+- 完全相同的返回首页按钮
+- 完全一致的样式与行为
+- 正确的首页跳转路径
+
+### 原则
+- 不手工逐页维护按钮标签
+- 不要求每个手册自己设计不同版本的返回按钮
+- 本地可以先通过统一工具把标签写入源码
+- CI 部署前会再次执行幂等注入，并继续做状态校验
+
+### 注入方式
+工作流调用：
+
+```bash
+python scripts/project_tools.py inject-home-buttons
+```
+
+处理范围：
+
+```text
+doc/**/*.html
+```
+
+写入内容：
+
+- `<link rel="stylesheet" href=".../_shared/home-button.css">`
+- `<script src=".../_shared/home-button.js" data-home-href=".../index.html"></script>`
+
+### 当前增强点
+- 幂等注入
+- 旧标签规范化
+- 注入后校验
+- 结果汇总输出
+
+---
+
+## 8. GitHub Pages 部署流程
+
+当前部署流程：
+
+```text
+Checkout
+  ↓
+Inject shared home button into handbook pages
+  ↓
+Verify project
+  ↓
+Upload Pages artifact
+  ↓
+Deploy to GitHub Pages
+```
+
+### 工作流负责
+1. 以幂等方式把返回首页按钮统一收敛到标准状态
+2. 通过统一入口完成项目级校验（含按钮状态检查）
+3. 部署静态站点
+
+### 工作流不负责
+1. 不修改手册内部内容
+2. 不重写手册自己的样式
+3. 不给每个手册注入复杂项目级 UI
+
+---
+
+## 9. 维护边界
+
+### 可以改的
+- `index.html`（通常由生成器生成）
+- `_data/` 下的首页数据、手册注册表、统计摘要
+- `_shared/homepage.*`
+- `_shared/home-button.*`
+- `scripts/project_tools.py`
+- `.github/workflows/deploy.yml`
+- 项目级说明文档
+
+### 默认不改的
+- `doc/<folder>/` 下每个手册的内部内容
+- 每个手册自己的 `_shared/style.css` / `script.js`
+- 已经完成且用户满意的手册页面结构
+
+---
+
+## 10. 当前状态与后续方向
+
+当前主计划项已经完成，项目级基础设施处于可用状态。
+
+如果后续仍要继续优化，更适合从这些可选方向切入：
+
+- 首页展示层的进一步轻量打磨
+- CI 输出与日志友好性增强
+- 项目级文档的细节可读性微调
+- 在不增加接入成本的前提下继续减少重复维护
+

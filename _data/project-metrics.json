@@ -1,0 +1,117 @@
+{
+  "totalHandbooks": 5,
+  "totalPages": 63,
+  "totalDomains": 6,
+  "totalContentLikePages": 41,
+  "totalSupportPages": 17,
+  "uncategorizedHandbooks": 0,
+  "fallbackMediumHandbooks": 0,
+  "domainCounts": {
+    "life": 1,
+    "food": 2,
+    "micro": 1,
+    "society": 1,
+    "history": 1,
+    "space": 1
+  },
+  "domainPageCounts": {
+    "life": 15,
+    "food": 28,
+    "micro": 17,
+    "society": 12,
+    "history": 12,
+    "space": 8
+  },
+  "mediumCounts": {
+    "manga": 5,
+    "anime": 5,
+    "novel": 1
+  },
+  "registeredFolders": [
+    "cells-at-work",
+    "shokugeki-no-soma",
+    "moyashimon",
+    "maoyuu",
+    "planet-es"
+  ],
+  "handbooks": [
+    {
+      "folder": "cells-at-work",
+      "title": "工作细胞",
+      "domain": "life",
+      "domains": [
+        "life"
+      ],
+      "medium": [
+        "manga",
+        "anime"
+      ],
+      "pageCount": 15,
+      "contentLikePages": 6,
+      "supportPages": 8
+    },
+    {
+      "folder": "shokugeki-no-soma",
+      "title": "食戟之灵",
+      "domain": "food",
+      "domains": [
+        "food"
+      ],
+      "medium": [
+        "manga",
+        "anime"
+      ],
+      "pageCount": 11,
+      "contentLikePages": 10,
+      "supportPages": 0
+    },
+    {
+      "folder": "moyashimon",
+      "title": "萌菌物语",
+      "domain": "micro",
+      "domains": [
+        "micro",
+        "food"
+      ],
+      "medium": [
+        "manga",
+        "anime"
+      ],
+      "pageCount": 17,
+      "contentLikePages": 13,
+      "supportPages": 3
+    },
+    {
+      "folder": "maoyuu",
+      "title": "魔王勇者",
+      "domain": "society",
+      "domains": [
+        "society",
+        "history"
+      ],
+      "medium": [
+        "novel",
+        "manga",
+        "anime"
+      ],
+      "pageCount": 12,
+      "contentLikePages": 8,
+      "supportPages": 3
+    },
+    {
+      "folder": "planet-es",
+      "title": "星空清理者",
+      "domain": "space",
+      "domains": [
+        "space"
+      ],
+      "medium": [
+        "manga",
+        "anime"
+      ],
+      "pageCount": 8,
+      "contentLikePages": 4,
+      "supportPages": 3
+    }
+  ]
+}

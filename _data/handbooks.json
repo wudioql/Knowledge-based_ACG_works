@@ -1,0 +1,62 @@
+[
+  {
+    "folder": "cells-at-work",
+    "title": "工作细胞",
+    "subtitle": "身体与生命知识手册",
+    "domains": ["life"],
+    "medium": ["manga", "anime"],
+    "tags": ["免疫", "血液", "病原", "公共卫生", "微生态"],
+    "summary": "把身体中的运输、免疫、防御与疾病过程组织成可阅读的生命科学入口。",
+    "scale": "原作 6 卷 + 特别篇 + 多组外传 + 指导书 / 术语 / 参考",
+    "structure": "原作分卷 + 外传矩阵 + 指导书入口，适合按主题扩展。",
+    "startHere": "先读总览，再按原作主线或外传矩阵延伸。"
+  },
+  {
+    "folder": "moyashimon",
+    "title": "萌菌物语",
+    "subtitle": "微生物知识全鉴",
+    "domains": ["micro", "food"],
+    "medium": ["manga", "anime"],
+    "tags": ["微生物学", "发酵学", "农学", "食品文化"],
+    "summary": "从看得见菌的校园故事进入微生物、发酵与食文化的长期脉络。",
+    "scale": "13 卷 + 人物 / 术语 / 参考",
+    "structure": "分卷全鉴 + 三方对照，适合从基础菌学一路读到酒与食文化。",
+    "startHere": "先从卷 1 打基础，再进入酒、味噌与欧洲篇。"
+  },
+  {
+    "folder": "shokugeki-no-soma",
+    "title": "食戟之灵",
+    "subtitle": "料理内容全鉴",
+    "domains": ["food"],
+    "medium": ["manga", "anime"],
+    "tags": ["料理体系", "烹饪技法", "食材科学", "世界料理"],
+    "summary": "从料理对决与篇章推进中梳理菜式、技法、食材与料理体系。",
+    "scale": "10 个篇章页",
+    "structure": "按篇章梳理料理与技法，适合按菜系、比赛与主题推进阅读。",
+    "startHere": "先看总览，再按篇章进入不同料理体系。"
+  },
+  {
+    "folder": "maoyuu",
+    "title": "魔王勇者",
+    "subtitle": "政治经济学知识手册",
+    "domains": ["society", "history"],
+    "medium": ["novel", "manga", "anime"],
+    "tags": ["政治经济学", "历史", "农业革命", "制度"],
+    "summary": "以异世界叙事映射战争、农业、货币、贸易与制度演化。",
+    "scale": "本编 5 卷 + 外传 3 卷 + 人物 / 术语 / 参考",
+    "structure": "分卷阅读 + 辅助卷宗，适合把情节、术语、势力与参考材料一起读。",
+    "startHere": "先读作品首页，再进入本编第 1 卷。"
+  },
+  {
+    "folder": "planet-es",
+    "title": "星空清理者",
+    "subtitle": "航天科学知识手册",
+    "domains": ["space"],
+    "medium": ["manga", "anime"],
+    "tags": ["轨道力学", "航天工程", "空间环境", "硬科幻"],
+    "summary": "把太空垃圾回收、深空计划与个人命运放进真实航天科学与工程语境中阅读。",
+    "scale": "4 个分卷阶段 + 人物 / 术语 / 参考",
+    "structure": "动画主轴 + 原作对照 + 科学延伸，适合按近地轨道到深空主线推进。",
+    "startHere": "先读首页，再按 4 个阶段追踪叙事与科学主线。"
+  }
+]

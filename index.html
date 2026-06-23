@@ -1,123 +1,510 @@
-<!-- ACG Knowledge Handbook — Project Landing Page -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ACG 知识手册库 — 从动漫游戏中学习真实知识</title>
-  <link rel="stylesheet" href="_shared/style.css">
+  <title>ACG 知识手册库｜把虚构作品读成现实知识图谱</title>
+  <meta name="description" content="一个以作品为入口、以现实知识为主轴的 ACG 手册项目：从生命科学、料理与发酵，到制度史、社会结构与科幻工程。">
+  <link rel="stylesheet" href="_shared/homepage.css">
 </head>
 <body>
+  <!-- Generated from _data/homepage-data.json + _data/handbooks.json by scripts/project_tools.py. -->
+  <a class="skip-link" href="#main-content">跳到正文</a>
 
-  <!-- Site Header -->
-  <header class="site-header">
-    <div class="container">
-      <a href="index.html" class="site-logo">ACG <span>知识手册库</span></a>
-      <button class="nav-toggle" aria-expanded="false" aria-label="菜单">菜单</button>
-      <nav class="site-nav">
-        <a href="#works">作品手册</a>
-        <a href="#about">关于</a>
-        <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
-      </nav>
-    </div>
-  </header>
+  <header class="atlas-header" id="top">
+  <div class="atlas-shell atlas-header__inner">
+    <a class="atlas-brand" href="index.html" aria-label="回到 ACG 知识手册库首页">
+      <span class="atlas-brand__mark" aria-hidden="true">◎</span>
+      <span class="atlas-brand__text">
+        <strong>ACG 知识手册库</strong>
+        <small>Knowledge Atlas</small>
+      </span>
+    </a>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container">
-      <h1>ACG 知识手册库</h1>
-      <p class="hero-sub">从动漫与游戏中发现真实世界的知识 — 政治经济学、料理科学、历史文化，用二次元打开学习之门</p>
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="stat-num">2</div>
-          <div class="stat-label">部作品</div>
-        </div>
-        <div class="hero-stat">
-          <div class="stat-num">300+</div>
-          <div class="stat-label">知识点</div>
-        </div>
-        <div class="hero-stat">
-          <div class="stat-num">20+</div>
-          <div class="stat-label">学科领域</div>
-        </div>
+    <button class="atlas-nav-toggle" type="button" aria-expanded="false" aria-controls="atlas-nav">菜单</button>
+
+    <nav class="atlas-nav" id="atlas-nav" aria-label="首页导航">
+      <a href="#knowledge-map">知识地图</a>
+<a href="#works-index">作品索引</a>
+<a href="#reading-paths">阅读路径</a>
+<a href="#methodology">方法说明</a>
+<a href="https://github.com/wudioql/Knowledge-based_ACG_works" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+  <main id="main-content">
+    <section class="atlas-hero">
+  <div class="atlas-shell atlas-hero__grid">
+    <div class="atlas-hero__copy">
+      <p class="atlas-eyebrow">ACG KNOWLEDGE ATLAS</p>
+      <h1>把虚构作品读成现实知识图谱</h1>
+      <p class="atlas-hero__lead">这里收录的不是普通剧情简介，而是把作品中的设定、篇章、术语与场景重新组织成<strong>可阅读、可导航、可延伸</strong>的知识手册。</p>
+      <p class="atlas-hero__body">项目首页不再把作品简单排成货架，而是尝试同时按知识领域与媒介索引来组织入口，让读者既能按兴趣进入，也能按作品进入。</p>
+
+      <div class="atlas-actions">
+        <a class="atlas-button atlas-button--primary" href="#knowledge-map">浏览知识地图</a>
+<a class="atlas-button atlas-button--secondary" href="#works-index">查看全部作品</a>
+<a class="atlas-button atlas-button--ghost" href="#reading-paths">从推荐路径开始</a>
+      </div>
+
+      <ul class="atlas-stats" aria-label="当前收录规模">
+        <li><strong>5</strong><span>部作品</span></li>
+<li><strong>63</strong><span>个页面</span></li>
+<li><strong>6</strong><span>个知识领域</span></li>
+      </ul>
+
+      <div class="atlas-entry-modes" aria-label="首页使用方式">
+        <article class="atlas-entry-mode"><h2>按领域进入</h2><p>如果你先想找生命、料理、发酵、制度史、社会结构或宇宙工程，先看下面的知识地图。</p></article>
+<article class="atlas-entry-mode"><h2>按作品进入</h2><p>如果你已经知道想看哪部作品，直接跳到作品索引，再根据“从这里开始”进入手册。</p></article>
       </div>
     </div>
-  </section>
 
-  <main class="container">
+    <div class="atlas-hero__art" aria-hidden="true">
+      <svg class="atlas-hero-svg" viewBox="0 0 520 420" role="img" aria-label="与知识地图同步的首页知识结构示意图"><g class="atlas-hero-grid" opacity="0.11" stroke="#1f2d44"><path d="M40 78H480" /><path d="M40 148H480" /><path d="M40 218H480" /><path d="M40 288H480" /><path d="M40 358H480" /><path d="M86 30V390" /><path d="M173 30V390" /><path d="M260 30V390" /><path d="M347 30V390" /><path d="M434 30V390" /></g><g fill="none"><path class="atlas-hero-line delay-1" d="M 260 215 Q 260 118 260 57" /><path class="atlas-hero-line delay-2" d="M 260 215 Q 328 157 396 136" /><path class="atlas-hero-line delay-3" d="M 260 215 Q 328 266 396 294" /><path class="atlas-hero-line delay-4" d="M 260 215 Q 260 306 260 373" /><path class="atlas-hero-line delay-1" d="M 260 215 Q 191 266 123 294" /><path class="atlas-hero-line delay-2" d="M 260 215 Q 191 157 123 136" /></g><g class="atlas-hero-core"><circle cx="260" cy="215" r="72" fill="#fffdf7" stroke="#c49a35" stroke-width="3" /><circle cx="260" cy="215" r="48" fill="#f7f3e6" stroke="#d8d0be" /><text x="260" y="203" text-anchor="middle" fill="#162337" font-size="17" font-weight="800">知识地图</text><text x="260" y="227" text-anchor="middle" fill="#6b5d3c" font-size="11" font-weight="700">DOMAINS · MEDIA · PATHS</text><text x="260" y="249" text-anchor="middle" fill="#8f97aa" font-size="10">AUTO-SYNC WITH HOMEPAGE DATA</text></g><g class="atlas-hero-node delay-1"><rect class="atlas-hero-node-card" x="179" y="24" width="162" height="66" rx="18" fill="#ffffff" stroke="#16867f" stroke-width="3" /><text class="atlas-hero-node-text" x="260" y="57" text-anchor="middle" fill="#16867f" font-size="13" font-weight="700"><tspan x="260" y="48">生命、</tspan><tspan x="260" y="66">医学与公共卫生</tspan></text></g><g class="atlas-hero-node delay-2"><rect class="atlas-hero-node-card" x="315" y="103" width="162" height="66" rx="18" fill="#ffffff" stroke="#bf6d22" stroke-width="3" /><text class="atlas-hero-node-text" x="396" y="136" text-anchor="middle" fill="#bf6d22" font-size="13" font-weight="700"><tspan x="396" y="127">食物、</tspan><tspan x="396" y="145">料理与食材</tspan></text></g><g class="atlas-hero-node delay-3"><rect class="atlas-hero-node-card" x="315" y="261" width="162" height="66" rx="18" fill="#ffffff" stroke="#5b8a2f" stroke-width="3" /><text class="atlas-hero-node-text" x="396" y="294" text-anchor="middle" fill="#5b8a2f" font-size="13" font-weight="700"><tspan x="396" y="285">微生物、</tspan><tspan x="396" y="303">发酵与农食系统</tspan></text></g><g class="atlas-hero-node delay-4"><rect class="atlas-hero-node-card" x="179" y="340" width="162" height="66" rx="18" fill="#ffffff" stroke="#b34f72" stroke-width="3" /><text class="atlas-hero-node-text" x="260" y="373" text-anchor="middle" fill="#b34f72" font-size="13" font-weight="700"><tspan x="260" y="364">政治、</tspan><tspan x="260" y="382">经济与制度</tspan></text></g><g class="atlas-hero-node delay-1"><rect class="atlas-hero-node-card" x="42" y="261" width="162" height="66" rx="18" fill="#ffffff" stroke="#7b4f2a" stroke-width="3" /><text class="atlas-hero-node-text" x="123" y="294" text-anchor="middle" fill="#7b4f2a" font-size="13" font-weight="700"><tspan x="123" y="285">历史、</tspan><tspan x="123" y="303">文明与社会结构</tspan></text></g><g class="atlas-hero-node delay-2"><rect class="atlas-hero-node-card" x="42" y="103" width="162" height="66" rx="18" fill="#ffffff" stroke="#4f73d2" stroke-width="3" /><text class="atlas-hero-node-text" x="123" y="136" text-anchor="middle" fill="#4f73d2" font-size="13" font-weight="700"><tspan x="123" y="127">科幻、</tspan><tspan x="123" y="145">工程与宇宙</tspan></text></g></svg>
+    </div>
+  </div>
+</section>
+    <section class="atlas-pulse" aria-label="项目摘要与自动统计">
+  <div class="atlas-shell atlas-pulse__inner">
+    <div class="atlas-pulse__intro">
+      <p class="atlas-section__kicker">Project Pulse</p>
+      <h2>项目摘要</h2>
+      <p>首页统计由注册表和目录结构自动推导，用来快速确认当前收录规模、页面构成与分类完整度。</p>
+      <p class="atlas-pulse__status is-clean">分类信息完整 · 无兜底媒介项</p>
+    </div>
+    <div class="atlas-pulse__grid">
+      <article class="atlas-pulse-card">
+  <p class="atlas-pulse-card__label">手册目录</p>
+  <strong>5</strong>
+  <span>已登记作品入口</span>
+</article>
+<article class="atlas-pulse-card">
+  <p class="atlas-pulse-card__label">内容结构</p>
+  <strong>41 / 17</strong>
+  <span>内容页 / 辅助页</span>
+</article>
+<article class="atlas-pulse-card">
+  <p class="atlas-pulse-card__label">分类状态</p>
+  <strong>0</strong>
+  <span>待归类手册</span>
+</article>
+<article class="atlas-pulse-card">
+  <p class="atlas-pulse-card__label">接入成本</p>
+  <strong>folder + title</strong>
+  <span>最低可用登记方式</span>
+</article>
+    </div>
+  </div>
+</section>
+    <section class="atlas-section atlas-section--map" id="knowledge-map">
+  <div class="atlas-shell">
+    <header class="atlas-section__head">
+  <p class="atlas-section__kicker">Knowledge Map</p>
+  <h2>知识地图</h2>
+  <p>首页优先按知识领域组织，而不是先按作品媒介分区。一个作品可以同时落入多个领域，用来反映它真实的知识跨度。</p>
+</header>
 
-    <!-- Works Section -->
-    <section id="works" class="works-section">
-      <h2 class="section-title">作品知识手册</h2>
-      <div class="works-grid">
+    <div class="atlas-domain-grid">
+      <article class="atlas-domain atlas-domain--life">
+  <div class="atlas-domain__top">
+    <p class="atlas-domain__code">DOMAIN 01</p>
+    <h3>生命、医学与公共卫生</h3>
+    <p class="atlas-domain__count">1 部作品 · 15 个页面 · 适合从身体系统、疾病机制与健康素养入门</p>
+  </div>
+  <p class="atlas-domain__summary">从身体机制、疾病叙事与公共卫生线索进入生命科学、医学常识与健康知识。</p>
+  <ul class="atlas-taglist" aria-label="生命、医学与公共卫生关键词">
+    <li>免疫</li>
+<li>血液</li>
+<li>病理</li>
+<li>公共卫生</li>
+  </ul>
+  <div class="atlas-domain__links">
+    <a href="doc/cells-at-work/index.html">从《工作细胞》进入</a>
+  </div>
+</article>
+<article class="atlas-domain atlas-domain--food">
+  <div class="atlas-domain__top">
+    <p class="atlas-domain__code">DOMAIN 02</p>
+    <h3>食物、料理与食材</h3>
+    <p class="atlas-domain__count">2 部作品 · 28 个页面 · 适合从菜式、技法与食材体系进入</p>
+  </div>
+  <p class="atlas-domain__summary">从菜式设计、烹饪技法与食材理解切入，连接料理实践、食材结构与饮食经验。</p>
+  <ul class="atlas-taglist" aria-label="食物、料理与食材关键词">
+    <li>料理</li>
+<li>技法</li>
+<li>食材</li>
+<li>菜系</li>
+  </ul>
+  <div class="atlas-domain__links">
+    <a href="doc/shokugeki-no-soma/index.html">从《食戟之灵》进入</a>
+<a href="doc/moyashimon/index.html">从《萌菌物语》进入</a>
+  </div>
+</article>
+<article class="atlas-domain atlas-domain--micro">
+  <div class="atlas-domain__top">
+    <p class="atlas-domain__code">DOMAIN 03</p>
+    <h3>微生物、发酵与农食系统</h3>
+    <p class="atlas-domain__count">1 部作品 · 17 个页面 · 适合从菌、发酵与农业—食品链路进入</p>
+  </div>
+  <p class="atlas-domain__summary">从微生物、发酵工艺、农业生产与食品文化之间的关系切入现实知识结构。</p>
+  <ul class="atlas-taglist" aria-label="微生物、发酵与农食系统关键词">
+    <li>微生物</li>
+<li>发酵</li>
+<li>农学</li>
+<li>食品文化</li>
+  </ul>
+  <div class="atlas-domain__links">
+    <a href="doc/moyashimon/index.html">从《萌菌物语》进入</a>
+  </div>
+</article>
+<article class="atlas-domain atlas-domain--society">
+  <div class="atlas-domain__top">
+    <p class="atlas-domain__code">DOMAIN 04</p>
+    <h3>政治、经济与制度</h3>
+    <p class="atlas-domain__count">1 部作品 · 12 个页面 · 适合从资源分配、治理与制度问题进入</p>
+  </div>
+  <p class="atlas-domain__summary">从治理结构、资源分配、贸易、战争与制度演化进入政治与经济知识。</p>
+  <ul class="atlas-taglist" aria-label="政治、经济与制度关键词">
+    <li>政治</li>
+<li>经济</li>
+<li>制度</li>
+<li>贸易</li>
+  </ul>
+  <div class="atlas-domain__links">
+    <a href="doc/maoyuu/index.html">从《魔王勇者》进入</a>
+  </div>
+</article>
+<article class="atlas-domain atlas-domain--history">
+  <div class="atlas-domain__top">
+    <p class="atlas-domain__code">DOMAIN 05</p>
+    <h3>历史、文明与社会结构</h3>
+    <p class="atlas-domain__count">1 部作品 · 12 个页面 · 适合从长时段演变与文明问题进入</p>
+  </div>
+  <p class="atlas-domain__summary">从文明演化、历史过程、社会结构与文化秩序的问题切入现实世界。</p>
+  <ul class="atlas-taglist" aria-label="历史、文明与社会结构关键词">
+    <li>历史</li>
+<li>文明</li>
+<li>社会</li>
+<li>文化</li>
+  </ul>
+  <div class="atlas-domain__links">
+    <a href="doc/maoyuu/index.html">从《魔王勇者》进入</a>
+  </div>
+</article>
+<article class="atlas-domain atlas-domain--space">
+  <div class="atlas-domain__top">
+    <p class="atlas-domain__code">DOMAIN 06</p>
+    <h3>科幻、工程与宇宙</h3>
+    <p class="atlas-domain__count">1 部作品 · 8 个页面 · 适合从硬科幻设想与工程问题进入</p>
+  </div>
+  <p class="atlas-domain__summary">从轨道、航天工程、太空环境与科幻设定切入现实中的科学与工程问题。</p>
+  <ul class="atlas-taglist" aria-label="科幻、工程与宇宙关键词">
+    <li>轨道</li>
+<li>航天</li>
+<li>工程</li>
+<li>硬科幻</li>
+  </ul>
+  <div class="atlas-domain__links">
+    <a href="doc/planet-es/index.html">从《星空清理者》进入</a>
+  </div>
+</article>
+    </div>
+  </div>
+</section>
+    <section class="atlas-section atlas-section--works" id="works-index">
+  <div class="atlas-shell">
+    <header class="atlas-section__head">
+  <p class="atlas-section__kicker">Works Index</p>
+  <h2>作品索引</h2>
+  <p>索引区同时支持按领域与按媒介筛选。一个作品可以同时属于小说、漫画、动画、游戏中的多种媒介，也可以同时关联多个知识领域。</p>
+</header>
 
-        <!-- Maoyuu -->
-        <a href="doc/maoyuu/index.html" class="work-card">
-          <div class="work-card-banner maoyuu-banner">
-            <div class="work-card-icon">📜</div>
-            <h3>魔王勇者</h3>
-            <span class="work-card-sub">政治经济学知识点手册</span>
-          </div>
-          <div class="work-card-body">
-            <p>建立「小说内容 ↔ 学术著作/理论 ↔ 历史事件」三方对照体系，系统梳理《魔王勇者》8卷本中涉及的经济学、政治学、历史学、技术制度与思想哲学知识。</p>
-            <div class="work-card-tags">
-              <span class="tag tag-econ">经济学</span>
-              <span class="tag tag-pol">政治学</span>
-              <span class="tag tag-hist">历史学</span>
-              <span class="tag tag-philo">哲学</span>
-            </div>
-            <div class="work-card-meta">
-              <span>8 卷</span>
-              <span>34 个知识点</span>
-              <span>16 部经典著作</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Shokugeki -->
-        <a href="doc/shokugeki_no_soma/index.html" class="work-card">
-          <div class="work-card-banner shokugeki-banner">
-            <div class="work-card-icon">🍳</div>
-            <h3>食戟之灵</h3>
-            <span class="work-card-sub">料理全鉴</span>
-          </div>
-          <div class="work-card-body">
-            <p>漫画全 315 话 + 番外篇，逐章详解 260+ 道料理的料理知识、详细做法与剧情回顾，涵盖日式、法式、意式、中式、分子料理等多国料理体系。</p>
-            <div class="work-card-tags">
-              <span class="tag tag-cuisine">料理学</span>
-              <span class="tag tag-jp">日式料理</span>
-              <span class="tag tag-fr">法式料理</span>
-              <span class="tag tag-mol">分子料理</span>
-            </div>
-            <div class="work-card-meta">
-              <span>315 话</span>
-              <span>260+ 料理</span>
-              <span>10 大篇章</span>
-            </div>
-          </div>
-        </a>
-
+    <div class="atlas-section-meta atlas-section-meta--works">
+      <p class="atlas-results" aria-live="polite">当前显示 <strong data-results-count>5</strong> / <strong data-results-total>5</strong> 部作品</p>
+      <div class="atlas-section-tools">
+        <ul class="atlas-section-chips" aria-label="作品索引提示">
+          <li>按领域筛选</li>
+<li>按媒介筛选</li>
+<li>每卡附起读提示</li>
+        </ul>
+        <button class="atlas-reset" type="button" data-reset-filters>重置筛选</button>
       </div>
-    </section>
+    </div>
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-      <h2 class="section-title">关于本项目</h2>
-      <div class="about-content">
-        <p>ACG 知识手册库是一个从动漫、游戏等二次元作品中挖掘真实知识的开源项目。我们相信，优秀的虚构作品往往建立在对现实世界的深刻理解之上 — 无论是《魔王勇者》中对农业革命与货币制度的探讨，还是《食戟之灵》中对料理科学与烹饪技法的呈现。</p>
-        <p style="margin-top: 0.75rem;">每一部知识手册都力求建立「作品虚构内容」与「现实世界知识」之间的桥梁，帮助读者在享受故事的同时，深入理解其背后的学科逻辑。</p>
-        <p style="margin-top: 0.75rem; font-size: 0.85rem; color: var(--muted);">本站为粉丝自发整理的非官方内容。所有资料基于原作及公开学术资源整理，仅供学习交流使用。</p>
-      </div>
-    </section>
+    <div class="atlas-filters" aria-label="作品筛选">
+      <div class="atlas-filter-group" role="group" aria-label="按领域筛选">
+  <span class="atlas-filter-group__label">领域</span>
+  <button class="atlas-filter is-active" type="button" data-filter-group="domain" data-filter-value="all" aria-pressed="true">全部</button> <button class="atlas-filter" type="button" data-filter-group="domain" data-filter-value="life" aria-pressed="false">生命与医学</button> <button class="atlas-filter" type="button" data-filter-group="domain" data-filter-value="food" aria-pressed="false">料理与食材</button> <button class="atlas-filter" type="button" data-filter-group="domain" data-filter-value="micro" aria-pressed="false">微生物与发酵</button> <button class="atlas-filter" type="button" data-filter-group="domain" data-filter-value="society" aria-pressed="false">政治与经济</button> <button class="atlas-filter" type="button" data-filter-group="domain" data-filter-value="history" aria-pressed="false">历史与文明</button> <button class="atlas-filter" type="button" data-filter-group="domain" data-filter-value="space" aria-pressed="false">科幻与工程</button>
+</div>
+      <div class="atlas-filter-group" role="group" aria-label="按媒介筛选">
+  <span class="atlas-filter-group__label">媒介</span>
+  <button class="atlas-filter is-active" type="button" data-filter-group="medium" data-filter-value="all" aria-pressed="true">全部</button> <button class="atlas-filter" type="button" data-filter-group="medium" data-filter-value="novel" aria-pressed="false">小说</button> <button class="atlas-filter" type="button" data-filter-group="medium" data-filter-value="manga" aria-pressed="false">漫画</button> <button class="atlas-filter" type="button" data-filter-group="medium" data-filter-value="anime" aria-pressed="false">动画</button> <button class="atlas-filter" type="button" data-filter-group="medium" data-filter-value="game" aria-pressed="false">游戏</button>
+</div>
+    </div>
 
+    <ul class="atlas-work-grid">
+      <li class="atlas-work-card" data-domain="life" data-domain-primary="life" data-medium="manga anime">
+  <article>
+    <div class="atlas-work-card__head">
+      <p class="atlas-work-card__sub">身体与生命知识手册</p>
+      <h3>工作细胞</h3>
+    </div>
+    <p class="atlas-work-card__summary">把身体中的运输、免疫、防御与疾病过程组织成可阅读的生命科学入口。</p>
+    <ul class="atlas-chiplist" aria-label="工作细胞标签">
+      <li>漫画</li>
+<li>动画</li>
+<li>免疫</li>
+<li>血液</li>
+<li>病原</li>
+<li>公共卫生</li>
+<li>微生态</li>
+    </ul>
+    <dl class="atlas-work-card__meta">
+      <div><dt>规模</dt><dd>原作 6 卷 + 特别篇 + 多组外传 + 指导书 / 术语 / 参考</dd></div>
+<div><dt>结构亮点</dt><dd>原作分卷 + 外传矩阵 + 指导书入口，适合按主题扩展。</dd></div>
+<div><dt>从这里开始</dt><dd>先读总览，再按原作主线或外传矩阵延伸。</dd></div>
+    </dl>
+    <a class="atlas-inline-link" href="doc/cells-at-work/index.html">进入《工作细胞》手册</a>
+  </article>
+</li>
+<li class="atlas-work-card" data-domain="food" data-domain-primary="food" data-medium="manga anime">
+  <article>
+    <div class="atlas-work-card__head">
+      <p class="atlas-work-card__sub">料理内容全鉴</p>
+      <h3>食戟之灵</h3>
+    </div>
+    <p class="atlas-work-card__summary">从料理对决与篇章推进中梳理菜式、技法、食材与料理体系。</p>
+    <ul class="atlas-chiplist" aria-label="食戟之灵标签">
+      <li>漫画</li>
+<li>动画</li>
+<li>料理体系</li>
+<li>烹饪技法</li>
+<li>食材科学</li>
+<li>世界料理</li>
+    </ul>
+    <dl class="atlas-work-card__meta">
+      <div><dt>规模</dt><dd>10 个篇章页</dd></div>
+<div><dt>结构亮点</dt><dd>按篇章梳理料理与技法，适合按菜系、比赛与主题推进阅读。</dd></div>
+<div><dt>从这里开始</dt><dd>先看总览，再按篇章进入不同料理体系。</dd></div>
+    </dl>
+    <a class="atlas-inline-link" href="doc/shokugeki-no-soma/index.html">进入《食戟之灵》手册</a>
+  </article>
+</li>
+<li class="atlas-work-card" data-domain="micro food" data-domain-primary="micro" data-medium="manga anime">
+  <article>
+    <div class="atlas-work-card__head">
+      <p class="atlas-work-card__sub">微生物知识全鉴</p>
+      <h3>萌菌物语</h3>
+    </div>
+    <p class="atlas-work-card__summary">从看得见菌的校园故事进入微生物、发酵与食文化的长期脉络。</p>
+    <ul class="atlas-chiplist" aria-label="萌菌物语标签">
+      <li>漫画</li>
+<li>动画</li>
+<li>微生物学</li>
+<li>发酵学</li>
+<li>农学</li>
+<li>食品文化</li>
+    </ul>
+    <dl class="atlas-work-card__meta">
+      <div><dt>规模</dt><dd>13 卷 + 人物 / 术语 / 参考</dd></div>
+<div><dt>结构亮点</dt><dd>分卷全鉴 + 三方对照，适合从基础菌学一路读到酒与食文化。</dd></div>
+<div><dt>从这里开始</dt><dd>先从卷 1 打基础，再进入酒、味噌与欧洲篇。</dd></div>
+    </dl>
+    <a class="atlas-inline-link" href="doc/moyashimon/index.html">进入《萌菌物语》手册</a>
+  </article>
+</li>
+<li class="atlas-work-card" data-domain="society history" data-domain-primary="society" data-medium="novel manga anime">
+  <article>
+    <div class="atlas-work-card__head">
+      <p class="atlas-work-card__sub">政治经济学知识手册</p>
+      <h3>魔王勇者</h3>
+    </div>
+    <p class="atlas-work-card__summary">以异世界叙事映射战争、农业、货币、贸易与制度演化。</p>
+    <ul class="atlas-chiplist" aria-label="魔王勇者标签">
+      <li>小说</li>
+<li>漫画</li>
+<li>动画</li>
+<li>政治经济学</li>
+<li>历史</li>
+<li>农业革命</li>
+<li>制度</li>
+    </ul>
+    <dl class="atlas-work-card__meta">
+      <div><dt>规模</dt><dd>本编 5 卷 + 外传 3 卷 + 人物 / 术语 / 参考</dd></div>
+<div><dt>结构亮点</dt><dd>分卷阅读 + 辅助卷宗，适合把情节、术语、势力与参考材料一起读。</dd></div>
+<div><dt>从这里开始</dt><dd>先读作品首页，再进入本编第 1 卷。</dd></div>
+    </dl>
+    <a class="atlas-inline-link" href="doc/maoyuu/index.html">进入《魔王勇者》手册</a>
+  </article>
+</li>
+<li class="atlas-work-card" data-domain="space" data-domain-primary="space" data-medium="manga anime">
+  <article>
+    <div class="atlas-work-card__head">
+      <p class="atlas-work-card__sub">航天科学知识手册</p>
+      <h3>星空清理者</h3>
+    </div>
+    <p class="atlas-work-card__summary">把太空垃圾回收、深空计划与个人命运放进真实航天科学与工程语境中阅读。</p>
+    <ul class="atlas-chiplist" aria-label="星空清理者标签">
+      <li>漫画</li>
+<li>动画</li>
+<li>轨道力学</li>
+<li>航天工程</li>
+<li>空间环境</li>
+<li>硬科幻</li>
+    </ul>
+    <dl class="atlas-work-card__meta">
+      <div><dt>规模</dt><dd>4 个分卷阶段 + 人物 / 术语 / 参考</dd></div>
+<div><dt>结构亮点</dt><dd>动画主轴 + 原作对照 + 科学延伸，适合按近地轨道到深空主线推进。</dd></div>
+<div><dt>从这里开始</dt><dd>先读首页，再按 4 个阶段追踪叙事与科学主线。</dd></div>
+    </dl>
+    <a class="atlas-inline-link" href="doc/planet-es/index.html">进入《星空清理者》手册</a>
+  </article>
+</li>
+    </ul>
+    <p class="atlas-filter-empty" hidden>当前筛选组合下没有对应作品。你可以先切回“全部”，或换一个领域 / 媒介继续浏览。</p>
+  </div>
+</section>
+    <section class="atlas-section atlas-section--paths" id="reading-paths">
+  <div class="atlas-shell">
+    <header class="atlas-section__head">
+  <p class="atlas-section__kicker">Reading Strategies</p>
+  <h2>推荐阅读策略</h2>
+  <p>这部分不依赖某一部固定作品，而是提供几种稳定的进入方式。无论后续再增加多少手册，这些策略都仍然成立。</p>
+</header>
+
+    <div class="atlas-section-meta atlas-section-meta--paths">
+      <ul class="atlas-section-chips" aria-label="阅读路径概览">
+        <li>领域优先</li>
+<li>媒介优先</li>
+<li>单册深入</li>
+<li>横向比较</li>
+      </ul>
+    </div>
+
+    <div class="atlas-path-grid">
+      <article class="atlas-path-card">
+  <h3>领域优先</h3>
+  <p class="atlas-path-card__for">适合先知道自己想看哪类现实知识，而不是先知道作品名的读者。</p>
+  <p>先看知识地图，选定一个最感兴趣的领域，再从该领域下任选一部作品首页进入。</p>
+  <ol>
+    <li><a href="#knowledge-map">先浏览知识地图，确定想进入的领域</a></li>
+<li><a href="#knowledge-map">查看该领域下出现的作品入口</a></li>
+<li><a href="#works-index">跳转到作品索引，按“从这里开始”进入手册</a></li>
+  </ol>
+</article>
+<article class="atlas-path-card">
+  <h3>媒介优先</h3>
+  <p class="atlas-path-card__for">适合更习惯从小说、漫画、动画或游戏这类媒介进入内容的读者。</p>
+  <p>先用作品索引里的媒介筛选找到自己最熟悉的入口形式，再决定深入哪一部手册。</p>
+  <ol>
+    <li><a href="#works-index">进入作品索引</a></li>
+<li><a href="#works-index">使用小说 / 漫画 / 动画 / 游戏筛选</a></li>
+<li><a href="#works-index">从筛选结果中选一部最熟悉的作品进入</a></li>
+  </ol>
+</article>
+<article class="atlas-path-card">
+  <h3>单册深入</h3>
+  <p class="atlas-path-card__for">适合已经选中一部作品，想完整体验该手册结构的读者。</p>
+  <p>先看作品首页，再进入首个内容页，最后回到术语、参考、人物或辅助页做补充。</p>
+  <ol>
+    <li><a href="#works-index">先从作品首页总览开始</a></li>
+<li><a href="#works-index">再进入首个内容页或主线结构页</a></li>
+<li><a href="#works-index">最后回看辅助页补全理解</a></li>
+  </ol>
+</article>
+<article class="atlas-path-card">
+  <h3>横向比较</h3>
+  <p class="atlas-path-card__for">适合想在同一知识领域内比较不同作品切入方式的读者。</p>
+  <p>先锁定一个领域，再依次打开该领域下的多部作品首页，比较它们的知识切口、结构和标签。</p>
+  <ol>
+    <li><a href="#knowledge-map">先在知识地图中选定一个领域</a></li>
+<li><a href="#works-index">再在作品索引中查看该领域对应的多部作品</a></li>
+<li><a href="#works-index">横向比较摘要、标签与“从这里开始”提示</a></li>
+  </ol>
+</article>
+<article class="atlas-path-card atlas-path-card--compact">
+  <h3>快速上手</h3>
+  <p class="atlas-path-card__for">适合第一次进入项目，只想快速判断自己会不会喜欢这种整理方式的读者。</p>
+  <p>先看首页摘要与知识地图，再随手打开一部作品首页，确认这种“作品 → 现实知识”的整理方式是否适合自己。</p>
+  <ol>
+    <li><a href="#knowledge-map">先看首页的项目摘要与知识地图</a></li>
+<li><a href="#works-index">再从作品索引里随手打开一部作品首页</a></li>
+<li><a href="#works-index">如果觉得合适，再按领域或媒介继续筛选</a></li>
+  </ol>
+</article>
+    </div>
+  </div>
+</section>
+    <section class="atlas-section" id="methodology">
+  <div class="atlas-shell">
+    <header class="atlas-section__head">
+  <p class="atlas-section__kicker">Methodology</p>
+  <h2>手册是怎样生成的</h2>
+  <p>这里整理的不是单纯的剧情摘录，也不是作品百科，而是把作品内容重新组织成可导航、可回查、可扩展的知识入口。不同手册可以采用不同整理形态，不强制套用同一种固定模板。</p>
+</header>
+
+    <ol class="atlas-method-flow" aria-label="项目方法流程">
+      <li>
+  <span class="atlas-method-flow__step">01</span>
+  <h3>作品内容</h3>
+  <p>从分卷、篇章、角色关系、场景设定与术语线索中，提取真正值得展开的知识入口。</p>
+</li>
+<li>
+  <span class="atlas-method-flow__step">02</span>
+  <h3>知识映射</h3>
+  <p>把作品中的事件、机制或叙事结构，对照到现实中的学科概念、技术体系、历史过程或文化脉络中。</p>
+</li>
+<li>
+  <span class="atlas-method-flow__step">03</span>
+  <h3>手册与路径</h3>
+  <p>最终整理为作品首页、分卷条目、术语页、参考页与推荐阅读路径，让读者既能按作品读，也能按知识读。</p>
+</li>
+    </ol>
+
+    <div class="atlas-method-variants">
+      <article>
+  <h3>先给入口</h3>
+  <p>每部手册都应先告诉读者：这本手册整理什么、从哪里开始、适合怎样进入。</p>
+</article>
+<article>
+  <h3>再拆结构</h3>
+  <p>内容通常按卷、篇、章节、主题或条目拆分，让单页体量可控，也便于后续扩展。</p>
+</article>
+<article>
+  <h3>建立映射</h3>
+  <p>手册的核心不是复述剧情，而是把作品内容连接到现实世界中的知识、概念、结构或经验。</p>
+</article>
+<article>
+  <h3>保留辅助页</h3>
+  <p>术语、参考、人物、附录或补充页并不是固定要求，但它们能显著提高可回查性。</p>
+</article>
+<article>
+  <h3>允许差异</h3>
+  <p>不同手册可以采用完全不同的整理形态：按知识领域、媒介、主题、时间线或阅读策略进入都可以。</p>
+</article>
+    </div>
+  </div>
+</section>
+    <section class="atlas-section atlas-section--notes" id="about-project">
+  <div class="atlas-shell atlas-note-block">
+    <header class="atlas-section__head atlas-section__head--compact">
+      <p class="atlas-section__kicker">Project Notes</p>
+      <h2>关于这个项目</h2>
+    </header>
+    <p>这是一个由爱好者自发整理的非官方手册项目。它关心的不是“尽量收集一切”，而是为读者建立从作品进入现实知识世界的稳定入口。所有内容均以当前已完成的手册页面为基础整理，供学习、阅读与交流使用；作品版权归原作者、出版社及相关权利方所有。</p>
+<p class="atlas-note-block__minor">首页中的作品规模、入口说明与阅读路径均以当前分支内实际存在的页面结构为准；如果后续手册继续扩展，这里也应随之更新。</p>
+  </div>
+</section>
   </main>
 
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="container">
-      <p> ACG 知识手册库 · 从二次元中发现真实知识</p>
-    </div>
-  </footer>
+  <footer class="atlas-footer">
+  <div class="atlas-shell atlas-footer__inner">
+    <p>ACG 知识手册库 · 从虚构作品进入现实知识世界</p>
+<p>非官方整理，仅供学习交流使用；作品版权归原作者与出版社及相关权利方所有</p>
+  </div>
+</footer>
 
+  <script src="_shared/homepage.js"></script>
 </body>
 </html>

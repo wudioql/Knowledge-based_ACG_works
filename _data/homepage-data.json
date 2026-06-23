@@ -1,0 +1,406 @@
+{
+  "site": {
+    "lang": "zh-CN",
+    "title": "ACG 知识手册库｜把虚构作品读成现实知识图谱",
+    "description": "一个以作品为入口、以现实知识为主轴的 ACG 手册项目：从生命科学、料理与发酵，到制度史、社会结构与科幻工程。",
+    "brandTitle": "ACG 知识手册库",
+    "brandSubtitle": "Knowledge Atlas",
+    "githubUrl": "https://github.com/wudioql/Knowledge-based_ACG_works",
+    "nav": [
+      {
+        "label": "知识地图",
+        "href": "#knowledge-map"
+      },
+      {
+        "label": "作品索引",
+        "href": "#works-index"
+      },
+      {
+        "label": "阅读路径",
+        "href": "#reading-paths"
+      },
+      {
+        "label": "方法说明",
+        "href": "#methodology"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/wudioql/Knowledge-based_ACG_works",
+        "external": true
+      }
+    ],
+    "hero": {
+      "eyebrow": "ACG KNOWLEDGE ATLAS",
+      "title": "把虚构作品读成现实知识图谱",
+      "lead": "这里收录的不是普通剧情简介，而是把作品中的设定、篇章、术语与场景重新组织成可阅读、可导航、可延伸的知识手册。",
+      "body": "项目首页不再把作品简单排成货架，而是尝试同时按知识领域与媒介索引来组织入口，让读者既能按兴趣进入，也能按作品进入。",
+      "actions": [
+        {
+          "label": "浏览知识地图",
+          "href": "#knowledge-map",
+          "style": "primary"
+        },
+        {
+          "label": "查看全部作品",
+          "href": "#works-index",
+          "style": "secondary"
+        },
+        {
+          "label": "从推荐路径开始",
+          "href": "#reading-paths",
+          "style": "ghost"
+        }
+      ],
+      "stats": [
+        {
+          "value": "AUTO_WORKS",
+          "label": "部作品"
+        },
+        {
+          "value": "AUTO_PAGES",
+          "label": "个页面"
+        },
+        {
+          "value": "AUTO_DOMAINS",
+          "label": "个知识领域"
+        }
+      ],
+      "entryModes": [
+        {
+          "title": "按领域进入",
+          "text": "如果你先想找生命、料理、发酵、制度史、社会结构或宇宙工程，先看下面的知识地图。"
+        },
+        {
+          "title": "按作品进入",
+          "text": "如果你已经知道想看哪部作品，直接跳到作品索引，再根据“从这里开始”进入手册。"
+        }
+      ]
+    },
+    "footer": [
+      "ACG 知识手册库 · 从虚构作品进入现实知识世界",
+      "非官方整理，仅供学习交流使用；作品版权归原作者与出版社及相关权利方所有"
+    ]
+  },
+  "sections": {
+    "knowledgeMap": {
+      "kicker": "Knowledge Map",
+      "title": "知识地图",
+      "description": "首页优先按知识领域组织，而不是先按作品媒介分区。一个作品可以同时落入多个领域，用来反映它真实的知识跨度。"
+    },
+    "worksIndex": {
+      "kicker": "Works Index",
+      "title": "作品索引",
+      "description": "索引区同时支持按领域与按媒介筛选。一个作品可以同时属于小说、漫画、动画、游戏中的多种媒介，也可以同时关联多个知识领域。",
+      "chips": [
+        "按领域筛选",
+        "按媒介筛选",
+        "每卡附起读提示"
+      ]
+    },
+    "readingPaths": {
+      "kicker": "Reading Strategies",
+      "title": "推荐阅读策略",
+      "description": "这部分不依赖某一部固定作品，而是提供几种稳定的进入方式。无论后续再增加多少手册，这些策略都仍然成立。",
+      "chips": [
+        "领域优先",
+        "媒介优先",
+        "单册深入",
+        "横向比较"
+      ]
+    },
+    "methodology": {
+      "kicker": "Methodology",
+      "title": "手册是怎样生成的",
+      "description": "这里整理的不是单纯的剧情摘录，也不是作品百科，而是把作品内容重新组织成可导航、可回查、可扩展的知识入口。不同手册可以采用不同整理形态，不强制套用同一种固定模板。"
+    },
+    "notes": {
+      "kicker": "Project Notes",
+      "title": "关于这个项目"
+    }
+  },
+  "domains": [
+    {
+      "id": "life",
+      "theme": "life",
+      "code": "DOMAIN 01",
+      "title": "生命、医学与公共卫生",
+      "countHint": "适合从身体系统、疾病机制与健康素养入门",
+      "summary": "从身体机制、疾病叙事与公共卫生线索进入生命科学、医学常识与健康知识。",
+      "keywords": [
+        "免疫",
+        "血液",
+        "病理",
+        "公共卫生"
+      ]
+    },
+    {
+      "id": "food",
+      "theme": "food",
+      "code": "DOMAIN 02",
+      "title": "食物、料理与食材",
+      "countHint": "适合从菜式、技法与食材体系进入",
+      "summary": "从菜式设计、烹饪技法与食材理解切入，连接料理实践、食材结构与饮食经验。",
+      "keywords": [
+        "料理",
+        "技法",
+        "食材",
+        "菜系"
+      ]
+    },
+    {
+      "id": "micro",
+      "theme": "micro",
+      "code": "DOMAIN 03",
+      "title": "微生物、发酵与农食系统",
+      "countHint": "适合从菌、发酵与农业—食品链路进入",
+      "summary": "从微生物、发酵工艺、农业生产与食品文化之间的关系切入现实知识结构。",
+      "keywords": [
+        "微生物",
+        "发酵",
+        "农学",
+        "食品文化"
+      ]
+    },
+    {
+      "id": "society",
+      "theme": "society",
+      "code": "DOMAIN 04",
+      "title": "政治、经济与制度",
+      "countHint": "适合从资源分配、治理与制度问题进入",
+      "summary": "从治理结构、资源分配、贸易、战争与制度演化进入政治与经济知识。",
+      "keywords": [
+        "政治",
+        "经济",
+        "制度",
+        "贸易"
+      ]
+    },
+    {
+      "id": "history",
+      "theme": "history",
+      "code": "DOMAIN 05",
+      "title": "历史、文明与社会结构",
+      "countHint": "适合从长时段演变与文明问题进入",
+      "summary": "从文明演化、历史过程、社会结构与文化秩序的问题切入现实世界。",
+      "keywords": [
+        "历史",
+        "文明",
+        "社会",
+        "文化"
+      ]
+    },
+    {
+      "id": "space",
+      "theme": "space",
+      "code": "DOMAIN 06",
+      "title": "科幻、工程与宇宙",
+      "countHint": "适合从硬科幻设想与工程问题进入",
+      "summary": "从轨道、航天工程、太空环境与科幻设定切入现实中的科学与工程问题。",
+      "keywords": [
+        "轨道",
+        "航天",
+        "工程",
+        "硬科幻"
+      ]
+    }
+  ],
+  "filters": {
+    "domain": [
+      {
+        "label": "全部",
+        "value": "all",
+        "active": true
+      },
+      {
+        "label": "生命与医学",
+        "value": "life"
+      },
+      {
+        "label": "料理与食材",
+        "value": "food"
+      },
+      {
+        "label": "微生物与发酵",
+        "value": "micro"
+      },
+      {
+        "label": "政治与经济",
+        "value": "society"
+      },
+      {
+        "label": "历史与文明",
+        "value": "history"
+      },
+      {
+        "label": "科幻与工程",
+        "value": "space"
+      }
+    ],
+    "medium": [
+      {
+        "label": "全部",
+        "value": "all",
+        "active": true
+      },
+      {
+        "label": "小说",
+        "value": "novel"
+      },
+      {
+        "label": "漫画",
+        "value": "manga"
+      },
+      {
+        "label": "动画",
+        "value": "anime"
+      },
+      {
+        "label": "游戏",
+        "value": "game"
+      }
+    ]
+  },
+  "paths": [
+    {
+      "title": "领域优先",
+      "for": "适合先知道自己想看哪类现实知识，而不是先知道作品名的读者。",
+      "summary": "先看知识地图，选定一个最感兴趣的领域，再从该领域下任选一部作品首页进入。",
+      "steps": [
+        {
+          "label": "先浏览知识地图，确定想进入的领域",
+          "href": "#knowledge-map"
+        },
+        {
+          "label": "查看该领域下出现的作品入口",
+          "href": "#knowledge-map"
+        },
+        {
+          "label": "跳转到作品索引，按“从这里开始”进入手册",
+          "href": "#works-index"
+        }
+      ]
+    },
+    {
+      "title": "媒介优先",
+      "for": "适合更习惯从小说、漫画、动画或游戏这类媒介进入内容的读者。",
+      "summary": "先用作品索引里的媒介筛选找到自己最熟悉的入口形式，再决定深入哪一部手册。",
+      "steps": [
+        {
+          "label": "进入作品索引",
+          "href": "#works-index"
+        },
+        {
+          "label": "使用小说 / 漫画 / 动画 / 游戏筛选",
+          "href": "#works-index"
+        },
+        {
+          "label": "从筛选结果中选一部最熟悉的作品进入",
+          "href": "#works-index"
+        }
+      ]
+    },
+    {
+      "title": "单册深入",
+      "for": "适合已经选中一部作品，想完整体验该手册结构的读者。",
+      "summary": "先看作品首页，再进入首个内容页，最后回到术语、参考、人物或辅助页做补充。",
+      "steps": [
+        {
+          "label": "先从作品首页总览开始",
+          "href": "#works-index"
+        },
+        {
+          "label": "再进入首个内容页或主线结构页",
+          "href": "#works-index"
+        },
+        {
+          "label": "最后回看辅助页补全理解",
+          "href": "#works-index"
+        }
+      ]
+    },
+    {
+      "title": "横向比较",
+      "for": "适合想在同一知识领域内比较不同作品切入方式的读者。",
+      "summary": "先锁定一个领域，再依次打开该领域下的多部作品首页，比较它们的知识切口、结构和标签。",
+      "steps": [
+        {
+          "label": "先在知识地图中选定一个领域",
+          "href": "#knowledge-map"
+        },
+        {
+          "label": "再在作品索引中查看该领域对应的多部作品",
+          "href": "#works-index"
+        },
+        {
+          "label": "横向比较摘要、标签与“从这里开始”提示",
+          "href": "#works-index"
+        }
+      ]
+    },
+    {
+      "title": "快速上手",
+      "for": "适合第一次进入项目，只想快速判断自己会不会喜欢这种整理方式的读者。",
+      "summary": "先看首页摘要与知识地图，再随手打开一部作品首页，确认这种“作品 → 现实知识”的整理方式是否适合自己。",
+      "compact": true,
+      "steps": [
+        {
+          "label": "先看首页的项目摘要与知识地图",
+          "href": "#knowledge-map"
+        },
+        {
+          "label": "再从作品索引里随手打开一部作品首页",
+          "href": "#works-index"
+        },
+        {
+          "label": "如果觉得合适，再按领域或媒介继续筛选",
+          "href": "#works-index"
+        }
+      ]
+    }
+  ],
+  "methodology": {
+    "flow": [
+      {
+        "step": "01",
+        "title": "作品内容",
+        "text": "从分卷、篇章、角色关系、场景设定与术语线索中，提取真正值得展开的知识入口。"
+      },
+      {
+        "step": "02",
+        "title": "知识映射",
+        "text": "把作品中的事件、机制或叙事结构，对照到现实中的学科概念、技术体系、历史过程或文化脉络中。"
+      },
+      {
+        "step": "03",
+        "title": "手册与路径",
+        "text": "最终整理为作品首页、分卷条目、术语页、参考页与推荐阅读路径，让读者既能按作品读，也能按知识读。"
+      }
+    ],
+    "variants": [
+      {
+        "title": "先给入口",
+        "text": "每部手册都应先告诉读者：这本手册整理什么、从哪里开始、适合怎样进入。"
+      },
+      {
+        "title": "再拆结构",
+        "text": "内容通常按卷、篇、章节、主题或条目拆分，让单页体量可控，也便于后续扩展。"
+      },
+      {
+        "title": "建立映射",
+        "text": "手册的核心不是复述剧情，而是把作品内容连接到现实世界中的知识、概念、结构或经验。"
+      },
+      {
+        "title": "保留辅助页",
+        "text": "术语、参考、人物、附录或补充页并不是固定要求，但它们能显著提高可回查性。"
+      },
+      {
+        "title": "允许差异",
+        "text": "不同手册可以采用完全不同的整理形态：按知识领域、媒介、主题、时间线或阅读策略进入都可以。"
+      }
+    ]
+  },
+  "notes": [
+    "这是一个由爱好者自发整理的非官方手册项目。它关心的不是“尽量收集一切”，而是为读者建立从作品进入现实知识世界的稳定入口。所有内容均以当前已完成的手册页面为基础整理，供学习、阅读与交流使用；作品版权归原作者、出版社及相关权利方所有。",
+    "首页中的作品规模、入口说明与阅读路径均以当前分支内实际存在的页面结构为准；如果后续手册继续扩展，这里也应随之更新。"
+  ]
+}
