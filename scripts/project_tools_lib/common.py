@@ -20,7 +20,6 @@ DOC_LINK_FILES = [
     ROOT / "README.md",
     ROOT / "ARCHITECTURE.md",
     ROOT / "CONTRIBUTING.md",
-    ROOT / "FINAL_DELIVERY_SUMMARY.md",
 ]
 HTML_LINK_ROOTS = [ROOT / "index.html", ROOT / "doc"]
 
