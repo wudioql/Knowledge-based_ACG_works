@@ -764,7 +764,8 @@ table.pl-table tr:nth-child(even) td { background: rgba(18,70,102,0.045); }
     /* 移动端下保持边距对齐逻辑 */
     margin-left: calc(-1 * clamp(1rem, 3vw, 3rem));
     margin-right: calc(-1 * clamp(1rem, 3vw, 3rem));
-    margin-top: -1rem; 
+    /* —— 关键修复：完全抵消 .pl-main 的 2.2rem 顶部 padding —— */
+    margin-top: -2.2rem; 
   }
   .pl-nav-scrim {
     display: none; position: fixed; inset: 0; z-index: 70;
