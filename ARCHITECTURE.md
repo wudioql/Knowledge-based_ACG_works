@@ -35,7 +35,7 @@
 │   └── home-button.js              # 统一返回首页按钮脚本
 ├── doc/
 │   └── <folder>/                   # 各手册目录
-│       ├── index.html
+│       ├── index.html              # 对应手册主页
 │       ├── ...其他页面...
 │       └── _shared/                # 该手册自己的样式 / 脚本
 ├── scripts/

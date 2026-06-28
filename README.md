@@ -45,9 +45,13 @@
 │   ├── home-button.css             # 统一返回首页按钮样式
 │   └── home-button.js              # 统一返回首页按钮脚本
 ├── doc/                            # 所有手册目录
-│   └── <folder>/                   # 单个手册目录（含 index.html）
+│   └── <folder>/                   # 各手册目录
+│       ├── index.html              # 对应手册主页
+│       ├── ...其他页面...
+│       └── _shared/                # 该手册自己的样式 / 脚本
 ├── scripts/
 │   └── project_tools.py            # 项目级统一工具入口
+│   └── project_tools_lib/          # 内部按职责拆分的实现模块
 └── .github/workflows/
     └── deploy.yml                  # 校验、生成、注入、部署
 ```
